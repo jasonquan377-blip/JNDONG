@@ -191,7 +191,20 @@ textarea::placeholder,.input::placeholder{color:var(--label3)}
 .msg.out{background:var(--blue);color:var(--on-blue);align-self:flex-end;border-bottom-right-radius:6px}
 .msg.think{color:var(--label2)}
 .msg-meta{font-size:11px;color:var(--label2);text-align:center;margin:10px 0 4px}
-.sugs{display:flex;gap:8px;flex-wrap:wrap}
+.sugs{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.sugs:empty{display:none}
+.sugs-h{font-size:13px;color:var(--label2);width:100%;padding-left:46px}
+.sugs button{margin-left:0}
+.in-row~.sugs button,.sugs button{border:.5px solid var(--sep)}
+.cats{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 4px;scrollbar-width:none}
+.cats::-webkit-scrollbar{display:none}
+.cat{flex:none;font-size:14px;font-weight:600;padding:7px 14px;border-radius:99px;background:var(--cell);color:var(--label);border:.5px solid var(--sep)}
+.cat[aria-pressed="true"]{background:var(--hot);color:var(--cream);border-color:transparent}
+.faq-q{width:100%;text-align:left}
+.faq-q .k{display:block;font-size:16px}
+.faq-q .sub{display:block}
+#faq-search{font-size:16px}
+#faq-search::-webkit-search-cancel-button{opacity:.5}
 .sugs button{font-size:15px;color:var(--blue);background:var(--cell);border-radius:18px;padding:8px 14px;text-align:left}
 .composer{position:fixed;left:0;right:0;bottom:calc(50px + env(safe-area-inset-bottom,0px));z-index:20;background:var(--bar);
   -webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%);
@@ -278,9 +291,16 @@ textarea::placeholder,.input::placeholder{color:var(--label3)}
 
   <!-- 教練 -->
   <section class="view" id="view-coach" hidden>
-    <div class="nav-top"><div><div class="eyebrow">醬動 AI 教練</div><h1>花豹教練</h1></div><button class="link" type="button" id="clear-chat">清除對話</button></div>
+    <div class="nav-top"><div><div class="eyebrow">醬動教練小幫手</div><h1>花豹教練</h1></div><button class="link" type="button" id="clear-chat">清除對話</button></div>
     <div class="msgs" id="msgs"></div>
     <div class="sugs" id="sugs"></div>
+    <div class="section">
+      <div class="gh"><span>常見問題</span><span class="v" id="faq-count" style="font-style:normal;font-weight:500;color:var(--label2);font-size:13px"></span></div>
+      <div class="group"><div class="cell"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="color:var(--label2);flex:none" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input class="input" id="faq-search" type="search" placeholder="輸入關鍵字，例如：膝蓋、蛋白質、休息" aria-label="搜尋常見問題"></div></div>
+      <div class="cats" id="faq-cats" role="group" aria-label="問題分類"></div>
+      <div class="group" id="faq-list"></div>
+      <div class="gf">回答是一般性的運動知識，不能取代醫師或物理治療師的診斷。有傷病、懷孕或慢性病，請先諮詢專業人員。</div>
+    </div>
   </section>
 
   <!-- 進度 -->
@@ -706,16 +726,6 @@ function renderPlan(){
 }
 
 // ================= 畫面：教練 =================
-function renderCoach(){
-  const intro=`嗨！我是醬動的花豹教練 🐆 跑得快、練得勤，最愛陪你一起進步。我看得到你的菜單和最近的訓練紀錄，訓練、動作、飲食、恢復都可以問我！`;
-  let html=`<div class="msg-meta"><img class="avatar" src="${COACH_FULL}" alt="教練"><b class="coach-name">教練</b>醬動 AI 教練・回答僅供參考</div>${inRow("",esc(aiOff?"AI 教練只在 Claude 版本提供。這個版本可以記錄訓練、自動建議加重和查看進度。":intro))}`;
-  html+=chat.map(m=>m.pending?inRow(" think pending",m.content?esc(clean(m.content)):"思考中⋯"):m.role==="user"?`<div class="msg out">${esc(m.content)}</div>`:inRow("",esc(clean(m.content)))).join("");
-  $("#msgs").innerHTML=html;
-  $("#sugs").innerHTML=aiOff||chat.length?"":SUGGESTIONS.map(s=>`<button type="button" data-sug="${esc(s)}">${esc(s)}</button>`).join("");
-  $("#clear-chat").disabled=!chat.length||!!chatCtl;
-  $("#composer").hidden=tab!=="coach"||aiOff;
-}
-
 // ================= 畫面：進度 =================
 function renderProgress(){
   const sc=strength();
@@ -748,9 +758,9 @@ function renderProgress(){
 function renderAll(){renderToday();renderPlan();renderProgress();renderCoach();renderAIState();}
 function setTab(t){tab=t;store.set("fit.tab",t);
   for(const v of ["today","plan","coach","progress"]){$("#view-"+v).hidden=v!==t;$("#tab-"+v).setAttribute("aria-selected",v===t);}
-  $("#app").classList.toggle("chatting",t==="coach");
+  
   if(t==="today")renderToday();if(t==="plan")renderPlan();if(t==="progress")renderProgress();if(t==="coach")renderCoach();
-  window.scrollTo({top:t==="coach"?document.body.scrollHeight:0});}
+  window.scrollTo({top:0});}
 document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>setTab(b.dataset.tab)));
 
 // ================= 事件 =================
@@ -811,6 +821,121 @@ $("#import-file").addEventListener("change",async e=>{
 });
 if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
 if(NEED_MIGRATE){const keep=plan.id;if(plan.source==="rule"){plan=ruleplan();plan.id=keep;}else{plan.days.forEach((d,k)=>{d.mins=+cfg.mins;d.exs.forEach((e,j)=>{e.main=j<2&&!e.finisher;});fitDay(d);});plan.timeV2=true;}save();}
+// ================= 花豹教練小幫手：50 題常見問題 =================
+const FAQ_CATS=["新手入門","動作技巧","疼痛與受傷","飲食營養","恢復與睡眠","增肌","減脂","使用 app"];
+const FAQ=[
+// ---- 新手入門 ----
+{c:"新手入門",q:"我完全沒運動過，要從哪裡開始？",a:"從每週 2–3 天、每次 30–45 分鐘開始就很好。\n・先學會蹲、髖鉸鏈（硬舉類）、推、拉、核心這幾種基本動作\n・重量選「做完全部次數，還剩 2–3 下力氣」的程度\n・前 4 週的重點是把動作做對、養成習慣，不用急著加重\n在「菜單」頁選「新手」，我就會幫你排好課表。"},
+{c:"新手入門",q:"一週要練幾天才有效？",a:"每週 2–3 天全身訓練就看得到進步。每個肌群一週練到 2 次左右，效果最好。想多練幾天，可以改成上下半身分開練。\n比天數更重要的是持續：能維持 3 個月的計畫，比練一週就放棄的完美計畫有用得多。"},
+{c:"新手入門",q:"每次要練多久？",a:"含暖身和收操，45–60 分鐘對多數人剛好。30 分鐘也有效，只要專注在主要動作。\n練到超過 90 分鐘，通常是休息太久或滑手機太多了。app 會依照你選的時間，自動排好動作和組數。"},
+{c:"新手入門",q:"重量要怎麼選？",a:"用 RPE 來抓：做完一組，覺得還能再做 2 下，就是 RPE 8，剛剛好。\n・還能做 5 下以上：太輕，下一組加重\n・做不完規定的次數：太重，減一點\n第一次做某個動作，先用輕重量試一組，再決定正式重量。"},
+{c:"新手入門",q:"RPE 是什麼？",a:"RPE 是「自覺用力程度」，從 1 到 10 分：\n・10：一下都做不了（力竭）\n・9：還能再做 1 下\n・8：還能再做 2 下\n・7：還能再做 3 下\n新手大多練在 RPE 7–8 就好，安全又有效，不需要每組都拚到力竭。"},
+{c:"新手入門",q:"組間要休息多久？",a:"看你的目標：\n・肌力（大重量、低次數）：2–3 分鐘，甚至更久\n・增肌：1–2 分鐘，大動作可以休久一點\n・減脂、耐力：30–60 秒\n休息太短會讓下一組做不好。呼吸平順、覺得能把下一組做好，再開始。"},
+{c:"新手入門",q:"暖身要做什麼？",a:"大約 5–10 分鐘：\n・先輕鬆動 3–5 分鐘（快走、跳繩、腳踏車），讓身體變熱\n・做動態伸展：開合跳、弓箭步走、手臂畫圈、髖關節繞圈\n・第一個主要動作，先用輕重量做 1–2 組熱身組\n拉住不動 30 秒的靜態伸展，比較適合放在練完收操。"},
+{c:"新手入門",q:"女生重訓會變很壯嗎？",a:"不會突然變壯，放心！肌肉長得很慢，女生的睪固酮也比較少，要練出明顯的大肌肉，需要多年刻意訓練加上大量飲食。\n對多數人來說，重訓帶來的是：線條更緊實、體態更挺、基礎代謝和骨密度變好。"},
+// ---- 動作技巧 ----
+{c:"動作技巧",q:"深蹲時膝蓋可以超過腳尖嗎？",a:"可以！膝蓋超過腳尖很自然，尤其是腳踝靈活或腿比較長的人。重點不在膝蓋的位置，而是：\n・膝蓋跟腳尖朝同一個方向，不要往內夾\n・腳跟踩穩，不離地\n・背保持中立，不要彎腰\n如果膝蓋會痛，先降重量、蹲淺一點，再慢慢加回來。"},
+{c:"動作技巧",q:"深蹲要蹲多低？",a:"在背保持中立、腳跟不離地的前提下，蹲到你能控制的最低點。多數人的目標是大腿至少和地面平行。\n如果蹲到底時下背會捲起來（屁股往內收），那就是你目前的極限。先停在那個高度上方一點，平常多做髖關節和腳踝的活動度練習。"},
+{c:"動作技巧",q:"硬舉怎麼保護下背？",a:"硬舉的關鍵是「屁股往後推」，不是彎腰：\n・槓鈴或啞鈴貼近腿\n・開始前先吸氣、收緊肚子，背打直\n・想像把地板往下推，站起來時屁股往前夾\n・放下時，一樣先把屁股往後推\n如果練完下背特別痠、臀腿沒感覺，通常是腰在出力，先降重量把動作做對。"},
+{c:"動作技巧",q:"臥推時肩膀不舒服怎麼辦？",a:"試試這幾點：\n・肩胛骨往後、往下收，像把它們塞進後褲袋\n・手肘不要張開成 90 度，和身體夾約 45 度\n・下放到胸口下緣，不是脖子\n・握距不要太寬\n還是不舒服，就換成啞鈴地板臥推或伏地挺身。疼痛持續的話，請找專業人員評估。"},
+{c:"動作技巧",q:"伏地挺身做不起來怎麼辦？",a:"從簡單的版本開始，一步步升級：\n・扶牆 → 扶桌子或椅子 → 跪姿 → 標準伏地挺身\n・每個階段能做到 3 組 × 12 下，就往下一階\n・也可以練離心：從撐起的位置，慢慢花 3–5 秒放下去\n身體要像一塊木板，不要塌腰或翹屁股。"},
+{c:"動作技巧",q:"引體向上一下都拉不起來，要怎麼練？",a:"很正常，大多數人一開始都拉不起來！可以這樣練：\n・離心引體：跳上去或踩椅子到頂點，再慢慢花 3–5 秒放下來\n・用彈力帶輔助\n・反向划船（用桌子或低槓）練背力\n・健身房的滑輪下拉\n每週練 2–3 次，通常幾週到幾個月就能拉出第一下。"},
+{c:"動作技巧",q:"動作時要怎麼呼吸？",a:"一般原則：用力時吐氣，放下時吸氣。\n做大重量的深蹲、硬舉時，可以在開始前吸一口氣、肚子撐緊，過了最難的那段再吐氣，幫助核心穩定。\n不要整組都憋氣。有高血壓或心血管問題的人，更要避免長時間憋氣。"},
+{c:"動作技巧",q:"怎麼知道動作有沒有做對？",a:"幾個方法：\n・用手機從側面錄影，對照動作要點\n・感覺目標肌肉有在出力，例如划船時是背在用力，不是手臂\n・不會出現尖銳的疼痛\n・照鏡子確認膝蓋和背部角度\n不確定的話，找合格教練看一次動作很值得。app 裡每個動作下方也有一句技術要點。"},
+// ---- 疼痛與受傷 ----
+{c:"疼痛與受傷",q:"練完隔天全身痠痛正常嗎？",a:"正常，這叫「延遲性肌肉痠痛」。通常在練完 24–72 小時最明顯，之後慢慢消退。剛開始練、換新動作或練得比平常多的時候，特別容易出現。\n適度活動、睡飽、吃夠蛋白質，會好得比較快。痠痛不代表練得比較有效，沒有痠也一樣在進步。"},
+{c:"疼痛與受傷",q:"肌肉還在痠可以繼續練嗎？",a:"輕微痠痛可以練，熱身後通常會舒緩很多，也可以先練其他部位。\n如果痠到動作變形、影響日常生活，就讓那個部位多休息一天。\n要分清楚：肌肉痠是整片鈍鈍的，會慢慢好；關節或單一點刺痛，就不是正常的痠痛。"},
+{c:"疼痛與受傷",q:"怎麼分辨痠痛和受傷？",a:"・正常痠痛：整塊肌肉鈍鈍的痠、兩側差不多、活動後變舒服、幾天內就好\n・可能受傷：尖銳或刺痛、集中在關節或某一點、腫脹瘀青、麻或無力、越動越痛、超過一週沒改善\n出現受傷的徵兆，先停止會痛的動作，並找醫師或物理治療師評估。"},
+{c:"疼痛與受傷",q:"深蹲時膝蓋會痛怎麼辦？",a:"先別硬撐 🐆 可以試試：\n・降低重量、蹲淺一點，在不痛的範圍內練\n・膝蓋跟腳尖同方向，不要內夾\n・練前多做暖身和髖、腳踝活動度\n・暫時換成箱上蹲、臀橋、腿推這類比較溫和的動作\n疼痛超過一兩週、會腫，或上下樓梯也痛，請找醫師或物理治療師。"},
+{c:"疼痛與受傷",q:"下背痛還能練嗎？",a:"如果只是輕微的痠緊，沒有痛到腿或發麻，適度活動很多時候反而有幫助。但要避開會讓疼痛加劇的動作，例如大重量硬舉、彎腰負重。\n可以先做臀橋、死蟲式、鳥狗式這類溫和的動作。\n如果疼痛延伸到腿、腿麻無力，或大小便異常，請立刻就醫。"},
+{c:"疼痛與受傷",q:"肩膀舉手會痛怎麼辦？",a:"先暫停會痛的動作，尤其是過頭推舉和側平舉。\n可以改做不痛範圍內的划船、彈力帶外旋、肩胛後收，幫助肩膀穩定。推的動作注意手肘不要張太開。\n疼痛超過一兩週、晚上痛到睡不好，或手臂舉不起來，就該給專業人員評估。"},
+{c:"疼痛與受傷",q:"受傷後什麼時候可以回來練？",a:"以醫師或物理治療師的建議為準。一般原則是：\n・日常活動不痛了，再開始練\n・從輕重量、小範圍開始\n・用「做完和隔天都不會更痛」當標準，慢慢加回來\n剛回來的幾週，重量先降到原本的 50–70%，給身體時間重新適應。"},
+// ---- 飲食營養 ----
+{c:"飲食營養",q:"練完一定要馬上吃東西嗎？",a:"不用那麼緊張。所謂「黃金 30 分鐘」的影響沒有想像中大，一整天吃夠蛋白質和熱量才是重點。\n比較實際的做法：練完 1–2 小時內，吃一餐有蛋白質（蛋、肉、豆腐、乳製品）和澱粉的正餐。如果是空腹練，就早點吃。"},
+{c:"飲食營養",q:"練前可以吃什麼？",a:"練前 1–3 小時吃一餐正常的飯最理想。\n時間很趕的話，練前 30–60 分鐘可以吃點好消化的：香蕉、吐司、飯糰、優格。\n練前避免吃太油或纖維太多，容易肚子不舒服。空腹練也可以，只要不會頭暈沒力就好。"},
+{c:"飲食營養",q:"一天要吃多少蛋白質？",a:"有在重訓、想增肌的人，一般建議每天每公斤體重吃約 1.6–2.2 公克。例如 70 公斤的人，每天約 110–150 公克。\n分散在 3–4 餐比較好，每餐約 25–40 公克。參考：一顆蛋約 6–7 公克，一片手掌大的雞胸約 25–30 公克。\n有腎臟疾病的人，請先問醫師。"},
+{c:"飲食營養",q:"高蛋白粉有必要嗎？",a:"不是必要的，它就是「方便的食物」。正常飲食就能吃夠蛋白質的話，不喝也沒關係。\n三餐常外食、蛋白質不夠的時候，蛋白粉是方便的補充選擇。挑成分單純、有檢驗標示的產品；乳糖不耐的人可以選分離乳清或植物蛋白。"},
+{c:"飲食營養",q:"晚上吃東西會變胖嗎？",a:"胖不胖主要看一整天的總熱量，不是幾點吃。\n不過宵夜常常是額外的炸物、零食、含糖飲料，熱量容易超標，這才是問題所在。晚上真的餓，可以選無糖豆漿、優格、水煮蛋這類清爽又有蛋白質的東西。"},
+{c:"飲食營養",q:"一天要喝多少水？",a:"每個人需求不同，跟體重、天氣、流汗量都有關。簡單的參考是看尿液顏色：淡黃色就是喝夠了，深黃色要多喝。\n運動時大約每 15–20 分鐘喝幾口。流汗很多或練超過一小時，可以補充含電解質的飲料。台灣夏天很熱，記得隨身帶水。"},
+{c:"飲食營養",q:"肌酸是什麼？要吃嗎？",a:"肌酸是研究最多、證據最充足的運動補充品之一，能幫助短時間爆發力和重訓表現。\n常見吃法是每天 3–5 公克，什麼時間吃都可以，重點是每天持續。剛開始吃，體重可能因為肌肉儲水多 1–2 公斤，這是正常的。\n有腎臟問題、正在服藥或未成年，請先諮詢醫師。"},
+{c:"飲食營養",q:"練前喝咖啡有幫助嗎？",a:"有，咖啡因能讓人比較有精神、提升運動表現。練前 30–60 分鐘喝一杯就夠了。\n注意：下午太晚喝可能影響睡眠，反而得不償失。對咖啡因敏感、容易心悸、有高血壓或懷孕的人，要減量或避免。"},
+{c:"飲食營養",q:"想變健康要完全戒掉澱粉嗎？",a:"不需要！澱粉是訓練時最重要的能量來源，吃太少容易沒力、練不好。\n比較好的做法是選原型、少加工的澱粉：糙米、地瓜、燕麥、全麥麵包、南瓜。控制份量，搭配蛋白質和蔬菜，比完全不吃更容易長期維持。"},
+// ---- 恢復與睡眠 ----
+{c:"恢復與睡眠",q:"睡眠對訓練有多重要？",a:"非常重要！肌肉是在休息和睡眠時修復變強的。建議每晚睡 7–9 小時。\n睡不夠會讓訓練表現變差、更容易餓、恢復變慢，減脂和增肌都會卡關。想進步，先把睡眠顧好，常常比多練一天更有效。"},
+{c:"恢復與睡眠",q:"休息日要做什麼？",a:"休息日不是完全躺平，可以做「積極恢復」：\n・散步 20–30 分鐘\n・輕鬆騎腳踏車或游泳\n・伸展、瑜伽、滾筒放鬆\n・把握時間睡飽、吃好\n讓身體動一動、促進血液循環，但不要累到影響下一次訓練。"},
+{c:"恢復與睡眠",q:"可以每天練嗎？",a:"可以，但要安排好。同一個肌群一般建議休息 48 小時左右再練，所以每天練就要分部位，例如推、拉、腿輪流，並確認睡眠和飲食跟得上。\n新手建議先從每週 3 天開始，身體適應後再增加，比一開始就天天練更不容易受傷或倦怠。"},
+{c:"恢復與睡眠",q:"伸展要在練前還是練後？",a:"・練前做動態伸展：會動的熱身，例如弓箭步走、手臂畫圈、腿擺盪\n・練後做靜態伸展：每個姿勢停 20–30 秒，放鬆練到的肌肉\n練前長時間靜態伸展，可能讓力量暫時下降一點，所以留到練完或睡前做比較適合。"},
+{c:"恢復與睡眠",q:"滾筒放鬆有用嗎？",a:"可以讓肌肉暫時覺得比較放鬆、活動度好一點，也能減輕痠痛的感覺，練前練後都能用。\n每個部位滾 30–60 秒就好，慢慢滾，在緊的地方停一下。避免直接壓在骨頭、關節或下背的脊椎上；痛到要憋氣，就是太用力了。"},
+{c:"恢復與睡眠",q:"很累沒動力的時候要硬練嗎？",a:"先分辨是「不想動」還是「真的累」。\n・只是不想動：跟自己約好先做 10 分鐘，通常開始後就順了\n・睡不好、生病、壓力很大、連續好幾天都很疲勞：把重量或組數減一半，或休息一天\n偶爾休息不會退步，長期過度疲勞才會。"},
+// ---- 增肌 ----
+{c:"增肌",q:"增肌要多久才看得到效果？",a:"力量的進步通常幾週內就感覺得到，這是神經系統在適應。\n肉眼看得到的肌肉變化，一般要持續訓練 2–3 個月以上，新手的前一兩年進步最快。\n用同樣光線、同樣角度定期拍照記錄，比每天照鏡子更容易看出差別。"},
+{c:"增肌",q:"什麼時候該加重量？",a:"同一個重量連續 2 次訓練都做完所有組數，而且動作穩定，就可以加重了。\napp 會自動幫你判斷：上次的重量做穩了，就會顯示「建議加重 ↑」。啞鈴通常一次加 1–2 公斤，槓鈴加 2.5 公斤。加重後次數變少沒關係，慢慢再做回來。"},
+{c:"增肌",q:"一直練不大是哪裡出問題？",a:"最常見的原因：\n・吃不夠：熱量和蛋白質都不足\n・重量和次數一直沒有進步\n・每個肌群每週練的組數太少\n・睡眠不夠\n・常常中斷，沒有持續\n先檢查有沒有吃夠、睡夠，再確認重量有在慢慢增加。「進度」頁的最佳重量紀錄，可以幫你看出有沒有停滯。"},
+{c:"增肌",q:"每個部位一週要練幾組？",a:"一般建議每個肌群每週約 10–20 組。新手從 10 組左右開始就很有效，進階再慢慢增加。\n最好分散在一週 2 次以上，不要一次練完。組數不是越多越好，要能恢復、品質好才算數。"},
+// ---- 減脂 ----
+{c:"減脂",q:"想減脂要先做有氧還是重訓？",a:"兩個都做最好，但重訓特別重要！減脂時做重訓能幫你保住肌肉，讓瘦掉的是脂肪，體態才會好看。有氧則幫助多消耗熱量、提升心肺能力。\n同一天兩個都做的話，通常先重訓再有氧，讓重訓時精神最好。"},
+{c:"減脂",q:"減脂一週瘦多少比較健康？",a:"一般建議每週減少體重的 0.5–1%，例如 70 公斤的人，每週約 0.35–0.7 公斤。\n減太快容易流失肌肉、精神變差，也比較容易復胖。體重每天會因為水分、鹽分上下波動，看一週的平均，或每週固定時間量，會比較準。"},
+{c:"減脂",q:"可以只瘦肚子嗎？",a:"很可惜，沒辦法指定只瘦某個部位，做很多捲腹也不會只燒肚子的脂肪。脂肪是全身一起慢慢減少的，先瘦哪裡跟基因有關。\n整體熱量控制、重訓加上足夠的活動量，肚子會跟著一起變小。練核心還是有用：能讓腹部更有力、姿勢更好。"},
+{c:"減脂",q:"體重卡住不動怎麼辦？",a:"先別灰心，停滯很常見。可以檢查：\n・最近是不是不知不覺吃多了（飲料、零食、醬料）\n・日常活動量有沒有變少，每天走路的步數也算\n・睡眠和壓力\n・體重不動但腰圍變小、衣服變鬆，代表其實有在進步\n連續 2–3 週真的沒變化，再小幅調整飲食或增加活動量。"},
+{c:"減脂",q:"有氧要做多少？",a:"一般健康建議是每週至少 150 分鐘中等強度（快走、騎車，會喘但還能說話），或 75 分鐘高強度，可以拆成每天 20–30 分鐘。\n減脂期可以多做一點，但不要影響重訓的恢復。不喜歡跑步的話，快走、爬樓梯、游泳、跳舞都算。"},
+// ---- 使用 app ----
+{c:"使用 app",q:"app 的菜單是怎麼排的？",a:"依你在「菜單」頁選的目標、程度、器材、每週天數和每次時間來排：\n・2–3 天：全身訓練\n・4 天：上下半身分開\n・5–6 天：推、拉、腿\n主要動作放在前面，精神最好的時候做。時間會用「暖身＋每組時間＋組間休息＋換動作＋收操」計算，讓總時間接近你選的分鐘數。"},
+{c:"使用 app",q:"「建議加重」是怎麼判斷的？",a:"完成訓練時填的重量會被記錄下來。同一個重量已經穩定做完 2 次以上，就會建議加重（啞鈴 +1 公斤、槓鈴 +2.5 公斤），不然就建議維持。\n這只是參考：那天狀態不好，維持原重量完全沒問題，動作品質最優先。"},
+{c:"使用 app",q:"肌力分數是怎麼算的？",a:"依你各動作的最佳重量和體重，對照進階訓練者的大約標準，算出腿部、臀腿後側、推、拉四項分數，再平均成總分。100 分約等於練了好幾年的進階訓練者。\n它是讓你跟過去的自己比較的參考。記得在「菜單」頁更新體重，分數會更準。"}
+].map((f,i)=>({...f,id:i}));
+
+// 依今天的課表給一句提醒
+const DAY_TIP={squat:"今天有蹲的動作，暖身時多活動髖關節和腳踝，下蹲時膝蓋跟腳尖朝同一個方向。",hinge:"今天有髖鉸鏈動作，記得是屁股往後推、背保持中立，不是彎腰。",lunge:"今天有單腳動作，前腳踩穩，左右兩邊的次數要一樣。",hpush:"今天有推的動作，肩胛先往後下收好再推，手肘約 45 度。",vpush:"今天有過頭推舉，核心收緊，不要過度後仰。",hpull:"今天有划船動作，先收肩胛再拉，感覺是背在出力。",vpull:"今天有垂直拉的動作，胸口往上找，肩膀不要聳起來。",arms:"今天有手臂動作，控制下放的速度，不要甩。",core:"今天有核心動作，肋骨往下收，不要塌腰。"};
+function todayTip(){
+  const di=plan.days.findIndex(x=>x.weekday===now.getDay());
+  if(di<0)return "今天是休息日 🐆 散步 20–30 分鐘、伸展一下，晚上睡飽 7–9 小時，下次訓練會更有力！";
+  const d=plan.days[di];
+  if(isDone(di))return `今天的「${d.title}」已經完成，太棒了！練完 1–2 小時內記得吃一餐有蛋白質的正餐，今晚早點睡。`;
+  const p=(d.exs.find(e=>e.pattern&&DAY_TIP[e.pattern])||{}).pattern;
+  return `今天要練「${d.title}」，大約 ${estMin(d)} 分鐘。${p?DAY_TIP[p]:"先做好暖身再開始。"}`;
+}
+
+let faqCat="全部",faqQuery="",lastFaq=null,faqTyping=false;
+function faqMatches(){
+  const terms=faqQuery.trim().split(/\s+/).filter(Boolean);
+  return FAQ.filter(f=>(faqCat==="全部"||terms.length||f.c===faqCat)&&terms.every(t=>(f.q+f.a+f.c).includes(t)));
+}
+function renderFaqList(){
+  $("#faq-cats").innerHTML=["全部",...FAQ_CATS].map(c=>`<button type="button" class="cat" data-cat="${c}" aria-pressed="${!faqQuery&&c===faqCat}">${c}</button>`).join("");
+  const list=faqMatches();
+  $("#faq-count").textContent=faqQuery?`找到 ${list.length} 題`:`${list.length} 題`;
+  $("#faq-list").innerHTML=list.length?list.map(f=>`<button type="button" class="cell tap faq-q" data-faq="${f.id}"><span class="grow"><span class="k">${esc(f.q)}</span>${faqCat==="全部"||faqQuery?`<span class="sub">${f.c}</span>`:""}</span><svg class="chev" viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 1.5l5 5-5 5"/></svg></button>`).join("")
+    :`<div class="cell"><span class="sub" style="margin:0">找不到相關的問題，換個關鍵字試試，例如「膝蓋」「蛋白質」「休息」。</span></div>`;
+}
+function renderCoach(){
+  let html=`<div class="msg-meta"><img class="avatar" src="${COACH_FULL}" alt="教練"><b class="coach-name">教練</b>花豹教練小幫手・內容僅供一般參考</div>`;
+  html+=inRow("",esc(todayTip()));
+  if(!chat.length)html+=inRow("",esc("有什麼想問的嗎？從下面的常見問題挑一題，或輸入關鍵字找找看！"));
+  html+=chat.map(m=>m.pending?inRow(" think pending","打字中⋯"):m.role==="user"?`<div class="msg out">${esc(m.content)}</div>`:inRow("",esc(m.content))).join("");
+  $("#msgs").innerHTML=html;
+  const asked=new Set(chat.filter(m=>m.role==="user").map(m=>m.content));
+  const rel=lastFaq!=null?FAQ.filter(f=>f.c===FAQ[lastFaq].c&&f.id!==lastFaq&&!asked.has(f.q)).slice(0,3):[];
+  $("#sugs").innerHTML=rel.length?`<span class="sugs-h">相關問題</span>`+rel.map(f=>`<button type="button" data-faq="${f.id}">${esc(f.q)}</button>`).join(""):"";
+  $("#clear-chat").disabled=!chat.length||faqTyping;
+  $("#composer").hidden=true;
+  renderFaqList();
+}
+function askFaq(id){
+  const f=FAQ[id];if(!f||faqTyping)return;
+  faqTyping=true;lastFaq=id;
+  chat.push({role:"user",content:f.q});chat.push({role:"assistant",content:"",pending:true});
+  renderCoach();
+  const last=()=>[...document.querySelectorAll("#msgs .msg")].pop();
+  last()?.scrollIntoView({block:"center",behavior:"smooth"});
+  setTimeout(()=>{chat[chat.length-1]={role:"assistant",content:f.a};faqTyping=false;save();renderCoach();
+    const qs=[...document.querySelectorAll("#msgs .msg.out")].pop();qs?.scrollIntoView({block:"start",behavior:"smooth"});},650);
+}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-faq]");if(b){askFaq(+b.dataset.faq);return;}
+  const c=e.target.closest("[data-cat]");if(c){faqCat=c.dataset.cat;faqQuery="";$("#faq-search").value="";renderFaqList();}});
+$("#faq-search").addEventListener("input",e=>{faqQuery=e.target.value;renderFaqList();});
+$("#faq-search").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.isComposing){e.preventDefault();const f=faqMatches()[0];if(f)askFaq(f.id);}});
+$("#clear-chat").addEventListener("click",()=>{lastFaq=null;});
+
 renderAll();setTab(["today","plan","coach","progress"].includes(tab)?tab:"today");
 </script>
 

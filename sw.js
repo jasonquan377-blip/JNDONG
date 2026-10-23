@@ -1,5 +1,5 @@
 // 離線快取：app 本體先用快取再背景更新；字型用到就存起來
-const CACHE = "jndong-v6";
+const CACHE = "jndong-v7";
 const SHELL = ["./", "index.html", "manifest.webmanifest", "icon-192.png", "icon-512.png", "apple-touch-icon.png"];
 
 self.addEventListener("install", e => {
