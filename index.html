@@ -85,6 +85,16 @@ h1::after{content:"";width:72px;height:18px;background:var(--sun);-webkit-mask:u
 .wdpick button{height:42px;border-radius:12px;background:var(--fill);font-weight:700;font-size:15px;color:var(--label2)}
 .wdpick button[aria-pressed="true"]{background:var(--hot);color:var(--cream);box-shadow:inset 0 -3px 0 var(--sun)}
 .seg button{flex:1;font-size:13px;font-weight:500;padding:6px 4px;border-radius:7px;color:var(--label);white-space:nowrap;transition:background .2s}
+.seg.splits{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:none;padding:0}
+.seg.splits button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;padding:10px 12px;border-radius:12px;background:var(--fill);white-space:normal}
+.seg.splits button:first-child{grid-column:1/-1}
+.seg.splits .g-t{font-size:16px;font-weight:900;font-style:italic}
+.seg.splits .g-d{font-size:12px;font-weight:500;color:var(--label2);line-height:1.35}
+.seg.splits button[aria-pressed="true"]{background:linear-gradient(120deg,var(--hot),var(--hot2));color:var(--cream);box-shadow:inset 0 -3px 0 var(--sun)}
+.seg.splits button[aria-pressed="true"] .g-d{color:rgba(246,243,234,.78)}
+.seg.chipset{display:flex;flex-wrap:wrap;gap:6px;background:none;padding:0}
+.seg.chipset button{flex:0 0 auto;padding:7px 14px;border-radius:99px;background:var(--fill);font-size:14px;font-weight:700}
+.seg.chipset button[aria-pressed="true"]{background:var(--hot);color:var(--cream);box-shadow:none}
 .seg.goals{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:none;padding:0}
 .seg.goals button{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:10px;align-items:center;text-align:left;padding:12px;border-radius:14px;background:var(--fill);white-space:normal;font-size:15px}
 .seg.goals .g-ic{grid-row:span 2;width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:var(--cell);color:var(--blue)}
@@ -130,6 +140,8 @@ textarea::placeholder,.input::placeholder{color:var(--label3)}
 .in-row{display:flex;align-items:flex-end;gap:8px;max-width:88%}
 .in-row .msg{max-width:none;min-width:0}
 .mini{width:30px;height:30px;border-radius:50%;flex:none}
+.persona-tags{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:4px 0 6px}
+.persona-tags i{font-style:normal;font-size:12px;font-weight:700;color:var(--sun-ink);background:color-mix(in srgb,var(--sun) 18%,transparent);padding:2px 9px;border-radius:99px}
 .coach-name{display:block;font-size:15px;color:var(--label);font-weight:900;font-style:italic;margin-bottom:2px}
 .avatar{width:132px;height:132px;border-radius:50%;display:block;margin:0 auto 6px;box-shadow:0 2px 10px rgba(0,0,0,.12)}
 .center{display:block;margin:0 auto;font-size:15px}
@@ -145,6 +157,22 @@ textarea::placeholder,.input::placeholder{color:var(--label3)}
 .ring-legend .n small{font-size:15px;color:var(--label2);font-weight:500}
 
 /* Week strip */
+.weekbox{background:var(--cell);border-radius:12px;padding:8px 6px 10px;display:flex;flex-direction:column;gap:2px;touch-action:pan-y}
+.week-nav{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:0 4px}
+.wk-label{display:flex;flex-direction:column;align-items:center;line-height:1.2}
+.wk-label b{font-size:15px;font-weight:900;font-style:italic}
+.wk-label span{font-family:var(--num);font-style:italic;font-weight:700;font-size:14px;color:var(--label2);font-variant-numeric:tabular-nums}
+.wk-arrow{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--fill);color:var(--label)}
+.wk-arrow svg{width:18px;height:18px}
+.wk-arrow:disabled{opacity:.3}
+.wk-today{align-self:center;font-size:14px;font-weight:700;padding:4px 10px}
+.weekbox .week{background:none;padding:4px 0 0}
+.week.slide-l{animation:wkl .28s cubic-bezier(.2,.8,.2,1)}
+.week.slide-r{animation:wkr .28s cubic-bezier(.2,.8,.2,1)}
+@keyframes wkl{from{transform:translateX(36px);opacity:.2}to{transform:none;opacity:1}}
+@keyframes wkr{from{transform:translateX(-36px);opacity:.2}to{transform:none;opacity:1}}
+.wd .dot.miss{background:transparent;box-shadow:inset 0 0 0 1.5px var(--label3)}
+.peek-note{background:var(--fill);border-radius:12px;padding:12px 14px;font-size:15px;color:var(--label2);text-align:center}
 .week{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;background:var(--cell);border-radius:12px;padding:10px 6px}
 .wd{display:flex;flex-direction:column;align-items:center;gap:5px;padding:4px 0;border-radius:10px}
 .wd .l{font-size:11px;font-weight:600;color:var(--label2)}
@@ -195,6 +223,14 @@ textarea::placeholder,.input::placeholder{color:var(--label3)}
 .fig .fg-ground{stroke:var(--sep);stroke-width:2}
 .fig .fg-bar{stroke:var(--label2);stroke-width:5;stroke-linecap:round}
 .fig .fg-db{fill:var(--blue)}
+.fig .fg-eq{fill:var(--label3)}
+.fig .fg-eq-l{stroke:var(--label3);stroke-linecap:round}
+.fig .fg-eq-l.rail{stroke:var(--label2)}
+.fig .fg-cable{stroke:var(--label2);stroke-width:2;stroke-dasharray:4 3}
+.fig .fg-pulley{fill:var(--label2)}
+.fig .fg-plate{fill:var(--blue)}
+.fig .fg-hole{fill:var(--cell)}
+.fig .fg-wheel{fill:none;stroke:var(--blue);stroke-width:5}
 .fig-cap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--label2)}
 .fig-cap b{color:var(--sun-ink);font-weight:800}
 .how-sec{display:flex;flex-direction:column;gap:6px;font-size:16px;line-height:1.5}
@@ -337,7 +373,15 @@ textarea::placeholder,.input::placeholder{color:var(--label3)}
       <svg class="rings" id="rings" viewBox="0 0 120 120" role="img" aria-label="本週進度圓環"></svg>
       <div class="ring-legend" id="ring-legend"></div>
     </div>
-    <div class="week" id="week" role="group" aria-label="本週訓練日"></div>
+    <div class="weekbox" id="weekbox">
+      <div class="week-nav">
+        <button type="button" class="wk-arrow" id="wk-prev" aria-label="上一週"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <div class="wk-label"><b id="wk-title">本週</b><span id="wk-range"></span></div>
+        <button type="button" class="wk-arrow" id="wk-next" aria-label="下一週"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+      <div class="week" id="week" role="group" aria-label="訓練日"></div>
+      <button type="button" class="link wk-today" id="wk-today" hidden>回到今天</button>
+    </div>
     <div id="workout"></div>
   </section>
 
@@ -352,6 +396,8 @@ textarea::placeholder,.input::placeholder{color:var(--label3)}
         <div class="cell field-cell"><span class="k">程度</span><div class="seg" id="seg-level"></div></div>
         <div class="cell field-cell"><span class="k">器材</span><div class="seg" id="seg-equip"></div></div>
         <div class="cell field-cell"><span class="k">哪幾天練？<span class="sub" id="wd-count" style="display:inline;margin-left:6px"></span></span><div class="wdpick" id="wd-pick" role="group" aria-label="選擇訓練日"></div><div class="sub" id="wd-hint" style="margin:0"></div></div>
+        <div class="cell field-cell"><span class="k">訓練分法</span><div class="seg splits" id="seg-split" role="group" aria-label="訓練分法"></div><div class="sub" id="split-preview" style="margin:0;line-height:1.5"></div></div>
+        <div class="cell field-cell"><span class="k">加強部位<span class="sub" style="display:inline;margin-left:6px">選填，想特別練的部位會多排一個動作</span></span><div class="seg chipset" id="seg-focus" role="group" aria-label="加強部位"></div></div>
         <div class="cell field-cell"><span class="k">每次時間</span><div class="seg" id="seg-mins"></div></div>
         <div class="cell"><label class="grow k" for="bw">體重</label>
           <div class="stepper"><button type="button" data-bw="-1" aria-label="減少體重">−</button><input id="bw" type="number" inputmode="decimal" min="30" max="200" step="0.5"><span class="u">kg</span><button type="button" data-bw="1" aria-label="增加體重">+</button></div></div>
@@ -367,7 +413,7 @@ textarea::placeholder,.input::placeholder{color:var(--label3)}
       <div class="gh"><span>本週課表</span><span id="plan-src"></span></div>
       <div class="group" id="plan-summary-box" hidden><div class="cell"><div class="grow sub" id="plan-summary" style="margin:0;font-size:15px"></div></div></div>
       <div class="group" id="plan-list"></div>
-      <div class="gf">RPE 是自覺用力程度，10 代表力竭，8 代表還能再做 2 下。有傷病、懷孕或慢性病，請先諮詢醫師或物理治療師。</div>
+      <div class="gf">RPE 是自覺用力程度，10 代表力竭，8 代表還能再做 2 下，也就是花豹教練常說的「還剩兩下就剛剛好」。有傷病、懷孕或慢性病，請先諮詢醫師或物理治療師。</div>
     </div>
   </section>
 
@@ -473,9 +519,9 @@ const DB={
   lunge:{gym:["槓鈴保加利亞分腿蹲","史密斯分腿蹲","槓鈴弓箭步","槓鈴登階"],db:["啞鈴保加利亞分腿蹲","啞鈴弓箭步走","啞鈴登階","啞鈴反向弓箭步"],bw:["反向弓箭步","保加利亞分腿蹲","側弓箭步"]},
   hpush:{gym:["槓鈴臥推","機械胸推","上斜槓鈴臥推","雙槓撐體","繩索夾胸"],db:["啞鈴臥推","上斜啞鈴臥推","啞鈴地板臥推","啞鈴飛鳥"],bw:["伏地挺身","下斜伏地挺身","寬距伏地挺身"]},
   vpush:{gym:["站姿槓鈴肩推","機械肩推","史密斯肩推"],db:["啞鈴肩推","阿諾推舉","單手啞鈴肩推"],bw:["屈體伏地挺身","靠牆倒立撐"]},
-  hpull:{gym:["槓鈴划船","坐姿划船機","T 槓划船","胸靠划船機"],db:["單手啞鈴划船","俯身啞鈴划船","胸靠上斜啞鈴划船"],bw:["反向划船（桌下）","毛巾划船"]},
+  hpull:{gym:["槓鈴划船","坐姿划船機","T 槓划船","胸靠划船機","反向飛鳥機"],db:["單手啞鈴划船","俯身啞鈴划船","胸靠上斜啞鈴划船"],bw:["反向划船（桌下）","毛巾划船"]},
   vpull:{gym:["滑輪下拉","引體向上","窄握滑輪下拉","輔助引體機"],db:["啞鈴直臂上拉","啞鈴反向飛鳥"],bw:["引體向上（單槓）","離心引體"]},
-  arms:{gym:["繩索三頭下壓","槓鈴彎舉","繩索彎舉","繩索側平舉","EZ 槓三頭伸展"],db:["啞鈴彎舉","啞鈴過頭三頭伸展","啞鈴側平舉","錘式彎舉"],bw:["椅子撐體","鑽石伏地挺身"]},
+  arms:{gym:["繩索三頭下壓","槓鈴彎舉","繩索彎舉","繩索側平舉","EZ 槓三頭伸展"],db:["啞鈴彎舉","啞鈴過頭三頭伸展","啞鈴側平舉","錘式彎舉"],bw:["椅子撐體","鑽石伏地挺身","毛巾彎舉"]},
   core:{gym:["懸吊抬腿","繩索捲腹","繩索抗旋轉推","腹肌滾輪"],db:["啞鈴死蟲","啞鈴俄羅斯轉體","啞鈴農夫走路"],bw:["棒式","死蟲式","登山者","側棒式"]}
 };
 const PATTERN_ZH={squat:"蹲",hinge:"髖鉸鏈",lunge:"單腳",hpush:"水平推",vpush:"垂直推",hpull:"水平拉",vpull:"垂直拉",arms:"手臂",core:"核心"};
@@ -489,6 +535,41 @@ const SPLITS={2:[["全身 A","full",0],["全身 B","full",1]],3:[["全身 A","fu
   5:[["推","push",0],["拉","pull",0],["腿","legs",0],["上半身","upper",0],["下半身","lower",0]],
   6:[["推","push",0],["拉","pull",0],["腿","legs",0],["推","push",0],["拉","pull",0],["腿","legs",0]]};
 const SCHEDULE={2:[1,4],3:[1,3,5],4:[1,2,4,5],5:[1,2,3,5,6],6:[1,2,3,4,5,6]};
+// ================= 訓練分法 =================
+// 每一天由「欄位」組成：可以是動作模式（squat、hpush…），或是更細的部位欄位（arms:bi 二頭、arms:tri 三頭、arms:side 側平舉、rear 後肩）
+const SPLIT_INFO={
+  auto:{t:"自動推薦",d:"依每週天數幫你選"},
+  full:{t:"全身",d:"每次練全身・適合 2–3 天"},
+  ul:{t:"上下半身",d:"上、下半身輪流・適合 4 天"},
+  ppl:{t:"推拉腿",d:"推、拉、腿輪流・適合 3–6 天"},
+  bro:{t:"部位分化",d:"胸、背、腿、肩、手臂分開練・適合 4–5 天"}
+};
+const FOCUS_INFO={none:{t:"不加強"},chest:{t:"胸",slots:["hpush"],pats:["hpush"]},back:{t:"背",slots:["hpull","vpull"],pats:["hpull","vpull"]},
+  shoulder:{t:"肩",slots:["arms:side","vpush"],pats:["vpush"],re:/側平舉|反向飛鳥/},arms:{t:"手臂",slots:["arms:bi","arms:tri"],pats:["arms"],re:/彎舉|三頭|撐體|鑽石/},
+  legs:{t:"臀腿",slots:["hinge","lunge"],pats:["squat","hinge","lunge"]},core:{t:"核心",slots:["core"],pats:["core"]}};
+const SLOT={"arms:bi":{p:"arms",re:/彎舉/,alt:"vpull"},"arms:tri":{p:"arms",re:/三頭|撐體|鑽石/,alt:"hpush"},"arms:side":{p:"arms",re:/側平舉/,alt:"vpush"},"rear":{p:["vpull","hpull"],re:/反向飛鳥/,alt:"hpull"}};
+const DAYT={
+  fullA:["squat","hpush","hpull","hinge","vpush","core","arms:bi"],
+  fullB:["hinge","vpush","vpull","lunge","hpush","core","arms:tri"],
+  fullC:["squat","hpull","hpush","lunge","vpull","core","arms:side"],
+  upper:["hpush","hpull","vpush","vpull","arms:bi","arms:tri","core"],
+  upperB:["vpush","vpull","hpush","hpull","arms:side","arms:tri","arms:bi"],
+  lower:["squat","hinge","lunge","hinge","core","lunge"],
+  lowerB:["hinge","squat","lunge","squat","core","hinge"],
+  push:["hpush","vpush","hpush","arms:side","arms:tri","vpush"],
+  pull:["vpull","hpull","hinge","hpull","arms:bi","rear"],
+  legs:["squat","hinge","lunge","squat","core","hinge"],
+  chest:["hpush","hpush","hpush","hpush","core"],
+  back:["vpull","hpull","hpull","vpull","rear","core"],
+  shoulders:["vpush","vpush","arms:side","rear","arms:side","core"],
+  arms:["arms:bi","arms:tri","arms:bi","arms:tri","arms:bi","core"],
+  chest_tri:["hpush","hpush","hpush","arms:tri","arms:tri","core"],
+  back_bi:["vpull","hpull","hpull","arms:bi","arms:bi","core"],
+  legs_sh:["squat","hinge","vpush","lunge","arms:side","core"],
+  sh_arms:["vpush","arms:side","arms:bi","arms:tri","rear","core"],
+  chest_back:["hpush","hpull","hpush","vpull","arms:tri","arms:bi"],
+  glute_core:["hinge","lunge","hinge","core","core"]
+};
 const WD=["日","一","二","三","四","五","六"];
 const GOALS={muscle:{label:"增肌",sets:4,reps:"8–12",rpe:8,rest:90},fatloss:{label:"減脂",sets:3,reps:"12–15",rpe:7,rest:45,finisher:true},
   strength:{label:"變強壯",sets:5,reps:"5",rpe:8,rest:180,main:true},endurance:{label:"練體力",sets:3,reps:"15–20",rpe:7,rest:30,finisher:true}};
@@ -512,6 +593,7 @@ const thisWeek=weekKey(now);
 let cfg=Object.assign({goal:"muscle",level:"beg",equip:"db",days:"3",mins:"45",bw:"70",note:""},store.get("fit.cfg",{}));
 if(!Array.isArray(cfg.wds)||cfg.wds.length<2||cfg.wds.length>6)cfg.wds=[...(SCHEDULE[cfg.days]||[1,3,5])];
 cfg.days=String(cfg.wds.length);
+if(!SPLIT_INFO[cfg.split])cfg.split="auto";if(!cfg.focus)cfg.focus="none";
 const monFirst=a=>[...a].sort((x,y)=>((x+6)%7)-((y+6)%7));
 function sampleHistory(){
   const out=[],titles=["全身 A","全身 B","全身 C"];
@@ -535,6 +617,7 @@ let chat=store.get("fit.chat",[]);
 let NEED_MIGRATE=!plan.timeV2;
 let tab=store.get("fit.tab","today");
 let selWd=now.getDay();
+let weekOff=0;   // 0＝本週，1＝下週，-1＝上週
 const movedTo={};   // 本次開啟時，把某個課表改到今天練（不存檔）
 function save(){store.set("fit.cfg",cfg);store.set("fit.plan2",plan);store.set("fit.history",history);store.set("fit.chat",chat.filter(m=>!m.pending&&m.content).slice(-30));}
 
@@ -562,31 +645,76 @@ function fitDay(d){
     if(!c)break;c.sets++;}
   return d;
 }
+function splitMode(n){const m=cfg.split||"auto";return m!=="auto"?m:n<=3?"full":n===4?"ul":"ppl";}
+function buildSplit(n,mode){
+  const cyc=list=>Array.from({length:n},(_,i)=>list[i%list.length]);
+  if(mode==="full")return cyc([["全身 A","fullA"],["全身 B","fullB"],["全身 C","fullC"]]);
+  if(mode==="ul")return cyc([["上半身 A","upper"],["下半身 A","lower"],["上半身 B","upperB"],["下半身 B","lowerB"]]).map((x,i)=>n===2?[x[0].replace(/ A$/,""),x[1]]:x);
+  if(mode==="ppl")return cyc([["推","push"],["拉","pull"],["腿","legs"],["推 B","push"],["拉 B","pull"],["腿 B","legs"]]);
+  const B={2:[["胸背＋手臂","chest_back"],["腿＋肩","legs_sh"]],3:[["胸＋三頭","chest_tri"],["背＋二頭","back_bi"],["腿＋肩","legs_sh"]],
+    4:[["胸＋三頭","chest_tri"],["背＋二頭","back_bi"],["腿","legs"],["肩＋手臂","sh_arms"]],
+    5:[["胸","chest"],["背","back"],["腿","legs"],["肩","shoulders"],["手臂","arms"]],
+    6:[["胸","chest"],["背","back"],["腿","legs"],["肩","shoulders"],["手臂","arms"],["臀腿＋核心","glute_core"]]};
+  return B[n]||B[5];
+}
+function slotList(slot,eq,depth=0){
+  if(DB[slot])return {p:slot,list:DB[slot][eq]};
+  const s=SLOT[slot];if(!s||depth>3)return {p:"core",list:DB.core[eq]};
+  for(const pp of [].concat(s.p)){const l=DB[pp][eq].filter(n=>s.re.test(n));if(l.length)return {p:pp,list:l};}
+  return slotList(s.alt,eq,depth+1);
+}
+function pickSlot(slot,seed,used){
+  let {p,list}=slotList(slot,cfg.equip);if(slot==="hpull")list=list.filter(n=>!/反向飛鳥/.test(n));
+  for(let k=0;k<list.length;k++){const n=list[(seed+k)%list.length];if(!used.has(n))return {p,name:n};}
+  return null;
+}
+function inFocus(e,f){const F=FOCUS_INFO[f];if(!F||!F.pats)return false;return F.pats.includes(e.pattern)||(F.re&&F.re.test(e.name));}
 function ruleplan(){
-  const g=GOALS[cfg.goal],L=LEVELS[cfg.level],m=+cfg.mins,split=SPLITS[cfg.days],wds=monFirst(cfg.wds);
-  const budget=(m-WARM(m)-COOL(m))*60;
-  const days=split.map(([title,tpl,idx],di)=>{
-    const seen={},pats=TEMPLATES[tpl][idx],exs=[];
+  const g=GOALS[cfg.goal],L=LEVELS[cfg.level],m=+cfg.mins,n=cfg.wds.length,mode=splitMode(n),wds=monFirst(cfg.wds),split=buildSplit(n,mode);
+  const budget=(m-WARM(m)-COOL(m))*60,focus=cfg.focus||"none";
+  const mk=(pk,main,di)=>{let sets=Math.max(2,g.sets+L.d-(main?0:1)),reps=g.reps,rest=g.rest;
+    if(g.main&&!main){reps="8–10";rest=120;sets=Math.max(2,3+L.d);}
+    if(pk.p==="core"){reps="30–45 秒";rest=Math.min(rest,60);}
+    if(/側平舉|反向飛鳥|彎舉|三頭/.test(pk.name)&&!main){reps=g.main?"10–12":g.reps==="5"?"10–12":g.reps;rest=Math.min(rest,75);}
+    return {pattern:pk.p,main,name:pk.name,sets,reps,rpe:Math.min(10,g.rpe+L.rpe),rest,cue:CUES[pk.p],seed:di};};
+  const days=split.map(([title,key],di)=>{
+    const slots=DAYT[key],used=new Set(),exs=[],rep=split.slice(0,di).filter(x=>x[1]===key).length;
     const fin=g.finisher?{pattern:null,finisher:true,name:"循環收尾：開合跳、登山者、波比跳",sets:m<=30?2:3,reps:"各 40 秒",rpe:8,rest:60,cue:"三個動作接著做為一輪，輪間休息"}:null;
-    let used=fin?exSec(fin):0;
-    // 動作數上限：時間越長越多；肌力目標少而精；進階多 1 個；減脂、耐力休息短可多 1 個
+    let usedT=fin?exSec(fin):0;
     const cap=Math.max(3,(g.main?{30:3,45:4,60:5,75:5}[m]:{30:4,45:5,60:6,75:7}[m]||6)+(L.d>0?1:0)+(cfg.goal==="fatloss"||cfg.goal==="endurance"?1:0)-(fin?1:0));
-    for(let i=0;i<10&&exs.length<cap;i++){
-      const p=pats[i%pats.length];seen[p]=(seen[p]||0)+1;
-      const main=i<2,list=DB[p][cfg.equip];
-      let sets=Math.max(2,g.sets+L.d-(main?0:1)),reps=g.reps,rest=g.rest;
-      if(g.main&&!main){reps="8–10";rest=120;sets=Math.max(2,3+L.d);}
-      if(p==="core"){reps="30–45 秒";rest=Math.min(rest,60);}
-      const seed=di+seen[p]-1+(+cfg.days>3?Math.floor(di/3):0);
-      const ex={pattern:p,main,name:list[seed%list.length],sets,reps,rpe:Math.min(10,g.rpe+L.rpe),rest,cue:CUES[p],seed};
-      if(exs.length>=3&&used+exSec(ex)>budget+90)break;
-      if(exs.some(e=>e.name===ex.name))continue;
-      exs.push(ex);used+=exSec(ex);
+    const cnt={};
+    for(let i=0;i<12&&exs.length<cap;i++){
+      const slot=slots[i%slots.length];cnt[slot]=(cnt[slot]||0)+1;
+      const pk=pickSlot(slot,rep*2+cnt[slot]-1,used);if(!pk)continue;
+      const ex=mk(pk,exs.length<2,di);
+      if(exs.length>=3&&usedT+exSec(ex)>budget+90)break;
+      exs.push(ex);used.add(pk.name);usedT+=exSec(ex);
     }
+    // 加強部位：這天練到的該部位動作少於 2 個，就在主要動作後面多排一個
+    if(focus!=="none"&&exs.filter(e=>inFocus(e,focus)).length<2){
+      const fs=FOCUS_INFO[focus].slots,pk=pickSlot(fs[di%fs.length],di,used)||pickSlot(fs[(di+1)%fs.length],di,used);
+      if(pk){const ex=mk(pk,false,di);ex.focus=true;exs.splice(Math.min(2,exs.length),0,ex);used.add(pk.name);}
+    }
+    exs.forEach((e,i)=>{e.main=i<2;});
     if(fin)exs.push(fin);
     return fitDay({title,weekday:wds[di],mins:m,intensity:Math.min(3,Math.max(0,g.rpe+L.rpe-6+(di%2))),exs});
   });
-  return {id:Date.now(),source:"rule",timeV2:true,summary:`依「${g.label}」目標排的每週 ${cfg.days} 天課表，每次約 ${m} 分鐘（含暖身與收操），主要動作放在前段，精神最好的時候做。`,days};
+  const fx=focus!=="none"?`，並加強${FOCUS_INFO[focus].t}`:"";
+  return {id:Date.now(),source:"rule",timeV2:true,split:mode,summary:`「${SPLIT_INFO[mode].t}」分法，依「${g.label}」目標排的每週 ${n} 天課表${fx}，每次約 ${m} 分鐘（含暖身與收操），主要動作放在前段，精神最好的時候做。`,days};
+}
+function renderSplitSeg(){
+  $("#seg-split").innerHTML=Object.entries(SPLIT_INFO).map(([k,s])=>`<button type="button" data-k="split" data-v="${k}" aria-pressed="${(cfg.split||"auto")===k}"><span class="g-t">${s.t}</span><span class="g-d">${s.d}</span></button>`).join("");
+  $("#seg-focus").innerHTML=Object.entries(FOCUS_INFO).map(([k,f])=>`<button type="button" data-k="focus" data-v="${k}" aria-pressed="${(cfg.focus||"none")===k}">${f.t}</button>`).join("");
+  renderSplitPreview();
+}
+function renderSplitPreview(){
+  const n=cfg.wds.length,mode=splitMode(n),sp=buildSplit(n,mode),w=monFirst(cfg.wds);
+  let note="";
+  if(mode==="ppl"&&n<3)note="推拉腿每週至少 3 天才練得到腿，建議多選 1 天，或改成全身。";
+  else if(mode==="bro"&&n<4)note="天數比較少，會把部位兩兩合併在同一天。";
+  else if(mode==="full"&&n>=4)note="全身一週練 4 天以上，每次份量會偏多，記得照顧恢復。";
+  else if(mode==="ul"&&n===3)note="上下半身練 3 天，兩週會輪完一次 A、B。";
+  $("#split-preview").innerHTML=`${cfg.split==="auto"?`自動選了「${SPLIT_INFO[mode].t}」。`:""}你的一週：${sp.map((x,i)=>`週${WD[w[i]]} ${x[0]}`).join("、")}${note?`<br>${note}`:""}`;
 }
 
 
@@ -628,7 +756,7 @@ function aiErr(e){const c=e&&e.code;if(c==="not_granted"||c==="sampling_disabled
 function renderAIState(){}
 function profileText(){
   const g=GOALS[cfg.goal];
-  return `目標：${g.label}；程度：${LEVELS[cfg.level].label}；器材：${EQUIPS[cfg.equip]}；每週 ${cfg.days} 天，每次約 ${cfg.mins} 分鐘；體重 ${cfg.bw}kg。${cfg.note?"備註："+cfg.note:""}`;
+  return `目標：${g.label}；程度：${LEVELS[cfg.level].label}；器材：${EQUIPS[cfg.equip]}；每週 ${cfg.days} 天，每次約 ${cfg.mins} 分鐘；訓練分法：${SPLIT_INFO[splitMode(cfg.wds.length)].t}（${buildSplit(cfg.wds.length,splitMode(cfg.wds.length)).map(x=>x[0]).join("、")}）；加強部位：${FOCUS_INFO[cfg.focus||"none"].t}；體重 ${cfg.bw}kg。${cfg.note?"備註："+cfg.note:""}`;
 }
 function planText(){return plan.days.map(d=>`週${WD[d.weekday]} ${d.title}：`+d.exs.map(e=>`${e.name} ${e.sets}×${e.reps} RPE${e.rpe}`).join("、")).join("\n");}
 function historyText(n=12){const h=[...history].sort((a,b)=>a.date.localeCompare(b.date)).slice(-n);
@@ -652,6 +780,7 @@ ${historyText(10)}
 規則：
 - 使用者選的訓練日是：${monFirst(cfg.wds).map(w=>"週"+WD[w]).join("、")}。請剛好排 ${cfg.days} 個訓練日，weekday 必須用這幾天（數字 0=週日，1=週一 … 6=週六）。
 - 每次訓練總時間約 ${cfg.mins} 分鐘。計算方式：暖身 ${WARM(+cfg.mins)} 分 + 收操 ${COOL(+cfg.mins)} 分 + 每個動作（每組做的時間：每下約 3.5 秒再加 10 秒準備，計時動作照秒數；組間休息照 rest；換動作約 1 分鐘）。請讓總和落在目標 ±3 分鐘內，app 也會自動微調組數。
+- 依照使用者選的訓練分法安排每天的內容和 title（例如「胸＋三頭」「推」「上半身 A」）；有加強部位時，相關天數多排一個該部位的動作。
 - 動作名稱請優先從下面清單選，並填對應的 pattern；清單沒有的動作也可以用，pattern 填最接近的一個。最後若要加體能循環，pattern 填 "finisher"。
 ${lib}
 - 依程度與目標決定組數、次數（字串，如 "8–12" 或 "30 秒"）、RPE（5–10）、休息秒數。
@@ -769,28 +898,33 @@ function renderToday(){
     <div><div class="t" style="color:var(--ring1)">本週訓練</div><div class="n">${done.length}<small>/${plan.days.length} 次</small></div></div>
     <div><div class="t" style="color:var(--ring2)">肌力分數</div><div class="n">${sc.total}<small>/100</small></div></div>
     <div><div class="t" style="color:var(--ring3)">本週組數</div><div class="n">${setsDone}<small>/${ps} 組</small></div></div>`;
-  const monday=new Date(now);monday.setDate(now.getDate()-((now.getDay()+6)%7));
+  const monday=new Date(now);monday.setHours(12,0,0,0);monday.setDate(now.getDate()-((now.getDay()+6)%7)+weekOff*7);const todayIso=iso(now);
   $("#week").innerHTML=[1,2,3,4,5,6,0].map((wd,i)=>{const d=new Date(monday);d.setDate(monday.getDate()+i);
-    const di=plan.days.findIndex(x=>x.weekday===wd),dot=di<0?"":isDone(di)?"ok":"train";
-    return `<button class="wd${wd===now.getDay()?" today":""}" type="button" data-wd="${wd}" aria-pressed="${wd===selWd}" aria-label="週${WD[wd]}${di<0?"休息":plan.days[di].title}"><span class="l">${WD[wd]}</span><span class="d">${d.getDate()}</span><span class="dot ${dot}"></span></button>`}).join("");
-  let di=plan.days.findIndex(x=>x.weekday===selWd);const isMoved=movedTo[selWd]!=null&&selWd===now.getDay();if(isMoved)di=movedTo[selWd];
+    const di=plan.days.findIndex(x=>x.weekday===wd),ds=iso(d),logged=history.some(h=>h.date===ds&&!h.sample),dot=weekOff===0?(di<0?(logged?"ok":""):isDone(di)?"ok":"train"):ds<todayIso?(logged?"ok":di<0?"":"miss"):(di<0?"":"train");
+    return `<button class="wd${weekOff===0&&wd===now.getDay()?" today":""}" type="button" data-wd="${wd}" aria-pressed="${wd===selWd}" aria-label="週${WD[wd]}${di<0?"休息":plan.days[di].title}"><span class="l">${WD[wd]}</span><span class="d">${d.getDate()}</span><span class="dot ${dot}"></span></button>`}).join("");
+  const sun=new Date(monday);sun.setDate(monday.getDate()+6);
+  $("#wk-title").textContent=weekOff===0?"本週":weekOff===1?"下週":weekOff===-1?"上週":weekOff>0?`${weekOff} 週後`:`${-weekOff} 週前`;
+  $("#wk-range").textContent=`${monday.getMonth()+1}/${monday.getDate()} – ${sun.getMonth()+1}/${sun.getDate()}`;
+  $("#wk-today").hidden=weekOff===0;$("#wk-prev").disabled=weekOff<=-12;$("#wk-next").disabled=weekOff>=12;
+  const selDate=new Date(monday);selDate.setDate(monday.getDate()+((selWd+6)%7));const selIso=iso(selDate),isFuture=selIso>todayIso,otherWeek=weekOff!==0;
+  let di=plan.days.findIndex(x=>x.weekday===selWd);const isMoved=!otherWeek&&movedTo[selWd]!=null&&selWd===now.getDay();if(isMoved)di=movedTo[selWd];
   if(di<0){
     const order=[1,2,3,4,5,6,0],start=order.indexOf(selWd);
     const pend=plan.days.map((x,j)=>j).filter(j=>!isDone(j));
     let next=null;for(let k=1;k<=7;k++){const w=order[(start+k)%7];const j=plan.days.findIndex(x=>x.weekday===w);if(j>=0){next=plan.days[j];break;}}
-    $("#workout").innerHTML=`<div class="group rest-card"><div class="eyebrow">週${WD[selWd]}</div><h2>休息日</h2>
+    $("#workout").innerHTML=`<div class="group rest-card"><div class="eyebrow">${selDate.getMonth()+1}/${selDate.getDate()}・週${WD[selWd]}</div><h2>休息日</h2>
       <div class="sub" style="font-size:15px">肌肉在休息時修復變強。可以散步 20–30 分鐘或做輕度伸展，睡飽比多練一天更重要。</div>
       ${next?`<div class="sub" style="font-size:15px;margin-top:8px">下一次訓練：週${WD[next.weekday]}・${esc(next.title)}</div>`:""}</div>
-      ${selWd===now.getDay()&&pend.length?`<div class="section"><div class="gh">今天有空想練？</div><div class="group">${pend.map(j=>`<button type="button" class="cell tap move-pick" data-moveto="${j}"><span class="grow"><span class="k">${esc(plan.days[j].title)}</span><span class="sub">原本排在週${WD[plan.days[j].weekday]}・約 ${estMin(plan.days[j])} 分鐘</span></span><span class="v" style="color:var(--blue);font-weight:600">改今天練</span></button>`).join("")}</div><div class="gf">挑一個這週還沒練的課表，就能改到今天練，完成後一樣算進本週進度。</div></div>`:""}`;
+      ${!otherWeek&&selWd===now.getDay()&&pend.length?`<div class="section"><div class="gh">今天有空想練？</div><div class="group">${pend.map(j=>`<button type="button" class="cell tap move-pick" data-moveto="${j}"><span class="grow"><span class="k">${esc(plan.days[j].title)}</span><span class="sub">原本排在週${WD[plan.days[j].weekday]}・約 ${estMin(plan.days[j])} 分鐘</span></span><span class="v" style="color:var(--blue);font-weight:600">改今天練</span></button>`).join("")}</div><div class="gf">挑一個這週還沒練的課表，就能改到今天練，完成後一樣算進本週進度。</div></div>`:""}`;
     return;
   }
-  const d=plan.days[di],ok=isDone(di),tt=dayTime(d);
+  const d=plan.days[di],tt=dayTime(d),ok=otherWeek?history.some(h=>!h.sample&&weekKey(h.date)===weekKey(selIso)&&h.dayIndex===di&&h.planId===plan.id):isDone(di);
   $("#workout").innerHTML=`
     <div class="section">
       <div class="group hero">
         <div class="wk-head">
           <span class="hero-num" aria-hidden="true">${String(di+1).padStart(2,"0")}</span>
-          <div class="eyebrow">DAY ${di+1}・${isMoved?`改到今天練（原本週${WD[d.weekday]}）`:`週${WD[d.weekday]}${d.weekday===now.getDay()?"・今天":""}`}</div>
+          <div class="eyebrow">DAY ${di+1}・${isMoved?`改到今天練（原本週${WD[d.weekday]}）`:`${selDate.getMonth()+1}/${selDate.getDate()} 週${WD[d.weekday]}${!otherWeek&&d.weekday===now.getDay()?"・今天":""}`}</div>
           ${editMode?`<input class="title-in" data-title="${di}" value="${esc(d.title)}" maxlength="20" aria-label="課表名稱">`:`<h2>${esc(d.title)}</h2>`}
           <div class="chips"><span class="chip">${d.exs.length} 個動作</span><span class="chip">約 ${tt.total} 分鐘</span>${d.custom?'<span class="chip">自訂</span>':""}<span class="chip">強度 ${"●".repeat(d.intensity+1)}${"○".repeat(3-d.intensity)}</span></div>
         </div>
@@ -817,21 +951,31 @@ function renderToday(){
       <div class="gf">時間估算：暖身 ${tt.warm} 分 + 重訓 ${tt.train} 分 + 收操 ${tt.cool} 分 ≈ ${tt.total} 分鐘。重訓時間包含每組實際做的時間、組間休息，以及換動作約 1 分鐘。${eqNote()}</div>
     </div>
     ${editMode?'<button class="btn" type="button" data-editmode="1">完成編輯</button>':""}
-    <button class="btn${ok?" done":""}" type="button" data-complete="${di}">${ok?`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>本週已完成・再記錄一次`:"完成訓練"}</button>
-    ${ok?`<button class="link center" type="button" data-undo="${di}">記錄錯了？刪除本週這筆紀錄</button>`:""}
+    ${otherWeek||isFuture?`<div class="peek-note">${isFuture?"這天還沒到，先看看要練什麼。到了當天再回來按「完成訓練」。":ok?"這週的這份課表已經完成 ✓":"這天沒有訓練紀錄。"}</div>`:""}
+    <button class="btn${ok?" done":""}" type="button" data-complete="${di}" ${otherWeek||isFuture?"hidden":""}>${ok?`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>本週已完成・再記錄一次`:"完成訓練"}</button>
+    ${ok&&!otherWeek?`<button class="link center" type="button" data-undo="${di}">記錄錯了？刪除本週這筆紀錄</button>`:""}
     ${isMoved&&!ok?`<button class="link center" type="button" data-unmove="1">改回休息日</button>`:""}`;
 }
 const eqNote=()=>cfg.equip==="db"?"啞鈴填單手重量。完成時會記錄重量，下次自動建議要不要加重。":"完成時會記錄重量，下次自動建議要不要加重。";
 
+// 花豹教練會具體稱讚的小進步
+function smallWin(){
+  const real=history.filter(h=>!h.sample).sort((a,b)=>a.date.localeCompare(b.date)),last=real[real.length-1];
+  if(last)for(const [n,w] of Object.entries(last.weights||{})){const prev=real.slice(0,-1).map(h=>(h.weights||{})[n]).filter(Boolean);
+    if(prev.length&&w>Math.max(...prev))return `上次的「${n}」做到 ${w} 公斤，比之前多了 ${+(w-Math.max(...prev)).toFixed(1)} 公斤，這就是進步！`;}
+  const wk=weekDone().length;if(wk>0)return `這週已經練了 ${wk} 次，很穩！`;
+  return "";
+}
 // ================= 畫面：菜單 =================
 function renderWdPick(){
   const sel=new Set(cfg.wds);
   $("#wd-pick").innerHTML=[1,2,3,4,5,6,0].map(w=>`<button type="button" data-wdp="${w}" aria-pressed="${sel.has(w)}" aria-label="週${WD[w]}">${WD[w]}</button>`).join("");
   $("#wd-count").textContent=`每週 ${cfg.wds.length} 天`;
-  const o=monFirst(cfg.wds),full=cfg.wds.length<=3;
+  const o=monFirst(cfg.wds),full=splitMode(cfg.wds.length)==="full";
   const back=o.filter((w,i)=>i>0&&((o[i-1]+1)%7)===w).map(w=>`週${WD[(w+6)%7]}、週${WD[w]}`);
-  $("#wd-hint").textContent=full&&back.length?`${back[0]}連著練全身，同一個部位最好隔 48 小時。建議中間空一天，或排成 4 天上下半身分開練。`
-    :`${full?"2–3 天會排全身訓練":cfg.wds.length===4?"4 天會排上半身、下半身輪流":"5–6 天會排推、拉、腿輪流"}。選好後按下方按鈕重新排課表。`;
+  $("#wd-hint").textContent=full&&back.length?`${back[0]}連著練全身，同一個部位最好隔 48 小時。建議中間空一天，或改用「上下半身」「推拉腿」分法。`
+    :"選好後按下方按鈕重新排課表。";
+  if($("#split-preview"))renderSplitPreview();
 }
 function seg(id,opts,key){
   $(id).innerHTML=Object.entries(opts).map(([v,l])=>`<button type="button" data-k="${key}" data-v="${v}" aria-pressed="${String(cfg[key])===v}">${l}</button>`).join("");
@@ -840,7 +984,7 @@ function renderPlan(){
   $("#seg-goal").innerHTML=Object.entries(GOAL_INFO).map(([k,g])=>`<button type="button" data-k="goal" data-v="${k}" aria-pressed="${cfg.goal===k}"><span class="g-ic" aria-hidden="true">${g.ic}</span><span class="g-t">${g.t}</span><span class="g-d">${g.d}</span></button>`).join("");
   seg("#seg-level",Object.fromEntries(Object.entries(LEVELS).map(([k,v])=>[k,v.label])),"level");
   seg("#seg-equip",EQUIPS,"equip");
-  renderWdPick();
+  renderWdPick();renderSplitSeg();
   seg("#seg-mins",{30:"30 分",45:"45 分",60:"60 分",75:"75 分"},"mins");
   $("#bw").value=cfg.bw;
   $("#plan-src").innerHTML="";
@@ -891,6 +1035,16 @@ function setTab(t){tab=t;store.set("fit.tab",t);
 document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>setTab(b.dataset.tab)));
 
 // ================= 事件 =================
+function shiftWeek(n){const w=Math.max(-12,Math.min(12,weekOff+n));if(w===weekOff)return;weekOff=w;editMode=false;renderToday();
+  const el=$("#week");if(!RM){el.classList.remove("slide-l","slide-r");void el.offsetWidth;el.classList.add(n>0?"slide-l":"slide-r");}}
+$("#wk-prev").addEventListener("click",()=>shiftWeek(-1));
+$("#wk-next").addEventListener("click",()=>shiftWeek(1));
+$("#wk-today").addEventListener("click",()=>{weekOff=0;selWd=now.getDay();renderToday();});
+(()=>{let x0=null,y0=0;const box=$("#weekbox");
+  box.addEventListener("touchstart",e=>{x0=e.touches[0].clientX;y0=e.touches[0].clientY;},{passive:true});
+  box.addEventListener("touchend",e=>{if(x0==null)return;const dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;
+    if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3)shiftWeek(dx<0?1:-1);});
+})();
 $("#week").addEventListener("click",e=>{const b=e.target.closest("[data-wd]");if(!b)return;selWd=+b.dataset.wd;renderToday();});
 $("#workout").addEventListener("click",e=>{
   const st=e.target.closest("[data-step]");
@@ -911,12 +1065,13 @@ $("#workout").addEventListener("click",e=>{
   const cp=e.target.closest("[data-complete]");
   if(cp){const di=+cp.dataset.complete,d=plan.days[di],weights={};
     d.exs.forEach((ex,ei)=>{const el=document.getElementById(`w-${di}-${ei}`);const v=el?parseFloat(el.value):0;if(v>0)weights[ex.name]=v;});
+    const prs=Object.entries(weights).filter(([n,w])=>{const b=history.filter(h=>!h.sample).map(h=>(h.weights||{})[n]).filter(Boolean);return b.length&&w>Math.max(...b);});
     history.push({id:newId(),date:iso(now),title:d.title,dayIndex:di,planId:plan.id,count:d.exs.length,sets:d.exs.reduce((a,x)=>a+x.sets,0),weights});
-    save();renderToday();toast("已記錄・遇見更好的自己");}
+    save();renderToday();toast(prs.length?`新紀錄！「${prs[0][0]}」${prs[0][1]} 公斤，進步了 🐆`:"練完了！遇見更好的自己 🐆");}
 });
 document.addEventListener("click",e=>{
   const s=e.target.closest(".seg button");
-  if(s){cfg[s.dataset.k]=s.dataset.v;save();s.parentElement.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b===s));}
+  if(s){cfg[s.dataset.k]=s.dataset.v;save();s.parentElement.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b===s));if(s.dataset.k==="split"){renderWdPick();renderSplitPreview();}}
 });
 document.querySelectorAll("[data-bw]").forEach(b=>b.addEventListener("click",()=>{const v=Math.max(30,Math.min(200,(parseFloat(cfg.bw)||70)+(+b.dataset.bw)));cfg.bw=String(v);$("#bw").value=v;save();}));
 $("#wd-pick").addEventListener("click",e=>{const b=e.target.closest("[data-wdp]");if(!b)return;const w=+b.dataset.wdp,i=cfg.wds.indexOf(w);
@@ -925,8 +1080,8 @@ $("#wd-pick").addEventListener("click",e=>{const b=e.target.closest("[data-wdp]"
   cfg.days=String(cfg.wds.length);save();renderWdPick();});
 $("#bw").addEventListener("change",e=>{const v=parseFloat(e.target.value);if(v>=30&&v<=200){cfg.bw=String(v);save();}else e.target.value=cfg.bw;});
 $("#rule-plan").addEventListener("click",ev=>{const btn=ev.currentTarget;if(!confirmOverwrite(btn))return;btn._restore&&btn._restore();editMode=false;plan=ruleplan();save();renderPlan();toast("課表排好了！去「今天」開練吧");$("#plan-list").scrollIntoView({behavior:"smooth",block:"center"});});
-$("#plan-list").addEventListener("click",e=>{const c=e.target.closest("[data-goday]");if(!c)return;selWd=+c.dataset.goday;setTab("today");});
-$("#plan-list").addEventListener("keydown",e=>{if(e.key==="Enter"){const c=e.target.closest("[data-goday]");if(c){selWd=+c.dataset.goday;setTab("today");}}});
+$("#plan-list").addEventListener("click",e=>{const c=e.target.closest("[data-goday]");if(!c)return;selWd=+c.dataset.goday;weekOff=0;setTab("today");});
+$("#plan-list").addEventListener("keydown",e=>{if(e.key==="Enter"){const c=e.target.closest("[data-goday]");if(c){selWd=+c.dataset.goday;weekOff=0;setTab("today");}}});
 $("#edit-hist").addEventListener("click",()=>{editing=!editing;renderProgress();});
 $("#hist").addEventListener("click",e=>{const b=e.target.closest("[data-del]");if(b)delRecord(b.dataset.del);});
 $("#clear-samples").addEventListener("click",()=>{history=history.filter(h=>!h.sample);save();renderProgress();toast("已清除範例紀錄");});
@@ -1015,7 +1170,7 @@ const FAQ=[
 {c:"減脂",q:"體重卡住不動怎麼辦？",a:"先別灰心，停滯很常見。可以檢查：\n・最近是不是不知不覺吃多了（飲料、零食、醬料）\n・日常活動量有沒有變少，每天走路的步數也算\n・睡眠和壓力\n・體重不動但腰圍變小、衣服變鬆，代表其實有在進步\n連續 2–3 週真的沒變化，再小幅調整飲食或增加活動量。"},
 {c:"減脂",q:"有氧要做多少？",a:"一般健康建議是每週至少 150 分鐘中等強度（快走、騎車，會喘但還能說話），或 75 分鐘高強度，可以拆成每天 20–30 分鐘。\n減脂期可以多做一點，但不要影響重訓的恢復。不喜歡跑步的話，快走、爬樓梯、游泳、跳舞都算。"},
 // ---- 使用 app ----
-{c:"使用 app",q:"app 的菜單是怎麼排的？",a:"依你在「菜單」頁選的目標、程度、器材、每週天數和每次時間來排：\n・2–3 天：全身訓練\n・4 天：上下半身分開\n・5–6 天：推、拉、腿\n主要動作放在前面，精神最好的時候做。時間會用「暖身＋每組時間＋組間休息＋換動作＋收操」計算，讓總時間接近你選的分鐘數。"},
+{c:"使用 app",q:"app 的菜單是怎麼排的？",a:"依你在「菜單」頁選的目標、程度、器材、訓練日、每次時間和「訓練分法」來排：\n・全身：每次練全身，適合每週 2–3 天\n・上下半身：上、下半身輪流，適合 4 天\n・推拉腿：推、拉、腿輪流，適合 3–6 天\n・部位分化：胸、背、腿、肩、手臂分開練，適合 4–5 天\n選「自動推薦」會依天數幫你選；想特別練某個部位，可以設定「加強部位」。\n主要動作放在前面，精神最好的時候做。時間會用「暖身＋每組時間＋組間休息＋換動作＋收操」計算，讓總時間接近你選的分鐘數。"},
 {c:"使用 app",q:"「建議加重」是怎麼判斷的？",a:"完成訓練時填的重量會被記錄下來。同一個重量已經穩定做完 2 次以上，就會建議加重（啞鈴 +1 公斤、槓鈴 +2.5 公斤），不然就建議維持。\n這只是參考：那天狀態不好，維持原重量完全沒問題，動作品質最優先。"},
 {c:"使用 app",q:"肌力分數是怎麼算的？",a:"依你各動作的最佳重量和體重，對照進階訓練者的大約標準，算出腿部、臀腿後側、推、拉四項分數，再平均成總分。100 分約等於練了好幾年的進階訓練者。\n它是讓你跟過去的自己比較的參考。記得在「菜單」頁更新體重，分數會更準。"}
 ].map((f,i)=>({...f,id:i}));
@@ -1024,16 +1179,21 @@ const FAQ=[
 const DAY_TIP={squat:"今天有蹲的動作，暖身時多活動髖關節和腳踝，下蹲時膝蓋跟腳尖朝同一個方向。",hinge:"今天有髖鉸鏈動作，記得是屁股往後推、背保持中立，不是彎腰。",lunge:"今天有單腳動作，前腳踩穩，左右兩邊的次數要一樣。",hpush:"今天有推的動作，肩胛先往後下收好再推，手肘約 45 度。",vpush:"今天有過頭推舉，核心收緊，不要過度後仰。",hpull:"今天有划船動作，先收肩胛再拉，感覺是背在出力。",vpull:"今天有垂直拉的動作，胸口往上找，肩膀不要聳起來。",arms:"今天有手臂動作，控制下放的速度，不要甩。",core:"今天有核心動作，肋骨往下收，不要塌腰。"};
 function todayTip(){
   const di=plan.days.findIndex(x=>x.weekday===now.getDay());
-  if(di<0)return "今天是休息日 🐆 散步 20–30 分鐘、伸展一下，晚上睡飽 7–9 小時，下次訓練會更有力！";
+  if(di<0)return `今天是休息日 🐆 ${smallWin()}散步 20–30 分鐘、伸展一下，晚上睡飽 7–9 小時。我要去找點好吃的了，肌肉是在休息時長出來的！`;
   const d=plan.days[di];
-  if(isDone(di))return `今天的「${d.title}」已經完成，太棒了！練完 1–2 小時內記得吃一餐有蛋白質的正餐，今晚早點睡。`;
+  if(isDone(di))return `今天的「${d.title}」完成了，幹得好！${smallWin()}練完 1–2 小時內記得吃一餐有蛋白質的正餐（說到吃，我已經在想晚餐了）。`;
   const p=(d.exs.find(e=>e.pattern&&DAY_TIP[e.pattern])||{}).pattern;
-  return `今天要練「${d.title}」，大約 ${estMin(d)} 分鐘。${p?DAY_TIP[p]:"先做好暖身再開始。"}`;
+  return `${smallWin()}今天要練「${d.title}」，大約 ${estMin(d)} 分鐘。${p?DAY_TIP[p]:"先做好暖身再開始。"}重量選到還剩兩下就剛剛好。動起來！`;
 }
 
 // ================= 花豹教練：引導式對話 =================
 // 使用者可以點選項一步步問，也可以在下方自己打字；打字時用關鍵字比對 50 題，找最接近的回答。
 let coachOpts=null,lastFaq=null,faqTyping=false;
+// 花豹教練人設：熱血、直接、有點幽默，會稱讚小進步；愛吃、拍不好自拍、追不到自己的尾巴
+// 絕對不做：拿身材比較、罵人、推銷減重藥、給醫療診斷
+const CAT_LINE={"新手入門":"歡迎加入！每個高手都是從第一下開始的。你想問哪一個？","動作技巧":"動作做對，比重量重要。哪個動作卡住了？","疼痛與受傷":"身體的訊號要聽。先說好，我不做診斷，但可以給你一般建議。你遇到哪一種？","飲食營養":"說到吃，我最有興趣了（肚子叫）。你想問哪一個？","恢復與睡眠":"休息也是訓練的一部分。你想知道哪一個？","增肌":"想長肌肉？每次多一點點就對了。你想問哪一個？","減脂":"跟昨天的自己比就好，不用跟別人比。你想問哪一個？","使用 app":"這個 app 的事問我就對了。想知道哪一個？"};
+const SIGN={"新手入門":"記住：重量選到還剩兩下就剛剛好。動起來！","動作技巧":"動作做穩了再加重，你一定可以。","疼痛與受傷":"該休息就休息，我會在這裡等你回來練。","飲食營養":"好了，聊完吃的我也餓了，先去覓食。","恢復與睡眠":"睡飽才有力氣，就像我睡飽了也還是追不到自己的尾巴。","增肌":"每次比上次多一點點，就是進步。動起來！","減脂":"每個人的身體都不一樣，專心看自己的進步就好。","使用 app":"還有問題隨時找我，雖然我自拍拍不好，app 倒是很熟。"};
+const withSign=f=>f.a+"\n\n"+(SIGN[f.c]||"動起來！");
 const menuOpts=()=>[...FAQ_CATS.map(c=>({l:c,a:{t:"cat",c}})),{l:"我想自己打字問",a:{t:"type"}}];
 // ---- 打字提問：關鍵字比對 ----
 const SYN=[["減肥","減脂"],["瘦身","減脂"],["變瘦","減脂"],["瘦下來","減脂"],["乳清","蛋白粉"],["高蛋白","蛋白粉"],["腰痛","下背痛"],["腰酸","下背痛"],["腰痠","下背痛"],["酸","痠"],["睡覺","睡眠"],["失眠","睡眠"],["睡不好","睡眠"],["長肌肉","增肌"],["增重","增肌"],["練大","增肌"],["拉單槓","引體向上"],["單槓","引體向上"],["膝","膝蓋"],["膝蓋蓋","膝蓋"],["肩","肩膀"],["肩膀膀","肩膀"],["喝水","水"],["飲水","水"],["宵夜","晚上吃"],["咖啡因","咖啡"],["碳水","澱粉"],["米飯","澱粉"],["跑步","有氧"],["慢跑","有氧"],["幾公斤","重量"],["拉筋","伸展"],["疼痛","痛"]];
@@ -1050,9 +1210,9 @@ function matchFaq(text){
 }
 // ---- 畫面 ----
 function renderCoach(){
-  let html=`<div class="msg-meta"><img class="avatar" src="${COACH_FULL}" alt="教練"><b class="coach-name">教練</b>花豹教練・內容僅供一般參考，不能取代醫師診斷</div>`;
+  let html=`<div class="msg-meta"><img class="avatar" src="${COACH_FULL}" alt="教練"><b class="coach-name">教練</b><span class="persona-tags"><i>熱血</i><i>直接</i><i>有點幽默</i><i>愛吃</i></span>口頭禪：「還剩兩下就剛剛好。」「動起來！」<br>內容僅供一般參考，不能取代醫師診斷</div>`;
   html+=inRow("",esc(todayTip()));
-  if(!chat.length)html+=inRow("",esc("嗨！我是醬動的花豹教練 🐆 想聊哪個主題？點下面的選項，或直接在最下面輸入你的問題。"));
+  if(!chat.length)html+=inRow("",esc("嗨！我是醬動的花豹教練 🐆 跑得飛快，就是追不到自己的尾巴。想聊哪個主題？點下面的選項，或直接在最下面打字問我。"));
   html+=chat.map(m=>m.pending?inRow(" think pending",`<span class="dots" aria-label="輸入中"><i></i><i></i><i></i></span>`):m.role==="user"?`<div class="msg out">${esc(m.content)}</div>`:inRow("",esc(m.content))).join("");
   $("#msgs").innerHTML=html;
   const opts=faqTyping?[]:(coachOpts||(chat.length?[{l:"換個主題",a:{t:"menu",k:1}},{l:"我想自己打字問",a:{t:"type"}}]:menuOpts()));
@@ -1082,10 +1242,10 @@ function answerOpts(id){
 }
 function doOpt(a,label){
   if(a.t==="type"){coachOpts=null;renderCoach();const i=$("#chat-input");i.focus();i.placeholder="輸入問題，例如：膝蓋痛";return;}
-  if(a.t==="menu"){coachSay(null,"好呀，還想了解哪個主題呢？",menuOpts());return;}
+  if(a.t==="menu"){coachSay(null,"好！還想聊哪個主題？",menuOpts());return;}
   if(a.t==="cat"){const qs=FAQ.filter(f=>f.c===a.c);
-    coachSay(a.c,`「${a.c}」這邊，你比較想問哪一個？`,[...qs.map(f=>({l:f.q,a:{t:"faq",id:f.id}})),{l:"換個主題",a:{t:"menu",k:1}}]);return;}
-  if(a.t==="faq"){lastFaq=a.id;coachSay(FAQ[a.id].q,FAQ[a.id].a,answerOpts(a.id));}
+    coachSay(a.c,CAT_LINE[a.c]||`「${a.c}」！你想問哪一個？`,[...qs.map(f=>({l:f.q,a:{t:"faq",id:f.id}})),{l:"換個主題",a:{t:"menu",k:1}}]);return;}
+  if(a.t==="faq"){lastFaq=a.id;coachSay(FAQ[a.id].q,withSign(FAQ[a.id]),answerOpts(a.id));}
 }
 function askText(text){
   text=String(text||"").trim();if(!text||faqTyping)return;
@@ -1093,152 +1253,426 @@ function askText(text){
   const m=matchFaq(text);
   if(m.length){const best=m[0].f;lastFaq=best.id;
     const more=m.slice(1,3).filter(x=>x.f.c===best.c||x.sc>=6).map(x=>({l:x.f.q,a:{t:"faq",id:x.f.id}}));
-    coachSay(text,best.a,[...more,...answerOpts(best.id).filter(o=>o.a.t!=="faq")].slice(0,4));
+    coachSay(text,withSign(best),[...more,...answerOpts(best.id).filter(o=>o.a.t!=="faq")].slice(0,4));
   }else{
-    coachSay(text,"這題我還在學 🐆 試著換個說法，或用更簡單的關鍵字，例如「膝蓋痛」「蛋白質」「睡眠」。也可以從下面的主題找找看。\n如果是身體疼痛或不舒服，建議直接請教醫師或物理治療師。",menuOpts());
+    coachSay(text,"這題考倒我了 🐆 換個說法，或用簡單的關鍵字再問一次，例如「膝蓋痛」「蛋白質」「睡眠」，也可以從下面的主題找找看。\n身體疼痛或不舒服的話，請直接找醫師或物理治療師，診斷是他們的專業，我負責陪你練。",menuOpts());
   }
 }
 sendChat=askText;   // 下方輸入框送出時改用關鍵字比對（網站版沒有 AI）
 $("#sugs").addEventListener("click",e=>{const b=e.target.closest("[data-opt]");if(!b)return;const o=($("#sugs")._opts||[])[+b.dataset.opt];if(o)doOpt(o.a,o.l);});
 $("#clear-chat").addEventListener("click",()=>{coachOpts=null;lastFaq=null;faqTyping=false;renderCoach();});
 
-// ================= 動作教學：圖示與說明 =================
-// 側面火柴人示意。座標 200×200，地面 y=184。每個圖示有「起始」A 與「動作」B 兩個姿勢，畫面在兩者之間來回。
-function P(o){return o;}
-const STAND={head:[100,34],sh:[100,58],hip:[100,108],kn:[101,145],an:[100,182],toe:[113,183]};
-const FIGS={
-  squat:{name:"深蹲",hl:"thigh",prop:"hand",
-    A:{...STAND,el:[112,84],ha:[107,68]},
-    B:{head:[114,78],sh:[106,101],hip:[81,144],kn:[118,151],an:[100,182],toe:[113,183],el:[119,124],ha:[116,106]}},
-  hinge:{name:"羅馬尼亞硬舉",hl:"thigh",prop:"hand",
-    A:{...STAND,el:[101,84],ha:[102,110]},
-    B:{head:[152,90],sh:[131,97],hip:[85,116],kn:[106,146],an:[100,182],toe:[113,183],el:[131,122],ha:[131,146]}},
-  lunge:{name:"弓箭步",hl:"thigh",prop:"hand",
-    A:{...STAND,el:[101,84],ha:[102,110],kn2:[99,145],an2:[99,182],toe2:[111,183]},
-    B:{head:[100,68],sh:[100,92],hip:[100,142],kn:[137,142],an:[137,182],toe:[150,183],el:[101,118],ha:[102,142],kn2:[90,176],an2:[60,176],toe2:[54,183]}},
-  pushup:{name:"伏地挺身（臥推的推法相同）",hl:"uarm",ground:true,
-    A:{head:[165,124],sh:[146,132],el:[146,157],ha:[146,182],hip:[95,153],kn:[67,165],an:[40,176],toe:[34,183]},
-    B:{head:[166,164],sh:[146,166],el:[124,176],ha:[146,182],hip:[95,171],kn:[67,174],an:[40,176],toe:[34,183]}},
-  press:{name:"肩推",hl:"uarm",prop:"hand",
-    A:{...STAND,el:[116,80],ha:[112,56]},
-    B:{...STAND,el:[106,36],ha:[104,12]}},
-  row:{name:"俯身划船",hl:"torso",prop:"hand",
-    A:{head:[150,93],sh:[130,100],hip:[84,118],kn:[106,148],an:[100,182],toe:[113,183],el:[131,126],ha:[131,150]},
-    B:{head:[150,93],sh:[130,100],hip:[84,118],kn:[106,148],an:[100,182],toe:[113,183],el:[108,106],ha:[112,130]}},
-  pullup:{name:"引體向上",hl:"torso",bar:true,noground:true,
-    A:{head:[108,54],sh:[100,70],el:[100,46],ha:[100,22],hip:[100,122],kn:[104,156],an:[94,186],toe:[100,192]},
-    B:{head:[112,16],sh:[100,46],el:[84,34],ha:[100,22],hip:[100,96],kn:[104,130],an:[94,160],toe:[100,166]}},
-  curl:{name:"彎舉",hl:"farm",prop:"hand",
-    A:{...STAND,el:[104,86],ha:[106,112]},
-    B:{...STAND,el:[104,86],ha:[114,62]}},
-  plank:{name:"棒式",hl:"torso",
-    A:{head:[166,151],sh:[146,158],el:[146,182],ha:[170,182],hip:[92,167],kn:[65,172],an:[38,176],toe:[32,183]},
-    B:{head:[166,151],sh:[146,158],el:[146,182],ha:[170,182],hip:[92,165],kn:[65,171],an:[38,176],toe:[32,183]}},
-  deadbug:{name:"死蟲式",hl:"torso",
-    A:{head:[166,166],sh:[146,170],el:[146,147],ha:[146,124],hip:[96,170],kn:[96,133],an:[62,133],toe:[58,126]},
-    B:{head:[166,166],sh:[146,170],el:[168,160],ha:[190,152],hip:[96,170],kn:[62,160],an:[28,163],toe:[22,156]}},
-  farmer:{name:"農夫走路",hl:"torso",prop:"hand",
-    A:{...STAND,el:[101,84],ha:[102,110],kn:[108,145],an:[112,182],toe:[125,183],kn2:[95,145],an2:[88,182],toe2:[100,183]},
-    B:{...STAND,el:[101,84],ha:[102,110],kn:[95,145],an:[88,182],toe:[100,183],kn2:[108,145],an2:[112,182],toe2:[125,183]}},
-  climber:{name:"登山者",hl:"torso",
-    A:{head:[165,124],sh:[146,132],el:[146,157],ha:[146,182],hip:[95,153],kn:[67,165],an:[40,176],toe:[34,183],kn2:[67,165],an2:[40,176],toe2:[34,183]},
-    B:{head:[165,124],sh:[146,132],el:[146,157],ha:[146,182],hip:[95,151],kn:[124,160],an:[104,174],toe:[108,180],kn2:[67,164],an2:[40,176],toe2:[34,183]}},
-  jack:{name:"開合跳",hl:"none",front:true,
-    A:{head:[100,30],sh:[100,54],hip:[100,106],arms:[[[100,58],[88,82],[84,106]],[[100,58],[112,82],[116,106]]],legs:[[[100,106],[96,144],[94,182]],[[100,106],[104,144],[106,182]]]},
-    B:{head:[100,30],sh:[100,54],hip:[100,106],arms:[[[100,58],[78,40],[68,16]],[[100,58],[122,40],[132,16]]],legs:[[[100,106],[82,144],[68,182]],[[100,106],[118,144],[132,182]]]}}
+// ================= 動作教學：每個動作各自的示意動畫與說明 =================
+// 座標 200×200，地面 y=186。A＝起始姿勢、B＝動作位置，畫面在兩者之間來回。
+// 側面圖：head 頭、sh 肩、el 肘、ha 手、hip 髖、kn 膝、an 踝、toe 腳尖；el2/ha2、kn2/an2/toe2 是遠側的手腳（淡色）。
+// 正面或俯視圖（front:true）：arms、legs 是折線陣列。
+const add=(p,dx,dy)=>[p[0]+dx,p[1]+dy];
+const ST={head:[100,34],sh:[100,58],hip:[100,108],kn:[101,145],an:[100,182],toe:[113,183]};
+const SQB={head:[114,78],sh:[106,101],hip:[81,144],kn:[118,151],an:[100,182],toe:[113,183]};
+const SQB_UP={head:[106,76],sh:[98,100],hip:[80,146],kn:[118,151],an:[100,182],toe:[113,183]};
+const HGB={head:[152,90],sh:[131,97],hip:[85,116],kn:[106,146],an:[100,182],toe:[113,183]};
+const ROW={head:[150,93],sh:[130,100],hip:[84,118],kn:[106,148],an:[100,182],toe:[113,183]};
+// 手臂擺法
+const A_BACK=p=>({...p,el:add(p.sh,-12,14),ha:add(p.sh,-4,-4)});          // 槓鈴背在肩上
+const A_FRONT=p=>({...p,el:add(p.sh,20,2),ha:add(p.sh,10,-6)});           // 前蹲：槓鈴架在肩前
+const A_GOB=p=>({...p,el:add(p.sh,12,24),ha:add(p.sh,9,8)});              // 啞鈴抱在胸前
+const A_FWD=p=>({...p,el:add(p.sh,24,2),ha:add(p.sh,48,4)});              // 手往前伸
+const A_HANG=p=>({...p,el:add(p.sh,1,26),ha:add(p.sh,2,52)});             // 手自然垂下
+const A_HIPS=p=>({...p,el:add(p.sh,-12,24),ha:add(p.hip,4,-8)});          // 手叉腰
+const A_HEAD=p=>({...p,el:add(p.sh,-6,-16),ha:add(p.head,-10,4)});        // 手放頭後
+const LYING={head:[146,142],sh:[126,146],hip:[70,146],kn:[36,146],an:[30,184],toe:[42,185]};  // 躺在長椅上
+const LYING_FLOOR={head:[166,172],sh:[146,176],hip:[96,178],kn:[66,146],an:[56,184],toe:[44,185]};
+const PUSH_A={head:[165,124],sh:[146,132],el:[146,157],ha:[146,182],hip:[95,153],kn:[67,165],an:[40,176],toe:[34,184]};
+const PUSH_B={head:[166,164],sh:[146,166],el:[124,176],ha:[146,182],hip:[95,171],kn:[67,174],an:[40,176],toe:[34,184]};
+const HANG_A={head:[108,54],sh:[100,70],el:[100,46],ha:[100,22],hip:[100,122],kn:[104,156],an:[94,186],toe:[100,192]};
+const HANG_B={head:[112,16],sh:[100,46],el:[84,34],ha:[100,22],hip:[100,96],kn:[104,130],an:[94,160],toe:[100,166]};
+const BENCH={t:"rect",x:24,y:150,w:130,h:10},BENCH_LEGS=[{t:"line",a:[40,160],b:[40,186],w:5},{t:"line",a:[138,160],b:[138,186],w:5}];
+const PLATE=(at,r=15,dx=0,dy=0)=>({t:"plate",at,r,dx,dy});
+const DBP=(at,dx=0,dy=0,v=false)=>({t:"db",at,dx,dy,v});
+const PULL_BAR={t:"line",a:[56,20],b:[144,20],w:5};
+
+const EXF={
+// ---------- 蹲 ----------
+"槓鈴背蹲舉":{A:A_BACK(ST),B:A_BACK(SQB),hl:"thigh",props:[PLATE("sh",15,-4,-6)],cap:"槓鈴背在上背，蹲下站起",
+  m:"大腿前側、臀部、核心",s:["槓鈴放在上背（斜方肌上），雙手握緊槓","雙腳與肩同寬，吸氣收緊肚子","屁股往後往下坐，膝蓋跟腳尖同方向，蹲到大腿約平行地面","腳掌踩穩，吐氣站起來"],x:["槓鈴放在脖子上","蹲下時膝蓋內夾","起身時屁股先抬、胸口往前倒"]},
+"腿推機":{A:{head:[30,86],sh:[42,104],hip:[72,142],kn:[102,114],an:[130,98],toe:[134,86],el:[56,126],ha:[70,140]},
+  B:{head:[30,86],sh:[42,104],hip:[72,142],kn:[80,104],an:[106,118],toe:[110,106],el:[56,126],ha:[70,140]},hl:"thigh",noground:1,
+  props:[{t:"line",a:[18,72],b:[62,148],w:9},{t:"line",a:[62,150],b:[104,150],w:9},{t:"platform",at:"an",ang:-35,len:26}],cap:"坐在腿推機上，腳把踏板推出去",
+  m:"大腿前側、臀部",s:["背和臀部貼緊椅背，雙腳與肩同寬踩在踏板中間","解開安全卡榫，手握兩側把手","慢慢彎曲膝蓋，讓踏板下降到膝蓋約 90 度","腳跟出力把踏板推回，膝蓋不要完全鎖死"],x:["下放太深，屁股離開椅墊","推到底膝蓋鎖死","膝蓋往內夾"]},
+"槓鈴前蹲舉":{A:A_FRONT(ST),B:A_FRONT(SQB_UP),hl:"thigh",props:[PLATE("sh",15,10,-6)],cap:"槓鈴架在肩膀前側，上半身保持直立",
+  m:"大腿前側、核心、上背",s:["槓鈴放在肩膀前側，手肘往前抬高","雙腳與肩同寬，胸口挺起","直直往下蹲，上半身盡量保持直立","腳掌踩穩站起來，手肘一直維持抬高"],x:["手肘掉下來，槓鈴往前滑","上半身往前倒","腳跟離地"]},
+"哈克深蹲機":{A:{head:[78,44],sh:[86,66],hip:[100,112],kn:[110,148],an:[118,182],toe:[130,183],el:[92,58],ha:[94,52]},
+  B:{head:[58,90],sh:[66,112],hip:[78,150],kn:[118,146],an:[118,182],toe:[130,183],el:[72,104],ha:[74,98]},hl:"thigh",
+  props:[{t:"pad",a:"sh",b:"hip",off:10}],cap:"背靠斜板，沿著軌道往下蹲",
+  m:"大腿前側、臀部",s:["背和肩膀緊貼背墊，肩膀頂住肩墊","雙腳與肩同寬，踩在踏板中間偏前","慢慢往下蹲到大腿約平行踏板","腳掌出力推回起始，膝蓋不要鎖死"],x:["下背離開背墊","腳站太後面，膝蓋壓力變大","蹲太淺"]},
+"史密斯深蹲":{A:A_BACK({...ST,an:[110,182],toe:[123,183],kn:[106,145]}),B:A_BACK({head:[108,78],sh:[100,100],hip:[76,142],kn:[124,150],an:[110,182],toe:[123,183]}),hl:"thigh",
+  props:[{t:"line",a:[96,14],b:[96,186],w:3,c:"rail"},PLATE("sh",15,-4,-6)],cap:"槓鈴沿固定軌道上下移動",
+  m:"大腿前側、臀部",s:["槓鈴放在上背，雙腳站在槓鈴稍微前面","轉動槓鈴解開掛勾","屁股往後往下坐，蹲到大腿約平行地面","站起來，結束時把槓鈴轉回掛勾"],x:["腳站在槓鈴正下方，膝蓋壓力大","忘記先確認安全卡榫高度","蹲下時彎腰"]},
+"啞鈴高腳杯深蹲":{A:A_GOB(ST),B:A_GOB(SQB_UP),hl:"thigh",props:[DBP("ha",0,0,true)],cap:"雙手抱啞鈴在胸前深蹲",
+  m:"大腿前側、臀部、核心",s:["雙手捧住啞鈴一端，貼在胸前","雙腳比肩稍寬，腳尖微微朝外","屁股往後往下坐，手肘往膝蓋內側走","蹲到大腿約平行地面，腳掌踩穩站起來"],x:["啞鈴離身體太遠","膝蓋內夾","蹲下時駝背"]},
+"啞鈴相撲深蹲":{front:1,cap:"正面看：雙腳站很寬，啞鈴垂在兩腿中間",
+  A:{head:[100,32],sh:[100,56],hip:[100,106],arms:[[[100,60],[96,84],[100,110]],[[100,60],[104,84],[100,110]]],legs:[[[92,106],[78,144],[66,182]],[[108,106],[122,144],[134,182]]]},
+  B:{head:[100,62],sh:[100,86],hip:[100,138],arms:[[[100,90],[96,114],[100,140]],[[100,90],[104,114],[100,140]]],legs:[[[92,138],[62,150],[66,182]],[[108,138],[138,150],[134,182]]]},
+  props:[DBP("hand0",0,6,true)],m:"大腿內側、臀部、大腿前側",s:["雙腳站得比肩膀寬很多，腳尖朝外約 45 度","雙手握住一顆啞鈴，垂在兩腿中間","膝蓋往腳尖方向打開，身體直直往下蹲","臀部出力站起來，上半身保持直立"],x:["膝蓋往內倒","上半身往前趴","腳尖沒有朝外，膝蓋卡卡的"]},
+"啞鈴前蹲舉":{A:A_FRONT(ST),B:A_FRONT(SQB_UP),hl:"thigh",props:[DBP("sh",10,-6)],cap:"啞鈴扛在肩膀前側深蹲",
+  m:"大腿前側、核心",s:["兩顆啞鈴扛在肩膀前側，手肘朝前","雙腳與肩同寬，胸口挺起","身體直直往下蹲到大腿約平行地面","腳掌踩穩站起來"],x:["手肘往下掉，啞鈴滑落","上半身往前倒","腳跟離地"]},
+"徒手深蹲":{A:A_FWD(ST),B:A_FWD(SQB),hl:"thigh",cap:"手往前伸幫助平衡",
+  m:"大腿前側、臀部",s:["雙腳與肩同寬，腳尖微微朝外","手往前伸，吸氣收緊肚子","屁股往後往下坐，蹲到大腿約平行地面","腳掌踩穩，吐氣站起來"],x:["膝蓋內夾","腳跟離地","蹲下時駝背"]},
+"跳躍深蹲":{A:{...SQB,el:add(SQB.sh,-14,22),ha:add(SQB.sh,-24,40)},B:{head:[102,18],sh:[100,42],hip:[100,92],kn:[102,128],an:[98,164],toe:[106,172],el:[110,24],ha:[116,4]},hl:"thigh",cap:"蹲下後用力往上跳",
+  m:"大腿、臀部、心肺",s:["先蹲到大腿約平行地面，手往後擺","腿和臀部用力，往上跳起來，手往上揮","用前腳掌輕輕落地","落地順勢蹲下，接下一下"],x:["落地時膝蓋僵直","落地太重","膝蓋內夾"]},
+"深蹲停留":{A:A_FWD(SQB),B:A_FWD({...SQB,hip:[83,138],sh:[107,95],head:[115,72],kn:[118,149]}),hl:"thigh",cap:"停在蹲低的位置，小幅度上下",
+  m:"大腿前側、臀部",s:["蹲到大腿約平行地面","手往前伸保持平衡","停在低點，可以小幅度上下 3–5 公分","維持指定的秒數後再站起來"],x:["停留時腳跟離地","背慢慢彎下去","憋氣"]},
+// ---------- 髖鉸鏈 ----------
+"傳統硬舉":{A:{head:[132,100],sh:[114,114],el:[110,138],ha:[106,164],hip:[70,124],kn:[104,146],an:[100,182],toe:[113,183]},B:{...ST,el:[101,84],ha:[102,110]},hl:"thigh",
+  props:[PLATE("ha",18,0,2)],cap:"把槓鈴從地上拉起來站直",
+  m:"臀部、大腿後側、下背、握力",s:["槓鈴在腳掌中間上方，雙腳與髖同寬","屁股往後坐、彎膝，雙手握槓，背打直","吸氣收緊肚子，腳往下推地，槓鈴貼著腿往上拉","站直時臀部夾緊，放下時一樣先把屁股往後推"],x:["彎腰駝背","槓鈴離身體太遠","站直後還往後仰"]},
+"槓鈴臀推":{A:{head:[44,114],sh:[60,122],hip:[96,162],kn:[128,146],an:[138,184],toe:[150,185],el:[78,140],ha:[96,148]},
+  B:{head:[44,114],sh:[60,122],hip:[100,122],kn:[136,142],an:[138,184],toe:[150,185],el:[80,112],ha:[100,108]},hl:"thigh",
+  props:[{t:"rect",x:16,y:126,w:46,h:14},{t:"line",a:[24,140],b:[24,186],w:5},PLATE("hip",16,0,-14)],cap:"上背靠長椅，臀部把槓鈴往上推",
+  m:"臀部、大腿後側",s:["上背靠在長椅邊緣，槓鈴放在髖部（可加護墊）","雙腳踩地，膝蓋彎曲","臀部用力往上推，到身體從肩到膝成一直線","頂端夾緊臀部停一下，慢慢放下"],x:["往上推時腰往後折","腳離屁股太遠或太近","頂端沒有夾緊臀部"]},
+"槓鈴羅馬尼亞硬舉":{A:A_HANG(ST),B:{...HGB,el:add(HGB.sh,0,25),ha:add(HGB.sh,0,50)},hl:"thigh",props:[PLATE("ha",15)],cap:"槓鈴沿著腿往下，屁股往後推",
+  m:"大腿後側、臀部、下背",s:["站直握槓，雙腳與髖同寬","膝蓋微彎，屁股往後推，槓鈴貼著腿往下","下到大腿後側有拉緊感（約膝蓋下方）就停","臀部往前夾，站直回到起始"],x:["彎腰駝背","膝蓋彎太多，變成深蹲","槓鈴離開大腿"]},
+"器械腿後勾":{A:{head:[76,58],sh:[76,82],hip:[82,132],kn:[120,132],an:[156,134],toe:[162,124],el:[86,104],ha:[96,124]},B:{head:[76,58],sh:[76,82],hip:[82,132],kn:[120,132],an:[110,168],toe:[120,174],el:[86,104],ha:[96,124]},hl:"shin",noground:1,
+  props:[{t:"rect",x:58,y:138,w:66,h:10},{t:"line",a:[64,48],b:[64,138],w:8},{t:"circle",at:"an",r:7,dy:-8}],cap:"坐姿腿後勾：小腿把滾墊往下勾",
+  m:"大腿後側",s:["坐好，膝蓋對齊機器的轉軸，滾墊放在腳踝上方","大腿壓墊固定好，雙手握把手","小腿往下、往後勾到底","停一下，慢慢放回，不要讓重量片撞到"],x:["臀部離開椅墊借力","放回太快","膝蓋沒有對齊轉軸"]},
+"45 度背伸展":{A:{head:[122,186],sh:[124,164],el:[132,150],ha:[136,162],hip:[100,130],kn:[80,150],an:[60,170],toe:[56,180]},B:{head:[150,82],sh:[136,94],el:[130,108],ha:[142,100],hip:[100,130],kn:[80,150],an:[60,170],toe:[56,180]},hl:"thigh",noground:1,
+  props:[{t:"line",a:[86,142],b:[110,118],w:10,c:"pad"},{t:"line",a:[50,178],b:[70,158],w:8,c:"pad"}],cap:"在 45 度背伸展椅上，以髖為支點上下",
+  m:"下背、臀部、大腿後側",s:["髖骨放在墊子上緣，腳跟勾住腳墊","雙手交叉放胸前，身體成一直線","屁股往後，上半身慢慢往下","臀部出力把身體抬回一直線就停"],x:["抬過頭，腰往後折","用甩的","墊子放在肚子上，髖關節動不了"]},
+"啞鈴羅馬尼亞硬舉":{A:A_HANG(ST),B:{...HGB,el:add(HGB.sh,0,25),ha:add(HGB.sh,0,50)},hl:"thigh",props:[DBP("ha")],cap:"啞鈴沿著腿往下，屁股往後推",
+  m:"大腿後側、臀部、下背",s:["雙手各拿一顆啞鈴，放在大腿前","膝蓋微彎，屁股往後推，啞鈴貼著腿往下","下到大腿後側有拉緊感就停","臀部往前夾，站直回到起始"],x:["彎腰駝背","膝蓋彎太多","啞鈴離身體太遠"]},
+"啞鈴臀推":{A:{head:[44,114],sh:[60,122],hip:[96,162],kn:[128,146],an:[138,184],toe:[150,185],el:[78,140],ha:[96,150]},
+  B:{head:[44,114],sh:[60,122],hip:[100,122],kn:[136,142],an:[138,184],toe:[150,185],el:[80,112],ha:[100,110]},hl:"thigh",
+  props:[{t:"rect",x:16,y:126,w:46,h:14},{t:"line",a:[24,140],b:[24,186],w:5},DBP("hip",0,-10)],cap:"上背靠長椅，啞鈴放在髖部往上推",
+  m:"臀部、大腿後側",s:["上背靠在長椅邊緣，一顆啞鈴橫放在髖部，雙手扶住","雙腳踩地，膝蓋彎曲","臀部用力往上推，到肩到膝成一直線","頂端夾緊臀部停一下，慢慢放下"],x:["腰往後折","啞鈴沒扶穩滑動","頂端沒有夾緊臀部"]},
+"單腳啞鈴羅馬尼亞硬舉":{A:{...A_HANG(ST),kn2:[99,145],an2:[99,182],toe2:[111,183]},
+  B:{head:[160,100],sh:[140,104],el:[140,124],ha:[140,146],hip:[96,112],kn:[102,148],an:[100,182],toe:[113,183],kn2:[60,108],an2:[26,104],toe2:[22,96]},hl:"thigh",props:[DBP("ha")],cap:"單腳站立，後腳往後抬、上半身往前",
+  m:"大腿後側、臀部、平衡",s:["單腳站穩，另一手拿啞鈴","支撐腳膝蓋微彎，上半身往前、後腳往後抬","身體和後腳成一直線，大腿後側有拉緊感就停","臀部出力回到站直"],x:["骨盆往旁邊翻開","彎腰駝背","支撐腳膝蓋鎖死"]},
+"臀橋":{A:{...LYING_FLOOR,hip:[96,180],el:[118,182],ha:[96,184]},B:{...LYING_FLOOR,hip:[96,150],kn:[62,144],el:[118,182],ha:[96,184]},hl:"thigh",cap:"躺在地上，臀部往上抬",
+  m:"臀部、大腿後側",s:["躺平，膝蓋彎曲，雙腳踩地與髖同寬","手放身體兩側，肚子收緊","腳跟出力，把臀部往上抬到肩到膝成一直線","頂端夾緊臀部停一下，慢慢放下"],x:["腰往上頂，不是臀部出力","腳離屁股太遠","放下太快"]},
+"單腳臀橋":{A:{...LYING_FLOOR,hip:[96,180],el:[118,182],ha:[96,184],kn2:[64,162],an2:[30,150],toe2:[24,142]},B:{...LYING_FLOOR,hip:[96,150],kn:[62,144],el:[118,182],ha:[96,184],kn2:[64,133],an2:[32,117],toe2:[26,110]},hl:"thigh",cap:"一腳踩地，另一腳伸直，臀部往上抬",
+  m:"臀部、大腿後側、核心",s:["躺平，一腳彎曲踩地，另一腳伸直抬起","支撐腳的腳跟出力，把臀部往上抬","抬到身體成一直線，骨盆保持水平","慢慢放下，做完再換邊"],x:["骨盆往一邊歪","用腰出力","伸直的腳放下來借力"]},
+"徒手早安式":{A:A_HEAD(ST),B:A_HEAD(HGB),hl:"thigh",cap:"雙手放頭後，屁股往後推、上半身往前",
+  m:"大腿後側、臀部、下背",s:["雙腳與髖同寬，雙手放在頭後","膝蓋微彎，屁股往後推，上半身往前傾","背保持打直，到大腿後側有拉緊感就停","臀部出力回到站直"],x:["彎腰駝背","膝蓋彎太多","低頭看地板"]},
+// ---------- 單腳 ----------
+"槓鈴保加利亞分腿蹲":{A:A_BACK({head:[100,36],sh:[100,60],hip:[100,110],kn:[118,146],an:[120,182],toe:[133,183],kn2:[82,146],an2:[56,136],toe2:[48,132]}),
+  B:A_BACK({head:[98,66],sh:[98,90],hip:[96,140],kn:[130,148],an:[120,182],toe:[133,183],kn2:[78,172],an2:[56,136],toe2:[48,132]}),hl:"thigh",
+  props:[{t:"rect",x:20,y:140,w:46,h:12},{t:"line",a:[28,152],b:[28,186],w:5},PLATE("sh",15,-4,-6)],cap:"後腳放在長椅上，前腳蹲下",
+  m:"大腿前側、臀部、平衡",s:["槓鈴背在上背，後腳腳背放在身後的長椅上","前腳往前站一大步","身體直直往下，前腳膝蓋跟腳尖同方向","前腳出力站起來，做完換邊"],x:["前腳離長椅太近","前膝往內倒","上半身晃動"]},
+"史密斯分腿蹲":{A:A_BACK({head:[100,36],sh:[100,60],hip:[100,110],kn:[124,146],an:[130,182],toe:[143,183],kn2:[84,146],an2:[68,176],toe2:[60,184]}),
+  B:A_BACK({head:[100,68],sh:[100,92],hip:[100,142],kn:[136,148],an:[130,182],toe:[143,183],kn2:[86,174],an2:[68,176],toe2:[60,184]}),hl:"thigh",
+  props:[{t:"line",a:[96,14],b:[96,186],w:3,c:"rail"},PLATE("sh",15,-4,-6)],cap:"前後腳站開，沿著軌道直直往下",
+  m:"大腿前側、臀部",s:["槓鈴放在上背，前後腳站開一大步","後腳腳跟抬起","身體直直往下，到後腳膝蓋接近地面","前腳出力站起來，做完換邊"],x:["步伐太小","前膝往內倒","身體往前趴"]},
+"槓鈴弓箭步":{A:A_BACK({...ST,kn2:[99,145],an2:[99,182],toe2:[111,183]}),B:A_BACK({head:[100,68],sh:[100,92],hip:[100,142],kn:[137,142],an:[137,182],toe:[150,183],kn2:[90,176],an2:[60,176],toe2:[54,184]}),hl:"thigh",
+  props:[PLATE("sh",15,-4,-6)],cap:"背著槓鈴往前跨一步蹲下",
+  m:"大腿前側、臀部、平衡",s:["槓鈴背在上背，雙腳與髖同寬站好","一腳往前跨一大步","身體直直往下，兩邊膝蓋都約 90 度","前腳推地回到起始，換腳"],x:["前膝往內倒","上半身往前趴","步伐太小"]},
+"槓鈴登階":{A:A_BACK({head:[100,44],sh:[98,68],hip:[96,118],kn:[124,128],an:[134,160],toe:[146,161],kn2:[94,152],an2:[92,184],toe2:[104,185]}),
+  B:A_BACK({head:[132,20],sh:[130,44],hip:[128,94],kn:[132,128],an:[134,160],toe:[146,161],kn2:[114,128],an2:[106,158],toe2:[116,160]}),hl:"thigh",
+  props:[{t:"rect",x:112,y:162,w:64,h:24},PLATE("sh",14,-4,-6)],cap:"一腳踩上箱子，把身體推上去",
+  m:"大腿前側、臀部",s:["槓鈴背在上背，面對穩固的箱子","一腳整個腳掌踩上箱子","箱子上的腳出力，把身體推上去站直","慢慢下來，做完換邊"],x:["用後腳蹬地借力","箱子太高，膝蓋超過 90 度太多","上半身往前倒"]},
+"啞鈴保加利亞分腿蹲":{A:A_HANG({head:[100,36],sh:[100,60],hip:[100,110],kn:[118,146],an:[120,182],toe:[133,183],kn2:[82,146],an2:[56,136],toe2:[48,132]}),
+  B:A_HANG({head:[98,66],sh:[98,90],hip:[96,140],kn:[130,148],an:[120,182],toe:[133,183],kn2:[78,172],an2:[56,136],toe2:[48,132]}),hl:"thigh",
+  props:[{t:"rect",x:20,y:140,w:46,h:12},{t:"line",a:[28,152],b:[28,186],w:5},DBP("ha")],cap:"雙手拿啞鈴，後腳放長椅上蹲下",
+  m:"大腿前側、臀部、平衡",s:["雙手各拿一顆啞鈴，後腳腳背放在長椅上","前腳往前站一大步","身體直直往下，前腳膝蓋跟腳尖同方向","前腳出力站起來，做完換邊"],x:["前腳離長椅太近","前膝往內倒","啞鈴晃動帶著身體歪"]},
+"啞鈴弓箭步走":{A:A_HANG({...ST,kn2:[99,145],an2:[99,182],toe2:[111,183]}),B:A_HANG({head:[100,68],sh:[100,92],hip:[100,142],kn:[137,142],an:[137,182],toe:[150,183],kn2:[90,176],an2:[60,176],toe2:[54,184]}),hl:"thigh",
+  props:[DBP("ha")],cap:"雙手拿啞鈴，一步一步往前蹲",
+  m:"大腿前側、臀部、平衡",s:["雙手各拿一顆啞鈴，站直","一腳往前跨一大步，身體直直往下","兩邊膝蓋約 90 度","前腳推地站起來，後腳直接往前跨下一步"],x:["前膝往內倒","步伐太小","上半身往前趴"]},
+"啞鈴登階":{A:A_HANG({head:[100,44],sh:[98,68],hip:[96,118],kn:[124,128],an:[134,160],toe:[146,161],kn2:[94,152],an2:[92,184],toe2:[104,185]}),
+  B:A_HANG({head:[132,20],sh:[130,44],hip:[128,94],kn:[132,128],an:[134,160],toe:[146,161],kn2:[114,128],an2:[106,158],toe2:[116,160]}),hl:"thigh",
+  props:[{t:"rect",x:112,y:162,w:64,h:24},DBP("ha")],cap:"雙手拿啞鈴，一腳踩上箱子站上去",
+  m:"大腿前側、臀部",s:["雙手各拿一顆啞鈴，面對穩固的箱子","一腳整個腳掌踩上箱子","箱子上的腳出力，把身體推上去站直","慢慢下來，做完換邊"],x:["用後腳蹬地借力","箱子太高","上半身往前倒"]},
+"啞鈴反向弓箭步":{A:A_HANG({...ST,kn2:[99,145],an2:[99,182],toe2:[111,183]}),B:A_HANG({head:[86,68],sh:[86,92],hip:[86,142],kn:[120,144],an:[104,182],toe:[117,183],kn2:[74,176],an2:[44,176],toe2:[38,184]}),hl:"thigh",
+  props:[DBP("ha")],cap:"雙手拿啞鈴，一腳往後退一步蹲下",
+  m:"大腿前側、臀部",s:["雙手各拿一顆啞鈴，站直","一腳往後退一大步","身體直直往下，兩邊膝蓋約 90 度","前腳出力，把後腳收回起始，換邊"],x:["前膝往內倒","後退步伐太小","身體往前趴"]},
+"反向弓箭步":{A:A_HIPS({...ST,kn2:[99,145],an2:[99,182],toe2:[111,183]}),B:A_HIPS({head:[86,68],sh:[86,92],hip:[86,142],kn:[120,144],an:[104,182],toe:[117,183],kn2:[74,176],an2:[44,176],toe2:[38,184]}),hl:"thigh",cap:"手叉腰，一腳往後退一步蹲下",
+  m:"大腿前側、臀部",s:["雙手叉腰，站直","一腳往後退一大步","身體直直往下，兩邊膝蓋約 90 度","前腳出力，把後腳收回起始，換邊"],x:["前膝往內倒","後退步伐太小","身體往前趴"]},
+"保加利亞分腿蹲":{A:A_HIPS({head:[100,36],sh:[100,60],hip:[100,110],kn:[118,146],an:[120,182],toe:[133,183],kn2:[82,146],an2:[56,136],toe2:[48,132]}),
+  B:A_HIPS({head:[98,66],sh:[98,90],hip:[96,140],kn:[130,148],an:[120,182],toe:[133,183],kn2:[78,172],an2:[56,136],toe2:[48,132]}),hl:"thigh",
+  props:[{t:"rect",x:20,y:140,w:46,h:12},{t:"line",a:[28,152],b:[28,186],w:5}],cap:"後腳放在椅子上，前腳蹲下",
+  m:"大腿前側、臀部、平衡",s:["後腳腳背放在身後的椅子或沙發上","前腳往前站一大步，手叉腰","身體直直往下，前腳膝蓋跟腳尖同方向","前腳出力站起來，做完換邊"],x:["前腳離椅子太近","前膝往內倒","上半身晃動"]},
+"側弓箭步":{front:1,cap:"正面看：一腳往旁邊跨，屁股往後坐",
+  A:{head:[100,32],sh:[100,56],hip:[100,106],arms:[[[100,60],[90,76],[98,90]],[[100,60],[110,76],[102,90]]],legs:[[[94,106],[94,144],[92,182]],[[106,106],[106,144],[108,182]]]},
+  B:{head:[86,58],sh:[84,82],hip:[78,128],arms:[[[84,86],[74,100],[82,112]],[[84,86],[94,100],[86,112]]],legs:[[[72,128],[56,152],[52,182]],[[84,128],[112,154],[140,182]]]},
+  m:"大腿內側、大腿前側、臀部",s:["雙腳併攏站好，雙手合在胸前","一腳往旁邊跨一大步","屁股往後坐，重心放在跨出去的腳，另一腳伸直","跨出去的腳推地回到起始，換邊"],x:["彎曲那側的膝蓋往內倒","腳尖沒有朝前","上半身往前趴太多"]},
+// ---------- 水平推 ----------
+"槓鈴臥推":{A:{...LYING,el:[126,121],ha:[126,96]},B:{...LYING,el:[104,150],ha:[120,130]},hl:"uarm",props:[BENCH,...BENCH_LEGS,PLATE("ha",15)],cap:"躺在長椅上，把槓鈴往上推",
+  m:"胸部、肩膀前側、手臂後側",s:["躺在長椅上，眼睛在槓鈴正下方，雙腳踩地","握距比肩略寬，肩胛往後下收","慢慢把槓鈴放到胸口下緣，手肘約 45 度","吐氣，把槓鈴推回起始"],x:["槓鈴在胸口彈起來借力","臀部離開長椅","手肘張開成 90 度"]},
+"機械胸推":{A:{head:[80,66],sh:[80,90],el:[60,100],ha:[84,92],hip:[82,140],kn:[118,140],an:[120,182],toe:[132,183]},B:{head:[80,66],sh:[80,90],el:[104,92],ha:[128,92],hip:[82,140],kn:[118,140],an:[120,182],toe:[132,183]},hl:"uarm",
+  props:[{t:"line",a:[70,40],b:[70,146],w:8},{t:"line",a:[64,148],b:[112,148],w:8},{t:"handle",at:"ha"}],cap:"坐姿，把握把往前推",
+  m:"胸部、肩膀前側、手臂後側",s:["調整座椅，讓握把在胸口中間的高度","背貼緊椅背，肩胛往後收","往前推到手臂快伸直","慢慢回到起始，胸口有伸展感"],x:["推到底手肘鎖死","肩膀往前聳","背離開椅背"]},
+"上斜槓鈴臥推":{A:{head:[128,88],sh:[112,102],el:[112,77],ha:[112,52],hip:[64,150],kn:[34,152],an:[28,184],toe:[40,185]},B:{head:[128,88],sh:[112,102],el:[92,114],ha:[112,96],hip:[64,150],kn:[34,152],an:[28,184],toe:[40,185]},hl:"uarm",
+  props:[{t:"line",a:[54,160],b:[118,98],w:10,c:"pad"},{t:"line",a:[50,160],b:[86,160],w:10,c:"pad"},{t:"line",a:[70,164],b:[70,186],w:5},PLATE("ha",14)],cap:"躺在上斜椅上，把槓鈴往上推",
+  m:"上胸、肩膀前側、手臂後側",s:["椅背調到約 30–45 度，躺好雙腳踩地","握距比肩略寬，肩胛往後下收","把槓鈴放到上胸（鎖骨下方）","吐氣往上推回起始"],x:["椅背調太高，變成肩推","槓鈴放到脖子","臀部離開椅墊"]},
+"雙槓撐體":{A:{head:[102,36],sh:[100,60],el:[100,80],ha:[100,100],hip:[96,110],kn:[88,146],an:[66,150],toe:[60,142]},B:{head:[104,60],sh:[100,84],el:[78,92],ha:[100,100],hip:[96,134],kn:[88,170],an:[66,174],toe:[60,166]},hl:"uarm",noground:1,
+  props:[{t:"line",a:[80,102],b:[140,102],w:6,c:"rail"},{t:"line",a:[136,102],b:[136,186],w:4,c:"rail"}],cap:"撐在雙槓上，身體往下再撐起",
+  m:"胸部下緣、手臂後側、肩膀前側",s:["雙手撐在雙槓上，手臂伸直","身體稍微往前傾，膝蓋彎曲","彎手肘讓身體往下，到上臂約平行地面","手掌出力撐回起始"],x:["下得太深，肩膀前側不舒服","聳肩","身體前後擺盪"]},
+"繩索夾胸":{front:1,cap:"正面看：兩手從兩側往前合起來",
+  A:{head:[100,32],sh:[100,56],hip:[100,106],arms:[[[100,60],[66,70],[38,78]],[[100,60],[134,70],[162,78]]],legs:[[[96,106],[94,144],[92,182]],[[104,106],[106,144],[108,182]]]},
+  B:{head:[100,32],sh:[100,56],hip:[100,106],arms:[[[100,60],[80,86],[97,100]],[[100,60],[120,86],[103,100]]],legs:[[[96,106],[94,144],[92,182]],[[104,106],[106,144],[108,182]]]},
+  props:[{t:"cable",at:"hand0",to:[10,30]},{t:"cable",at:"hand1",to:[190,30]}],m:"胸部",s:["站在繩索機中間，兩手各握一個高位握把","身體微微前傾，手肘微彎固定","雙手往前、往下合起來，像抱一棵大樹","慢慢打開回到起始，胸口有伸展感"],x:["手肘一直彎曲伸直，變成推的動作","打開太開，肩膀不舒服","聳肩"]},
+"啞鈴臥推":{A:{...LYING,el:[126,121],ha:[126,96]},B:{...LYING,el:[104,150],ha:[120,130]},hl:"uarm",props:[BENCH,...BENCH_LEGS,DBP("ha")],cap:"躺在長椅上，把啞鈴往上推",
+  m:"胸部、肩膀前側、手臂後側",s:["躺在長椅上，雙手各拿一顆啞鈴在胸口兩側","肩胛往後下收，雙腳踩地","往上推到手臂快伸直，兩顆啞鈴靠近","慢慢放回胸口兩側，手肘約 45 度"],x:["手肘張開成 90 度","放下太快沒控制","兩顆啞鈴在上方互撞"]},
+"上斜啞鈴臥推":{A:{head:[128,88],sh:[112,102],el:[112,77],ha:[112,52],hip:[64,150],kn:[34,152],an:[28,184],toe:[40,185]},B:{head:[128,88],sh:[112,102],el:[92,114],ha:[112,96],hip:[64,150],kn:[34,152],an:[28,184],toe:[40,185]},hl:"uarm",
+  props:[{t:"line",a:[54,160],b:[118,98],w:10,c:"pad"},{t:"line",a:[50,160],b:[86,160],w:10,c:"pad"},{t:"line",a:[70,164],b:[70,186],w:5},DBP("ha")],cap:"躺在上斜椅上，把啞鈴往上推",
+  m:"上胸、肩膀前側、手臂後側",s:["椅背調到約 30–45 度，雙手各拿一顆啞鈴","肩胛往後下收，雙腳踩地","往上推到手臂快伸直","慢慢放回上胸兩側"],x:["椅背太高，變成肩推","手肘張太開","放下太快"]},
+"啞鈴地板臥推":{A:{...LYING_FLOOR,el:[146,151],ha:[146,126]},B:{...LYING_FLOOR,el:[124,182],ha:[140,160]},hl:"uarm",props:[DBP("ha")],cap:"躺在地上推啞鈴，手肘碰地就推回",
+  m:"胸部、手臂後側",s:["躺在地上，膝蓋彎曲，雙手拿啞鈴往上伸直","慢慢放下，直到上臂輕碰地面","停一下，不要讓手肘在地上彈","吐氣推回起始"],x:["手肘重重撞地","手肘張開成 90 度","臀部抬起來"]},
+"啞鈴飛鳥":{front:1,cap:"俯視圖：躺在長椅上，雙手從上方往兩側打開",
+  A:{head:[100,30],sh:[100,52],hip:[100,112],arms:[[[90,56],[88,62],[96,66]],[[110,56],[112,62],[104,66]]],legs:[[[96,112],[94,148],[92,182]],[[104,112],[106,148],[108,182]]]},
+  B:{head:[100,30],sh:[100,52],hip:[100,112],arms:[[[90,56],[62,60],[36,68]],[[110,56],[138,60],[164,68]]],legs:[[[96,112],[94,148],[92,182]],[[104,112],[106,148],[108,182]]]},
+  props:[{t:"rect",x:84,y:24,w:32,h:104,c:"pad"},DBP("hand0",0,0,true),DBP("hand1",0,0,true)],m:"胸部",s:["躺在長椅上，雙手拿啞鈴在胸口正上方，掌心相對","手肘微彎並固定這個角度","雙手往兩側慢慢打開，到胸口有伸展感","像抱大樹一樣合回起始"],x:["手肘越彎越多，變成臥推","打開太低，肩膀不舒服","重量太重"]},
+"伏地挺身":{A:PUSH_A,B:PUSH_B,hl:"uarm",cap:"身體保持一直線上下",
+  m:"胸部、肩膀前側、手臂後側、核心",s:["雙手比肩略寬撐地，身體從頭到腳成一直線","肚子和臀部收緊","慢慢下放到胸口接近地面，手肘約 45 度","吐氣，推回起始"],x:["塌腰或翹屁股","手肘張開成 90 度","只做一半"]},
+"下斜伏地挺身":{A:{head:[166,129],sh:[146,132],el:[146,157],ha:[146,182],hip:[95,139],kn:[64,144],an:[36,148],toe:[30,152]},B:{head:[166,169],sh:[146,166],el:[124,176],ha:[146,182],hip:[95,158],kn:[64,153],an:[36,148],toe:[30,152]},hl:"uarm",
+  props:[{t:"rect",x:12,y:154,w:44,h:32}],cap:"腳放在箱子或椅子上做伏地挺身",
+  m:"上胸、肩膀前側、手臂後側",s:["雙腳放在椅子或箱子上，雙手撐地","身體從頭到腳成一直線","慢慢下放到胸口接近地面","吐氣推回起始"],x:["屁股翹太高","塌腰","頭往下掉"]},
+"寬距伏地挺身":{front:1,cap:"正面看：雙手撐得比肩膀寬很多",
+  A:{head:[100,104],sh:[100,124],hip:[100,128],arms:[[[84,124],[64,152],[46,182]],[[116,124],[136,152],[154,182]]],legs:[]},
+  B:{head:[100,148],sh:[100,162],hip:[100,166],arms:[[[84,162],[56,160],[46,182]],[[116,162],[144,160],[154,182]]],legs:[]},
+  m:"胸部、肩膀前側",s:["雙手撐地，距離約肩寬的 1.5 倍","身體從頭到腳成一直線","慢慢下放，胸口往地面靠近","吐氣推回起始"],x:["手撐太寬，肩膀不舒服","塌腰","下放太快"]},
+// ---------- 往上推 ----------
+"站姿槓鈴肩推":{A:{...ST,el:[116,80],ha:[110,56]},B:{...ST,el:[106,38],ha:[104,18]},hl:"uarm",props:[PLATE("ha",13)],cap:"站著把槓鈴從肩膀推到頭頂",
+  m:"肩膀、手臂後側、核心",s:["槓鈴放在肩膀前側，握距比肩略寬","收緊肚子和臀部","吐氣把槓鈴往頭頂正上方推，頭稍微往後讓槓鈴通過","推直後慢慢放回肩膀"],x:["腰往後仰","槓鈴往前推","膝蓋彎曲借力"]},
+"機械肩推":{A:{head:[78,66],sh:[80,90],el:[98,104],ha:[98,82],hip:[82,140],kn:[118,140],an:[120,182],toe:[132,183]},B:{head:[78,66],sh:[80,90],el:[96,66],ha:[100,42],hip:[82,140],kn:[118,140],an:[120,182],toe:[132,183]},hl:"uarm",
+  props:[{t:"line",a:[70,40],b:[70,146],w:8},{t:"line",a:[64,148],b:[112,148],w:8},{t:"handle",at:"ha"}],cap:"坐姿，把握把往上推",
+  m:"肩膀、手臂後側",s:["調整座椅，讓握把在肩膀高度","背貼緊椅背，雙手握把","往上推到手臂快伸直","慢慢放回肩膀高度"],x:["推到底手肘鎖死","背離開椅背","聳肩"]},
+"史密斯肩推":{A:{head:[78,66],sh:[80,90],el:[100,104],ha:[102,82],hip:[82,140],kn:[118,140],an:[120,182],toe:[132,183]},B:{head:[78,66],sh:[80,90],el:[98,66],ha:[102,42],hip:[82,140],kn:[118,140],an:[120,182],toe:[132,183]},hl:"uarm",
+  props:[{t:"line",a:[70,60],b:[70,146],w:8},{t:"line",a:[64,148],b:[112,148],w:8},{t:"line",a:[106,14],b:[106,186],w:3,c:"rail"},PLATE("ha",13)],cap:"坐在長椅上，槓鈴沿軌道往上推",
+  m:"肩膀、手臂後側",s:["長椅調成直立，坐在史密斯機下","槓鈴在下巴前方的高度，握距比肩略寬","往上推到手臂快伸直","慢慢放回下巴高度"],x:["腰往後仰","放太低碰到肩膀","聳肩"]},
+"啞鈴肩推":{A:{...ST,el:[116,80],ha:[112,56]},B:{...ST,el:[106,38],ha:[104,16]},hl:"uarm",props:[DBP("ha")],cap:"把啞鈴從肩膀推到頭頂",
+  m:"肩膀、手臂後側",s:["雙手各拿一顆啞鈴，放在肩膀兩側","收緊肚子，不要往後仰","吐氣往上推到手臂快伸直","慢慢放回肩膀高度"],x:["腰往後仰","推的路線往前","聳肩"]},
+"阿諾推舉":{A:{...ST,el:[120,92],ha:[106,64]},B:{...ST,el:[106,38],ha:[104,16]},hl:"uarm",props:[DBP("ha")],cap:"從手肘在前、掌心朝自己，轉成掌心朝前推上去",
+  m:"肩膀（前側、側邊）、手臂後側",s:["啞鈴在臉前方，掌心朝向自己，手肘在前","往上推的同時，手肘往兩側打開、手掌轉向前方","推到手臂快伸直","反方向轉回起始"],x:["轉得太急，肩膀不舒服","腰往後仰","重量太重做不出轉動"]},
+"單手啞鈴肩推":{A:{...ST,el:[116,80],ha:[112,56],el2:[88,84],ha2:[100,104]},B:{...ST,el:[106,38],ha:[104,16],el2:[88,84],ha2:[100,104]},hl:"uarm",props:[DBP("ha")],cap:"一手推啞鈴，另一手叉腰",
+  m:"肩膀、手臂後側、核心",s:["一手拿啞鈴放在肩膀，另一手叉腰","收緊肚子，身體不要往旁邊歪","往上推到手臂快伸直","慢慢放回，做完換手"],x:["身體往另一側歪","腰往後仰","聳肩"]},
+"屈體伏地挺身":{A:{head:[136,164],sh:[128,146],el:[134,164],ha:[140,182],hip:[95,110],kn:[72,146],an:[50,182],toe:[44,184]},B:{head:[134,178],sh:[124,162],el:[112,170],ha:[140,182],hip:[95,118],kn:[72,150],an:[50,182],toe:[44,184]},hl:"uarm",cap:"屁股抬高成倒 V，頭往地面靠近",
+  m:"肩膀、手臂後側",s:["雙手撐地，屁股抬高，身體成倒 V 字","頭在雙手之間","彎手肘，讓頭往地面靠近","推回起始，屁股保持抬高"],x:["屁股掉下來，變成一般伏地挺身","手肘往外張太開","頭撞到地面"]},
+"靠牆倒立撐":{A:{head:[100,150],sh:[90,134],el:[90,158],ha:[90,182],hip:[84,84],kn:[76,50],an:[66,20],toe:[62,14]},B:{head:[100,172],sh:[90,156],el:[72,166],ha:[90,182],hip:[86,106],kn:[78,72],an:[68,42],toe:[62,36]},hl:"uarm",
+  props:[{t:"line",a:[58,4],b:[58,186],w:4,c:"rail"}],cap:"腳靠牆倒立，彎手肘讓頭往下",
+  m:"肩膀、手臂後側、核心",s:["面向牆壁，雙手撐地，腳踢上牆倒立","雙手比肩略寬，身體收緊","彎手肘讓頭慢慢往地面靠近","推回手臂伸直；做不到時先練屈體伏地挺身"],x:["頭重重撞地","腰往後折","沒有熱身就做"]},
+// ---------- 划船 ----------
+"槓鈴划船":{A:{...ROW,el:[131,126],ha:[131,150]},B:{...ROW,el:[108,106],ha:[112,130]},hl:"torso",props:[PLATE("ha",15)],cap:"身體前傾，把槓鈴拉向肚子",
+  m:"上背、背闊肌、手臂前側",s:["握槓站好，屁股往後推，上半身前傾約 45 度","背打直，槓鈴自然垂下","先收肩胛，再把槓鈴拉向肚臍","停一下，慢慢放下"],x:["用甩的或身體跟著起來","駝背","只用手臂拉"]},
+"坐姿划船機":{A:{head:[62,76],sh:[60,100],el:[84,104],ha:[108,108],hip:[60,150],kn:[96,138],an:[128,150],toe:[132,140]},B:{head:[62,76],sh:[60,100],el:[40,110],ha:[66,116],hip:[60,150],kn:[96,138],an:[128,150],toe:[132,140]},hl:"torso",noground:1,
+  props:[{t:"rect",x:36,y:156,w:60,h:10},{t:"line",a:[136,126],b:[136,170],w:6},{t:"cable",at:"ha",to:[180,122]}],cap:"坐著，把握把拉向肚子",
+  m:"上背、背闊肌、手臂前側",s:["坐好，雙腳踩在踏板上，膝蓋微彎","背打直，雙手握把手臂伸直","先收肩胛，再把握把拉向肚子，手肘貼近身體","停一下，慢慢伸直手臂"],x:["上半身前後大幅擺動","聳肩","駝背"]},
+"T 槓划船":{A:{...ROW,el:[131,126],ha:[131,150]},B:{...ROW,el:[108,106],ha:[112,130]},hl:"torso",props:[{t:"tbar",at:"ha",to:[18,184]},PLATE("ha",14,10,0)],cap:"跨站在 T 槓上，把槓的一端拉向胸口",
+  m:"上背、背闊肌、手臂前側",s:["跨站在槓上，握住靠近重量片的把手","屁股往後推，上半身前傾，背打直","先收肩胛，再把槓拉向胸口下方","停一下，慢慢放下"],x:["身體跟著抬起來借力","駝背","聳肩"]},
+"胸靠划船機":{A:{head:[126,84],sh:[110,96],el:[112,122],ha:[114,148],hip:[70,130],kn:[64,158],an:[56,184],toe:[68,185]},B:{head:[126,84],sh:[110,96],el:[88,106],ha:[102,126],hip:[70,130],kn:[64,158],an:[56,184],toe:[68,185]},hl:"torso",
+  props:[{t:"pad",a:"sh",b:"hip",off:-10},{t:"handle",at:"ha"}],cap:"胸口靠在墊子上，把握把往後拉",
+  m:"上背、背闊肌、手臂前側",s:["調整座椅，胸口靠緊胸墊","雙手握把，手臂伸直","先收肩胛，再把手肘往後拉","停一下，慢慢伸直"],x:["胸口離開墊子借力","聳肩","只拉一半"]},
+"單手啞鈴划船":{A:{head:[142,102],sh:[124,108],el:[124,134],ha:[124,158],hip:[70,108],kn:[80,146],an:[86,184],toe:[98,185],el2:[130,120],ha2:[134,132],kn2:[74,132],an2:[46,132],toe2:[40,128]},
+  B:{head:[142,102],sh:[124,108],el:[106,100],ha:[110,124],hip:[70,108],kn:[80,146],an:[86,184],toe:[98,185],el2:[130,120],ha2:[134,132],kn2:[74,132],an2:[46,132],toe2:[40,128]},hl:"torso",
+  props:[{t:"rect",x:36,y:134,w:112,h:10,c:"pad"},{t:"line",a:[48,144],b:[48,186],w:5},{t:"line",a:[136,144],b:[136,186],w:5},DBP("ha")],cap:"一手一膝撐在長椅上，另一手把啞鈴拉起",
+  m:"背闊肌、上背、手臂前側",s:["同側的手和膝蓋撐在長椅上，背打直","另一手拿啞鈴，自然垂下","手肘往後拉向腰，啞鈴靠近身體","停一下，慢慢放下"],x:["身體轉開借力","聳肩","駝背"]},
+"俯身啞鈴划船":{A:{...ROW,el:[131,126],ha:[131,150]},B:{...ROW,el:[108,106],ha:[112,130]},hl:"torso",props:[DBP("ha")],cap:"身體前傾，雙手把啞鈴拉向腰",
+  m:"上背、背闊肌、手臂前側",s:["雙手各拿一顆啞鈴，屁股往後推，上半身前傾","背打直，啞鈴自然垂下","手肘往後拉，啞鈴拉向腰兩側","停一下，慢慢放下"],x:["身體跟著抬起來","駝背","聳肩"]},
+"胸靠上斜啞鈴划船":{A:{head:[126,84],sh:[110,96],el:[112,122],ha:[114,148],hip:[70,130],kn:[64,158],an:[56,184],toe:[68,185]},B:{head:[126,84],sh:[110,96],el:[88,106],ha:[102,126],hip:[70,130],kn:[64,158],an:[56,184],toe:[68,185]},hl:"torso",
+  props:[{t:"pad",a:"sh",b:"hip",off:-10},DBP("ha")],cap:"趴在上斜椅上，雙手把啞鈴往後拉",
+  m:"上背、背闊肌、手臂前側",s:["椅背調到約 30–45 度，胸口趴在椅背上","雙手拿啞鈴自然垂下","先收肩胛，再把手肘往後拉","停一下，慢慢放下"],x:["胸口離開椅背","聳肩","用甩的"]},
+"反向划船（桌下）":{A:{head:[137,120],sh:[120,130],el:[120,106],ha:[120,82],hip:[75,156],kn:[52,169],an:[30,182],toe:[24,176]},B:{head:[135,84],sh:[118,100],el:[98,94],ha:[120,82],hip:[75,140],kn:[52,161],an:[30,182],toe:[24,176]},hl:"torso",
+  props:[{t:"line",a:[96,80],b:[194,80],w:7,c:"rail"},{t:"line",a:[188,80],b:[188,186],w:5,c:"rail"}],cap:"躺在穩固的桌子下，抓住桌緣把胸口拉上去",
+  m:"上背、背闊肌、手臂前側",s:["躺在穩固的桌子下，雙手抓住桌緣","身體從頭到腳成一直線，腳跟著地","把胸口往桌緣拉近","慢慢放下到手臂伸直"],x:["桌子不夠穩","屁股掉下來","聳肩"]},
+"毛巾划船":{A:{head:[58,72],sh:[66,94],el:[90,94],ha:[114,94],hip:[84,140],kn:[92,161],an:[100,182],toe:[112,183]},B:{head:[80,56],sh:[84,80],el:[70,88],ha:[98,86],hip:[93,140],kn:[96,161],an:[100,182],toe:[112,183]},hl:"torso",
+  props:[{t:"cable",at:"ha",to:[176,90]},{t:"line",a:[178,30],b:[178,186],w:5,c:"rail"}],cap:"毛巾套在穩固的柱子或門把上，身體往後倒再拉回來",
+  m:"上背、手臂前側",s:["把毛巾套在穩固的柱子或門把上，雙手抓住兩端","腳往前站，身體往後倒，手臂伸直","把身體拉向毛巾，手肘往後","慢慢放回起始"],x:["固定點不穩","身體彎曲，沒有保持一直線","聳肩"]},
+// ---------- 往下拉 ----------
+"滑輪下拉":{A:{head:[84,76],sh:[80,100],el:[82,74],ha:[84,50],hip:[80,150],kn:[116,148],an:[118,184],toe:[130,185]},B:{head:[82,76],sh:[78,100],el:[62,112],ha:[90,98],hip:[80,150],kn:[116,148],an:[118,184],toe:[130,185]},hl:"torso",
+  props:[{t:"rect",x:58,y:154,w:60,h:10},{t:"rect",x:96,y:132,w:30,h:8,c:"pad"},{t:"cable",at:"ha",to:[86,6]}],cap:"坐著把橫槓拉到上胸",
+  m:"背闊肌、上背、手臂前側",s:["坐好，大腿卡在護墊下，握距比肩寬","身體微微往後傾，胸口挺起","手肘往下往後拉，把橫槓拉到上胸","慢慢放回手臂伸直"],x:["身體往後倒太多借力","拉到脖子後面","聳肩"]},
+"引體向上":{A:HANG_A,B:HANG_B,hl:"torso",noground:1,props:[PULL_BAR],cap:"抓住單槓，把身體拉上去",
+  m:"背闊肌、上背、手臂前側",s:["雙手比肩略寬握住單槓，身體懸空","肩膀先往下壓，遠離耳朵","手肘往下往後拉，胸口往上找，下巴過槓","慢慢放下到手臂伸直"],x:["身體擺盪借力","只拉一半","聳肩"]},
+"窄握滑輪下拉":{A:{head:[84,76],sh:[80,100],el:[84,74],ha:[88,50],hip:[80,150],kn:[116,148],an:[118,184],toe:[130,185]},B:{head:[80,76],sh:[76,100],el:[76,124],ha:[98,108],hip:[80,150],kn:[116,148],an:[118,184],toe:[130,185]},hl:"torso",
+  props:[{t:"rect",x:58,y:154,w:60,h:10},{t:"rect",x:96,y:132,w:30,h:8,c:"pad"},{t:"cable",at:"ha",to:[90,6]},{t:"handle",at:"ha"}],cap:"用窄握把手，把握把拉到胸口",
+  m:"背闊肌下緣、手臂前側",s:["換上窄握（V 型）把手，坐好大腿卡住","胸口挺起，身體微微後傾","手肘貼近身體往下拉，把手拉到胸口","慢慢放回手臂伸直"],x:["身體往後倒太多","手肘往外張","聳肩"]},
+"輔助引體機":{A:{...HANG_A,kn:[104,150],an:[78,154],toe:[72,148]},B:{...HANG_B,kn:[104,124],an:[78,128],toe:[72,122]},hl:"torso",noground:1,
+  props:[PULL_BAR,{t:"pad2",at:"kn",w:40,dy:8}],cap:"膝蓋跪在輔助墊上，機器幫你分擔重量",
+  m:"背闊肌、上背、手臂前側",s:["選好輔助重量（越重越輕鬆），膝蓋跪在墊子上","雙手比肩略寬握把","肩膀先往下壓，把身體拉上去到下巴過把手","慢慢放下到手臂伸直"],x:["輔助太多，練不到","只拉一半","聳肩"]},
+"啞鈴直臂上拉":{A:{...LYING,el:[148,155],ha:[170,164]},B:{...LYING,el:[126,122],ha:[126,98]},hl:"uarm",props:[BENCH,...BENCH_LEGS,DBP("ha",0,0,true)],cap:"躺在長椅上，手臂伸直把啞鈴從頭後拉到胸口上方",
+  m:"背闊肌、胸部",s:["躺在長椅上，雙手捧住一顆啞鈴舉在胸口上方","手肘微彎固定","手臂往頭後方慢慢放下，到背部有伸展感","用背的力量把啞鈴拉回胸口上方"],x:["手肘越彎越多","放太深，肩膀不舒服","腰往上拱"]},
+"啞鈴反向飛鳥":{front:1,cap:"正面看：身體前傾，雙手往兩側打開",
+  A:{head:[100,82],sh:[100,94],hip:[100,110],arms:[[[84,94],[86,118],[92,140]],[[116,94],[114,118],[108,140]]],legs:[[[92,110],[88,146],[86,182]],[[108,110],[112,146],[114,182]]]},
+  B:{head:[100,82],sh:[100,94],hip:[100,110],arms:[[[84,94],[62,96],[40,100]],[[116,94],[138,96],[160,100]]],legs:[[[92,110],[88,146],[86,182]],[[108,110],[112,146],[114,182]]]},
+  props:[DBP("hand0"),DBP("hand1")],m:"肩膀後側、上背",s:["雙手各拿一顆輕啞鈴，屁股往後推，上半身前傾","手肘微彎，啞鈴垂在胸口下方","雙手往兩側打開，到和肩膀同高","慢慢放回起始"],x:["重量太重，用甩的","聳肩","上半身跟著抬起來"]},
+"引體向上（單槓）":{A:HANG_A,B:HANG_B,hl:"torso",noground:1,props:[PULL_BAR],cap:"抓住單槓，把身體拉上去",
+  m:"背闊肌、上背、手臂前側",s:["雙手比肩略寬握住單槓，身體懸空","肩膀先往下壓，遠離耳朵","把胸口往上拉，下巴過槓","慢慢放下到手臂伸直"],x:["身體擺盪借力","只拉一半","聳肩"]},
+"離心引體":{A:HANG_B,B:HANG_A,hl:"torso",noground:1,slow:1,props:[PULL_BAR],cap:"從頂端開始，花 3–5 秒慢慢放下來",
+  m:"背闊肌、上背、手臂前側",s:["踩椅子或跳上去，讓下巴在單槓上方","雙手比肩略寬握緊，肩膀往下壓","花 3–5 秒，慢慢把身體放下","到手臂伸直後，再踩回頂端重來"],x:["一下子掉下來","聳肩","椅子不穩"]},
+// ---------- 手臂 ----------
+"繩索三頭下壓":{A:{...ST,el:[104,88],ha:[124,72]},B:{...ST,el:[104,88],ha:[110,113]},hl:"farm",props:[{t:"cable",at:"ha",to:[142,10]},{t:"line",a:[150,6],b:[150,186],w:6,c:"rail"}],cap:"手肘固定在身體兩側，把繩索往下壓",
+  m:"手臂後側（三頭肌）",s:["面對繩索機，雙手握住高位繩索或橫槓","上臂貼緊身體兩側，身體微微前傾","手肘不動，把繩索往下壓到手臂伸直","慢慢回到前臂約平行地面"],x:["手肘往前移動","身體往下壓借力","回來太快"]},
+"槓鈴彎舉":{A:{...ST,el:[104,86],ha:[106,112]},B:{...ST,el:[104,86],ha:[114,62]},hl:"farm",props:[PLATE("ha",13)],cap:"手肘固定，把槓鈴往上彎舉",
+  m:"手臂前側（二頭肌）",s:["站直，掌心朝前握槓，與肩同寬","上臂貼在身體兩側","手肘不動，把槓鈴往上彎到肩膀前","慢慢放下到手臂伸直"],x:["身體前後甩","手肘往前移","放下太快"]},
+"繩索彎舉":{A:{...ST,el:[104,86],ha:[106,112]},B:{...ST,el:[104,86],ha:[114,62]},hl:"farm",props:[{t:"cable",at:"ha",to:[140,184]},{t:"line",a:[150,6],b:[150,186],w:6,c:"rail"}],cap:"握住低位繩索，手肘固定往上彎",
+  m:"手臂前側（二頭肌）",s:["面對繩索機，握住低位的橫槓或繩索","上臂貼在身體兩側","手肘不動，往上彎到肩膀前","慢慢放下到手臂伸直"],x:["身體往後倒","手肘往前移","放下太快"]},
+"繩索側平舉":{front:1,cap:"正面看：繩索從身體另一側拉過來，手往旁邊舉",
+  A:{head:[100,32],sh:[100,56],hip:[100,106],arms:[[[112,60],[112,84],[108,108]],[[88,60],[84,84],[86,104]]],legs:[[[96,106],[94,144],[92,182]],[[104,106],[106,144],[108,182]]]},
+  B:{head:[100,32],sh:[100,56],hip:[100,106],arms:[[[112,60],[136,62],[158,66]],[[88,60],[84,84],[86,104]]],legs:[[[96,106],[94,144],[92,182]],[[104,106],[106,144],[108,182]]]},
+  props:[{t:"cable",at:"hand0",to:[30,182]}],m:"肩膀側邊",s:["站在繩索機旁，外側手握住低位握把","身體站直，手肘微彎","手往旁邊舉到和肩膀同高","慢慢放下，做完換邊"],x:["聳肩","身體往旁邊倒借力","舉過肩膀太高"]},
+"EZ 槓三頭伸展":{A:{...LYING,el:[130,122],ha:[132,98]},B:{...LYING,el:[130,122],ha:[152,132]},hl:"farm",props:[BENCH,...BENCH_LEGS,PLATE("ha",12)],cap:"躺著，手肘固定，把 EZ 槓放到額頭上方再伸直",
+  m:"手臂後側（三頭肌）",s:["躺在長椅上，雙手握 EZ 槓舉在胸口上方","上臂固定，稍微往頭的方向傾斜","彎手肘，把槓慢慢放到額頭上方","手肘不動，伸直手臂回到起始"],x:["手肘往外張","上臂跟著動","放太快打到頭"]},
+"啞鈴彎舉":{A:{...ST,el:[104,86],ha:[106,112]},B:{...ST,el:[104,86],ha:[114,62]},hl:"farm",props:[DBP("ha")],cap:"手肘固定，把啞鈴往上彎舉",
+  m:"手臂前側（二頭肌）",s:["站直，雙手各拿一顆啞鈴，掌心朝前","上臂貼在身體兩側","手肘不動，往上彎到肩膀前","慢慢放下到手臂伸直"],x:["身體前後甩","手肘往前移","放下太快"]},
+"啞鈴過頭三頭伸展":{A:{...ST,el:[98,32],ha:[80,48]},B:{...ST,el:[98,32],ha:[100,8]},hl:"farm",props:[DBP("ha",0,0,true)],cap:"雙手拿一顆啞鈴在頭後，往上伸直",
+  m:"手臂後側（三頭肌）",s:["雙手捧住一顆啞鈴，舉到頭頂","上臂靠近耳朵，彎手肘把啞鈴放到頭後","手肘不動，把啞鈴往上伸直","慢慢放回頭後"],x:["手肘往外張很開","腰往後仰","放太快碰到頭"]},
+"啞鈴側平舉":{front:1,cap:"正面看：雙手往兩側舉到肩膀高度",
+  A:{head:[100,32],sh:[100,56],hip:[100,106],arms:[[[88,60],[86,84],[88,108]],[[112,60],[114,84],[112,108]]],legs:[[[96,106],[94,144],[92,182]],[[104,106],[106,144],[108,182]]]},
+  B:{head:[100,32],sh:[100,56],hip:[100,106],arms:[[[88,60],[64,62],[42,66]],[[112,60],[136,62],[158,66]]],legs:[[[96,106],[94,144],[92,182]],[[104,106],[106,144],[108,182]]]},
+  props:[DBP("hand0"),DBP("hand1")],m:"肩膀側邊",s:["雙手各拿一顆輕啞鈴，垂在身體兩側","手肘微彎，身體站直","雙手往兩側舉到和肩膀同高","慢慢放下"],x:["聳肩","用身體甩上去","重量太重"]},
+"錘式彎舉":{A:{...ST,el:[104,86],ha:[106,112]},B:{...ST,el:[104,86],ha:[114,62]},hl:"farm",props:[DBP("ha",0,0,true)],cap:"掌心相對（像握鐵鎚），手肘固定往上彎",
+  m:"手臂前側、前臂",s:["雙手各拿一顆啞鈴，掌心朝向身體","上臂貼在身體兩側","手肘不動，往上彎到肩膀前","慢慢放下"],x:["身體前後甩","手肘往前移","手腕轉來轉去"]},
+"椅子撐體":{A:{head:[74,58],sh:[70,82],el:[68,105],ha:[66,128],hip:[84,134],kn:[122,144],an:[160,182],toe:[166,172]},B:{head:[78,84],sh:[74,108],el:[50,112],ha:[66,128],hip:[88,162],kn:[124,158],an:[160,182],toe:[166,172]},hl:"farm",
+  props:[{t:"rect",x:30,y:130,w:40,h:8},{t:"line",a:[34,138],b:[34,186],w:5},{t:"line",a:[64,138],b:[64,186],w:5}],cap:"雙手撐在身後的椅子上，身體往下再撐起",
+  m:"手臂後側（三頭肌）、肩膀前側",s:["坐在穩固的椅子邊緣，雙手撐在臀部兩側","臀部往前移出椅子，雙腳往前踩","彎手肘讓身體往下，到上臂約平行地面","手掌出力撐回起始"],x:["下得太深，肩膀前側不舒服","手肘往外張","椅子會滑動"]},
+"鑽石伏地挺身":{front:1,cap:"正面看：雙手在胸口下方靠在一起",
+  A:{head:[100,108],sh:[100,124],hip:[100,128],arms:[[[84,124],[86,152],[96,182]],[[116,124],[114,152],[104,182]]],legs:[]},
+  B:{head:[100,146],sh:[100,160],hip:[100,164],arms:[[[84,160],[76,172],[96,182]],[[116,160],[124,172],[104,182]]],legs:[]},
+  m:"手臂後側（三頭肌）、胸部",s:["雙手在胸口下方，拇指和食指圍成菱形","身體從頭到腳成一直線","慢慢下放，手肘貼近身體往後","推回起始"],x:["手肘往外張","塌腰","做不起來時可以先跪姿做"]},
+// ---------- 核心 ----------
+"懸吊抬腿":{A:{...HANG_A,kn:[100,156],an:[100,188],toe:[106,192]},B:{...HANG_A,kn:[134,124],an:[168,126],toe:[172,118]},hl:"thigh",noground:1,props:[PULL_BAR],cap:"抓住單槓懸空，把腿往前抬起",
+  m:"腹部、髖屈肌",s:["雙手握住單槓，身體懸空","肩膀往下壓，身體不要晃","收緊肚子，把腿往前抬到約水平（可以先彎膝）","慢慢放下，不要甩"],x:["身體前後擺盪","用甩的把腿踢上去","放下太快"]},
+"繩索捲腹":{A:{head:[110,78],sh:[104,100],el:[114,96],ha:[112,86],hip:[92,146],kn:[90,184],an:[60,184],toe:[54,180]},B:{head:[146,138],sh:[128,128],el:[138,138],ha:[142,128],hip:[92,146],kn:[90,184],an:[60,184],toe:[54,180]},hl:"torso",
+  props:[{t:"cable",at:"ha",to:[140,8]}],cap:"跪著拉住繩索，用肚子把身體捲下去",
+  m:"腹部",s:["跪在繩索機前，雙手拉住繩索放在頭兩側","臀部位置固定不動","用肚子的力量把上半身往下捲，手肘往大腿靠近","慢慢回到起始"],x:["用手臂拉","臀部往後坐","回來太快"]},
+"繩索抗旋轉推":{A:{...ST,el:[96,84],ha:[110,82]},B:{...ST,el:[124,72],ha:[148,72]},hl:"torso",props:[{t:"cable",at:"ha",to:[176,40]},{t:"handle",at:"ha"}],cap:"側身站在繩索機旁，把握把往前推出去並撐住",
+  m:"核心（抗旋轉）",s:["側身站在繩索機旁，雙手握把手放在胸口","雙腳與肩同寬，肚子收緊","把握把直直往前推，身體不要被拉轉過去","停 2 秒再收回，做完換邊"],x:["身體被拉著轉","聳肩","憋氣"]},
+"腹肌滾輪":{A:{head:[114,110],sh:[98,118],el:[102,144],ha:[104,170],hip:[56,146],kn:[40,182],an:[14,182],toe:[10,176]},B:{head:[146,152],sh:[128,158],el:[152,164],ha:[176,170],hip:[76,162],kn:[40,182],an:[14,182],toe:[10,176]},hl:"torso",
+  props:[{t:"wheel",at:"ha",r:11}],cap:"跪著握滾輪，往前滾出去再收回",
+  m:"腹部、核心",s:["跪在地上，雙手握滾輪放在肩膀下方","收緊肚子和臀部","慢慢往前滾，身體保持一直線","用肚子的力量把滾輪拉回來"],x:["塌腰","滾太遠收不回來","屁股先往後坐"]},
+"啞鈴死蟲":{A:{head:[166,166],sh:[146,170],el:[146,147],ha:[146,124],hip:[96,170],kn:[96,133],an:[62,133],toe:[58,126]},B:{head:[166,166],sh:[146,170],el:[168,160],ha:[190,152],hip:[96,170],kn:[62,160],an:[28,163],toe:[22,156]},hl:"torso",props:[DBP("ha")],cap:"躺著拿啞鈴，對側手腳慢慢伸遠",
+  m:"深層核心",s:["躺平，手拿啞鈴朝天花板，膝蓋彎 90 度抬起","下背貼地，肋骨往下收","對側的手和腳同時慢慢伸遠","回到起始，換另一邊"],x:["下背離開地面","動作太快","啞鈴太重"]},
+"啞鈴俄羅斯轉體":{front:1,cap:"正面看：坐著身體後傾，啞鈴左右轉",
+  A:{head:[94,74],sh:[96,98],hip:[100,150],arms:[[[96,102],[76,116],[66,138]],[[96,102],[82,124],[70,140]]],legs:[[[96,150],[82,124],[76,158]],[[104,150],[118,124],[124,158]]]},
+  B:{head:[106,74],sh:[104,98],hip:[100,150],arms:[[[104,102],[124,116],[134,138]],[[104,102],[118,124],[130,140]]],legs:[[[96,150],[82,124],[76,158]],[[104,150],[118,124],[124,158]]]},
+  props:[DBP("hand0",0,0,true)],ground:156,m:"腹部側邊、核心",s:["坐在地上，膝蓋彎曲，上半身往後傾","雙手拿一顆啞鈴在胸前","用身體帶動，把啞鈴轉到一側再轉到另一側","可以抬起雙腳增加難度"],x:["只動手臂，身體沒轉","駝背","轉太快"]},
+"啞鈴農夫走路":{A:{...A_HANG(ST),kn:[108,145],an:[112,182],toe:[125,183],kn2:[95,145],an2:[88,182],toe2:[100,183]},B:{...A_HANG(ST),kn:[95,145],an:[88,182],toe:[100,183],kn2:[108,145],an2:[112,182],toe2:[125,183]},hl:"torso",props:[DBP("ha")],cap:"雙手提重啞鈴，挺胸往前走",
+  m:"核心、握力、上背",s:["兩手各提一顆重啞鈴，放在身體兩側","站直，肩膀往後往下","小步穩穩往前走","走完指定的時間或距離"],x:["身體歪向一邊","聳肩","步伐太大，身體晃動"]},
+"棒式":{A:{head:[166,151],sh:[146,158],el:[146,182],ha:[170,182],hip:[92,167],kn:[65,172],an:[38,176],toe:[32,184]},B:{head:[166,151],sh:[146,158],el:[146,182],ha:[170,182],hip:[92,164],kn:[65,170],an:[38,176],toe:[32,184]},hl:"torso",cap:"手肘撐地，身體保持一直線",
+  m:"核心、肩膀",s:["手肘在肩膀正下方，前臂撐地","從頭到腳跟成一直線","收緊肚子和臀部，正常呼吸","維持指定的秒數"],x:["塌腰","屁股翹太高","憋氣"]},
+"死蟲式":{A:{head:[166,166],sh:[146,170],el:[146,147],ha:[146,124],hip:[96,170],kn:[96,133],an:[62,133],toe:[58,126]},B:{head:[166,166],sh:[146,170],el:[168,160],ha:[190,152],hip:[96,170],kn:[62,160],an:[28,163],toe:[22,156]},hl:"torso",cap:"躺著，對側手腳慢慢伸遠",
+  m:"深層核心",s:["躺平，手臂朝向天花板，膝蓋彎 90 度抬起","下背貼地，肋骨往下收","對側的手和腳同時慢慢伸遠","回到起始，換另一邊"],x:["下背離開地面","動作太快","憋氣"]},
+"登山者":{A:{...PUSH_A,kn2:[67,165],an2:[40,176],toe2:[34,184]},B:{...PUSH_A,hip:[95,151],kn:[124,160],an:[104,174],toe:[108,180],kn2:[67,164],an2:[40,176],toe2:[34,184]},hl:"torso",cap:"撐在伏地挺身高點，膝蓋輪流往胸口帶",
+  m:"核心、心肺",s:["撐在伏地挺身的高點，手在肩膀正下方","一腳膝蓋往胸口帶","快速換腳，像在原地跑步","屁股高度保持穩定"],x:["屁股翹太高","手沒有在肩膀下方","腳步太小"]},
+"側棒式":{front:1,cap:"正面看：側躺用手肘撐起，身體成一直線",
+  A:{head:[160,118],sh:[146,130],hip:[96,156],arms:[[[146,130],[146,156],[146,182]],[[146,130],[120,138],[98,148]]],legs:[[[96,156],[66,170],[36,182]]]},
+  B:{head:[160,116],sh:[146,128],hip:[96,152],arms:[[[146,128],[146,156],[146,182]],[[146,128],[148,102],[150,76]]],legs:[[[96,152],[66,168],[36,182]]]},
+  hl:"none",m:"腹部側邊、核心、肩膀",s:["側躺，手肘在肩膀正下方撐地","雙腳疊在一起，臀部抬起","身體從頭到腳成一直線，可以把上面的手舉高","維持指定的秒數，換邊"],x:["臀部往下掉","身體往前或往後倒","手肘不在肩膀下方"]},
+// ---------- 循環收尾 ----------
+"開合跳":{front:1,cap:"正面看：跳起來時手腳一起打開",
+  A:{head:[100,30],sh:[100,54],hip:[100,106],arms:[[[100,58],[88,82],[84,106]],[[100,58],[112,82],[116,106]]],legs:[[[100,106],[96,144],[94,182]],[[100,106],[104,144],[106,182]]]},
+  B:{head:[100,30],sh:[100,54],hip:[100,106],arms:[[[100,58],[78,40],[68,16]],[[100,58],[122,40],[132,16]]],legs:[[[100,106],[82,144],[68,182]],[[100,106],[118,144],[132,182]]]},
+  hl:"none",m:"心肺、全身",s:["開合跳：雙腳併攏站直","跳起來時雙腳打開、雙手舉到頭上","再跳回併攏","循環收尾：開合跳、登山者、波比跳各 40 秒，接著做為一輪"],x:["落地太重，改用前腳掌輕輕落地","節奏太快動作變形"]},
+"反向飛鳥機":{front:1,cap:"正面看：胸口靠墊坐好，雙手往後打開",
+  A:{head:[100,32],sh:[100,56],hip:[100,108],arms:[[[88,60],[86,68],[96,74]],[[112,60],[114,68],[104,74]]],legs:[[[94,108],[88,142],[86,180]],[[106,108],[112,142],[114,180]]]},
+  B:{head:[100,32],sh:[100,56],hip:[100,108],arms:[[[88,60],[62,62],[38,66]],[[112,60],[138,62],[162,66]]],legs:[[[94,108],[88,142],[86,180]],[[106,108],[112,142],[114,180]]]},
+  props:[{t:"rect",x:86,y:52,w:28,h:56,c:"pad"},{t:"handle",at:"hand0"},{t:"handle",at:"hand1"}],
+  m:"肩膀後側、上背",s:["調整座椅，讓把手在肩膀高度，胸口靠緊胸墊","握住把手，手肘微彎","雙手往後、往兩側打開，到手臂和身體成一直線","慢慢收回，不要讓重量片撞到"],x:["聳肩","用身體往後倒借力","重量太重，動作變成划船"]},
+"毛巾彎舉":{A:{...ST,el:[104,86],ha:[106,112],kn2:[110,140],an2:[118,160],toe2:[128,162]},B:{...ST,el:[104,86],ha:[114,62],kn2:[110,140],an2:[118,160],toe2:[128,162]},hl:"farm",
+  props:[{t:"cable",at:"ha",to:[124,160]}],cap:"毛巾套在腳底，用手把毛巾往上彎，腳往下出力抵抗",
+  m:"手臂前側（二頭肌）",s:["單腳站穩，另一腳抬起，把毛巾套在腳底","雙手握住毛巾兩端，上臂貼近身體","腳往下踩出阻力，手肘不動把毛巾往上彎","慢慢放回，腳的力量決定難度"],x:["手肘往前移","腳沒有出力，變得太輕鬆","身體前後晃"]},
+"啞鈴聳肩":{A:A_HANG(ST),B:{...ST,head:[100,30],sh:[100,51],el:[101,77],ha:[102,103]},hl:"torso",props:[DBP("ha")],cap:"雙手提啞鈴，肩膀往耳朵方向聳起",
+  m:"上斜方肌",s:["雙手各提一顆啞鈴，站直","手臂伸直放鬆","肩膀往耳朵方向直直聳起","停一下，慢慢放下"],x:["肩膀繞圈","用手臂彎起來","頭往前伸"]}
 };
-const GUIDE={
-  squat:{m:"大腿前側、臀部、核心",s:["雙腳與肩同寬，腳尖微微朝外","吸氣收緊肚子，屁股往後、往下坐，膝蓋跟腳尖朝同一個方向","蹲到大腿約與地面平行，背保持打直","腳掌踩穩地板，吐氣站起來"],x:["膝蓋往內夾","腳跟離地","蹲下時彎腰駝背"]},
-  hinge:{m:"臀部、大腿後側、下背",s:["雙腳與髖同寬，重量貼近大腿","膝蓋微彎，屁股往後推，上半身往前傾","重量沿著腿往下，大腿後側有拉緊感就停","臀部往前夾，站直回到起始"],x:["彎腰駝背","膝蓋彎太多，變成深蹲","重量離身體太遠"]},
-  lunge:{m:"大腿前側、臀部、平衡",s:["站直，雙腳與髖同寬","一腳往前跨一大步","身體直直往下，兩邊膝蓋都約 90 度","前腳踩穩推回起始，換邊"],x:["前腳膝蓋往內倒","上半身往前趴","步伐太小，膝蓋壓力變大"]},
-  hpush:{m:"胸部、肩膀前側、手臂後側",s:["雙手比肩略寬","肩胛往後、往下收，身體保持一直線","慢慢下放，手肘和身體夾約 45 度","吐氣，推回起始"],x:["手肘張開成 90 度","塌腰或翹屁股","下放太快，沒有控制"]},
-  vpush:{m:"肩膀、手臂後側",s:["重量放在肩膀前方，手肘在手腕下方","收緊肚子和臀部","吐氣，往頭頂正上方推到手臂伸直","慢慢放回肩膀高度"],x:["腰往後仰","往前推，不是往上推","聳肩"]},
-  hpull:{m:"上背、背闊肌、手臂前側",s:["屁股往後推，上半身前傾，背打直","手臂自然垂下","先把肩胛往後收，再把手肘往後拉向腰","停一下，慢慢放下"],x:["用甩的或聳肩","駝背","只用手臂拉，背沒出力"]},
-  vpull:{m:"背闊肌、上背、手臂前側",s:["雙手比肩略寬，握住單槓或把手","肩膀先往下壓，遠離耳朵","手肘往下、往後拉，胸口往上找","拉到頂端後，慢慢放到手臂伸直"],x:["用身體擺盪借力","只拉一半","聳肩"]},
-  arms:{m:"手臂",s:["站穩，核心收緊","上臂和手肘的位置固定不亂動","用手臂把重量移到頂端，停一下","慢慢放回起始"],x:["身體前後甩","手肘跟著移動","放下太快"]},
-  plank:{m:"核心、肩膀",s:["手肘在肩膀正下方","從頭到腳跟成一直線","收緊肚子和臀部，正常呼吸","維持指定的秒數"],x:["塌腰","屁股翹太高","憋氣"]},
-  deadbug:{m:"深層核心",s:["躺平，手臂朝向天花板，膝蓋彎 90 度抬起","下背貼地，肋骨往下收","對側的手和腳同時慢慢伸遠","回到起始，換另一邊"],x:["下背離開地面","動作太快","憋氣"]},
-  farmer:{m:"核心、握力、上背",s:["兩手拿重量放在身體兩側","站直，肩膀往後、往下","小步穩穩往前走","走完指定的時間或距離"],x:["身體歪向一邊","聳肩","步伐太大，身體晃動"]},
-  climber:{m:"核心、心肺",s:["撐在伏地挺身的高點，手在肩膀正下方","一腳膝蓋往胸口帶","快速換腳，像在原地跑步","屁股高度保持穩定"],x:["屁股翹太高","手沒有在肩膀下方","腳步太小"]},
-  jack:{m:"心肺、全身",s:["開合跳：雙腳併攏站直","跳起來時雙腳打開、雙手舉到頭上","再跳回併攏","三個動作各做 40 秒，接著做為一輪，輪間休息"],x:["落地太重，改用前腳掌輕輕落地","節奏太快，動作變形"]}
-};
-function figFor(e){
+// 舊版或其他名稱，對應到最接近的動作
+const EX_ALIAS={"羅馬尼亞硬舉":"槓鈴羅馬尼亞硬舉","臀推":"槓鈴臀推","登階":"槓鈴登階","坐姿啞鈴肩推":"啞鈴肩推","側平舉":"啞鈴側平舉","啞鈴側棒":"側棒式","窄距伏地挺身":"鑽石伏地挺身","農夫走路":"啞鈴農夫走路"};
+// 自己輸入、動作庫找不到的動作：用同類動作示意
+const PATTERN_FALLBACK={squat:"徒手深蹲",hinge:"啞鈴羅馬尼亞硬舉",lunge:"反向弓箭步",hpush:"伏地挺身",vpush:"啞鈴肩推",hpull:"俯身啞鈴划船",vpull:"引體向上",arms:"啞鈴彎舉",core:"棒式"};
+function exSpec(e){
   const n=e.name||"";
-  if(e.finisher)return "jack";
-  if(/伏地挺身|撐體/.test(n))return /撐體/.test(n)&&e.pattern!=="hpush"?"curl":"pushup";
-  switch(e.pattern){
-    case "squat":return "squat";case "hinge":return "hinge";case "lunge":return "lunge";
-    case "hpush":return "pushup";case "vpush":return "press";case "hpull":return "row";
-    case "vpull":return /聳肩|直臂|飛鳥/.test(n)?"row":"pullup";
-    case "arms":return "curl";
-    case "core":return /農夫/.test(n)?"farmer":/登山者/.test(n)?"climber":/死蟲|捲腹|抬腿/.test(n)?"deadbug":"plank";
-  }
-  return "squat";
-}
-function guideFor(e,f){
-  if(f==="jack")return GUIDE.jack;
-  if(f==="plank"||f==="deadbug"||f==="farmer"||f==="climber")return GUIDE[f];
-  if(f==="pushup")return GUIDE.hpush;
-  return GUIDE[e.pattern]||GUIDE.squat;
+  if(e.finisher)return {key:"開合跳",own:true};
+  if(EXF[n])return {key:n,own:true};
+  if(EX_ALIAS[n])return {key:EX_ALIAS[n],own:true};
+  const fb=PATTERN_FALLBACK[e.pattern||patternOf(n)]||"徒手深蹲";
+  return {key:fb,own:false};
 }
 const lerp=(a,b,t)=>Array.isArray(a)?a.map((v,i)=>lerp(v,b[i],t)):a+(b-a)*t;
-function poseAt(F,t){const o={};for(const k in F.A)o[k]=lerp(F.A[k],F.B[k],t);return o;}
+function poseAt(F,t){const o={};for(const k in F.A)if(k in F.B)o[k]=lerp(F.A[k],F.B[k],t);return o;}
+function ptOf(p,at){
+  if(at==="hand0")return p.arms[0][p.arms[0].length-1];
+  if(at==="hand1")return p.arms[1][p.arms[1].length-1];
+  return p[at];
+}
 function figSvg(key,t){
-  const F=FIGS[key],p=poseAt(F,t),pt=a=>a.map(v=>v.toFixed(1)).join(",");
+  const F=EXF[key],p=poseAt(F,t),f=v=>(+v).toFixed(1),pt=a=>a.map(f).join(",");
   const line=(pts,cls)=>`<polyline class="${cls}" points="${pts.map(pt).join(" ")}"/>`;
-  let s="";
-  if(F.bar)s+=`<line class="fg-bar" x1="56" y1="20" x2="144" y2="20"/>`;
-  if(!F.noground)s+=`<line class="fg-ground" x1="12" y1="186" x2="188" y2="186"/>`;
+  let back="",front="",s="";
+  const gy=F.ground||186;
+  if(!F.noground)s+=`<line class="fg-ground" x1="8" y1="${gy}" x2="192" y2="${gy}"/>`;
+  for(const pr of F.props||[]){
+    const at=pr.at?ptOf(p,pr.at):null,x=at?at[0]+(pr.dx||0):0,y=at?at[1]+(pr.dy||0):0;
+    switch(pr.t){
+      case "rect":back+=`<rect class="fg-eq${pr.c==="pad"?" pad":""}" x="${pr.x}" y="${pr.y}" width="${pr.w}" height="${pr.h}" rx="3"/>`;break;
+      case "line":back+=`<line class="fg-eq-l${pr.c?" "+pr.c:""}" x1="${pr.a[0]}" y1="${pr.a[1]}" x2="${pr.b[0]}" y2="${pr.b[1]}" stroke-width="${pr.w||4}"/>`;break;
+      case "pad":{const a=p[pr.a],b=p[pr.b],dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy)||1,nx=-dy/L*pr.off,ny=dx/L*pr.off,ex=dx/L*10,ey=dy/L*10;
+        back+=`<line class="fg-eq-l pad" x1="${f(a[0]+nx-ex)}" y1="${f(a[1]+ny-ey)}" x2="${f(b[0]+nx+ex)}" y2="${f(b[1]+ny+ey)}" stroke-width="10"/>`;break;}
+      case "pad2":back+=`<rect class="fg-eq pad" x="${f(x-pr.w/2)}" y="${f(y)}" width="${pr.w}" height="8" rx="3"/>`;break;
+      case "platform":{const r=pr.ang*Math.PI/180,ux=Math.cos(r),uy=Math.sin(r),px=-uy,py=ux,cx=x+ux*8,cy=y+uy*8,L=pr.len/2;
+        front+=`<line class="fg-eq-l" x1="${f(cx-px*L)}" y1="${f(cy-py*L)}" x2="${f(cx+px*L)}" y2="${f(cy+py*L)}" stroke-width="7"/>`;break;}
+      case "cable":back+=`<line class="fg-cable" x1="${f(x)}" y1="${f(y)}" x2="${pr.to[0]}" y2="${pr.to[1]}"/><circle class="fg-pulley" cx="${pr.to[0]}" cy="${pr.to[1]}" r="5"/>`;break;
+      case "tbar":back+=`<line class="fg-eq-l" x1="${f(x)}" y1="${f(y)}" x2="${pr.to[0]}" y2="${pr.to[1]}" stroke-width="5"/>`;break;
+      case "circle":front+=`<circle class="fg-eq pad" cx="${f(x)}" cy="${f(y)}" r="${pr.r}"/>`;break;
+      case "wheel":front+=`<circle class="fg-wheel" cx="${f(x)}" cy="${f(y+4)}" r="${pr.r}"/>`;break;
+      case "handle":front+=`<rect class="fg-db" x="${f(x-4)}" y="${f(y-7)}" width="8" height="14" rx="3"/>`;break;
+      case "plate":front+=`<circle class="fg-plate" cx="${f(x)}" cy="${f(y)}" r="${pr.r}"/><circle class="fg-hole" cx="${f(x)}" cy="${f(y)}" r="3"/>`;break;
+      case "db":front+=pr.v?`<g transform="translate(${f(x)},${f(y)})"><rect class="fg-db" x="-2.5" y="-11" width="5" height="22" rx="2"/><rect class="fg-db" x="-7" y="-14" width="14" height="6" rx="2"/><rect class="fg-db" x="-7" y="8" width="14" height="6" rx="2"/></g>`
+        :`<g transform="translate(${f(x)},${f(y)})"><rect class="fg-db" x="-11" y="-2.5" width="22" height="5" rx="2"/><rect class="fg-db" x="-14" y="-7" width="6" height="14" rx="2"/><rect class="fg-db" x="8" y="-7" width="6" height="14" rx="2"/></g>`;break;
+    }
+  }
+  s+=back;
   if(F.front){
-    p.legs.forEach(l=>s+=line(l,"fg-limb"));s+=line([p.sh,p.hip],"fg-limb");p.arms.forEach(a=>s+=line(a,"fg-limb"));
+    (p.legs||[]).forEach(l=>s+=line(l,"fg-limb"));
+    s+=line([p.sh,p.hip],"fg-limb");
+    (p.arms||[]).forEach(a=>s+=line(a,"fg-limb"));
   }else{
+    if(p.el2)s+=line([p.sh,p.el2,p.ha2],"fg-back");
     if(p.kn2)s+=line([p.hip,p.kn2,p.an2,p.toe2],"fg-back");
     s+=line([p.hip,p.kn,p.an,p.toe],"fg-limb");
     s+=line([p.sh,p.hip],"fg-limb");
     if(F.hl==="thigh")s+=line([p.hip,p.kn],"fg-hl");
+    if(F.hl==="shin")s+=line([p.kn,p.an],"fg-hl");
     if(F.hl==="torso")s+=line([p.sh,p.hip],"fg-hl");
     s+=line([p.sh,p.el,p.ha],"fg-limb");
     if(F.hl==="uarm")s+=line([p.sh,p.el],"fg-hl");
     if(F.hl==="farm")s+=line([p.el,p.ha],"fg-hl");
-    if(F.prop==="hand"&&EQ_NOW!=="bw")s+=`<g transform="translate(${p.ha[0].toFixed(1)},${p.ha[1].toFixed(1)})"><rect class="fg-db" x="-11" y="-2.5" width="22" height="5" rx="2"/><rect class="fg-db" x="-14" y="-7" width="6" height="14" rx="2"/><rect class="fg-db" x="8" y="-7" width="6" height="14" rx="2"/></g>`;
   }
-  s+=`<circle class="fg-head" cx="${p.head[0].toFixed(1)}" cy="${p.head[1].toFixed(1)}" r="11"/>`;
+  s+=front;
+  s+=`<circle class="fg-head" cx="${f(p.head[0])}" cy="${f(p.head[1])}" r="11"/>`;
   return s;
 }
-let EQ_NOW="db",howRAF=0,howKey=null,howT0=0;
+let howRAF=0,howKey=null,howT0=0,howSlow=false;
 const RM=window.matchMedia?matchMedia("(prefers-reduced-motion: reduce)").matches:false;
 function howLoop(ts){
   if(!howKey)return;
   if(!howT0)howT0=ts;
-  const T=2600,ph=((ts-howT0)%T)/T;                 // 0→1 一個來回
-  let t=ph<.15?0:ph<.5?(ph-.15)/.35:ph<.65?1:1-(ph-.65)/.35;   // 起始停一下 → 做 → 停一下 → 回
+  const T=howSlow?4200:2600,ph=((ts-howT0)%T)/T;
+  let t=howSlow?(ph<.12?0:ph<.8?(ph-.12)/.68:ph<.9?1:1-(ph-.9)/.1):(ph<.15?0:ph<.5?(ph-.15)/.35:ph<.65?1:1-(ph-.65)/.35);
   t=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
   const svg=document.getElementById("how-fig");if(svg)svg.innerHTML=figSvg(howKey,t);
   const lb=document.getElementById("how-phase");if(lb)lb.textContent=t<.5?"起始姿勢":"動作位置";
   howRAF=requestAnimationFrame(howLoop);
 }
-let howReturn=null;
+let howReturn=null,howOpen=false;
 function openHow(di,ei){
+  howOpen=true;
   const d=plan.days[di],e=d&&d.exs[ei];if(!e)return;
-  const f=figFor(e),g=guideFor(e,f),F=FIGS[f];
-  EQ_NOW=e.finisher?"bw":equipOf(e.name);
+  const sp=exSpec(e),F=EXF[sp.key];
   howReturn=document.activeElement;
   $("#how-title").textContent=e.name;
   $("#how-chips").innerHTML=`<span class="chip">${e.sets} ${e.finisher?"輪":"組"} × ${esc(e.reps)}</span><span class="chip">RPE ${e.rpe}</span><span class="chip">休息 ${e.rest} 秒</span>`;
-  $("#how-cap").textContent=`示意：${F.name}${F.hl!=="none"?"・黃色是主要出力的部位":""}`;
-  $("#how-muscle").textContent=g.m;
-  $("#how-cue").textContent=e.cue||"";$("#how-cue-wrap").hidden=!e.cue;
-  $("#how-steps").innerHTML=g.s.map(x=>`<li>${esc(x)}</li>`).join("");
-  $("#how-miss").innerHTML=g.x.map(x=>`<li>${esc(x)}</li>`).join("");
-  if(RM){$("#how-fig").innerHTML=figSvg(f,0);$("#how-fig2").innerHTML=figSvg(f,1);$("#how-fig2").hidden=false;$("#how-phase").textContent="左：起始姿勢　右：動作位置";}
-  else{$("#how-fig2").hidden=true;howKey=f;howT0=0;cancelAnimationFrame(howRAF);howRAF=requestAnimationFrame(howLoop);}
+  $("#how-cap").textContent=(sp.own?F.cap:`以「${sp.key}」示意同類動作`)+(F.hl!=="none"&&!F.front?"・黃色是主要出力的部位":"");
+  $("#how-muscle").textContent=F.m;
+  $("#how-cue").textContent=e.cue||"";$("#how-cue-wrap").hidden=!e.cue||sp.own;
+  $("#how-steps").innerHTML=F.s.map(x=>`<li>${esc(x)}</li>`).join("");
+  $("#how-miss").innerHTML=F.x.map(x=>`<li>${esc(x)}</li>`).join("");
+  howSlow=!!F.slow;
+  if(RM){$("#how-fig").innerHTML=figSvg(sp.key,0);$("#how-fig2").innerHTML=figSvg(sp.key,1);$("#how-fig2").hidden=false;$("#how-phase").textContent="左：起始姿勢　右：動作位置";}
+  else{$("#how-fig2").hidden=true;howKey=sp.key;howT0=0;cancelAnimationFrame(howRAF);howRAF=requestAnimationFrame(howLoop);}
   $("#sheet-bg").hidden=false;$("#sheet").hidden=false;document.body.style.overflow="hidden";
   requestAnimationFrame(()=>{$("#sheet").classList.add("open");$("#sheet-bg").classList.add("open");$("#how-close").focus();});
 }
 function closeHow(){
-  howKey=null;cancelAnimationFrame(howRAF);
+  howOpen=false;howKey=null;cancelAnimationFrame(howRAF);
   $("#sheet").classList.remove("open");$("#sheet-bg").classList.remove("open");document.body.style.overflow="";
-  setTimeout(()=>{$("#sheet").hidden=true;$("#sheet-bg").hidden=true;},RM?0:220);
+  setTimeout(()=>{if(howOpen)return;$("#sheet").hidden=true;$("#sheet-bg").hidden=true;},RM?0:220);
   if(howReturn&&howReturn.focus)howReturn.focus();
 }
 $("#how-close").addEventListener("click",closeHow);
@@ -1303,16 +1737,17 @@ function renderAdd(){
   if(addPart!=="all"){const first=Object.keys(PART_OF).find(k=>PART_OF[k]===addPart);if(first)$("#cx-pattern").value=first;}
   $("#cx-eq").value=addEq==="all"?cfg.equip:addEq;
 }
-let addReturn=null;
+let addReturn=null,addOpen=false;
 function openAdd(di){
-  addFor=di;addPart="all";addEq=cfg.equip;addReturn=document.activeElement;
+  addOpen=true;addFor=di;addPart="all";addEq=cfg.equip;addReturn=document.activeElement;
   $("#cx-name").value="";renderAdd();
   $("#add-bg").hidden=false;$("#add-sheet").hidden=false;document.body.style.overflow="hidden";
   requestAnimationFrame(()=>{$("#add-sheet").classList.add("open");$("#add-bg").classList.add("open");$("#add-close").focus();});
 }
 function closeAdd(){
+  addOpen=false;
   $("#add-sheet").classList.remove("open");$("#add-bg").classList.remove("open");document.body.style.overflow="";
-  setTimeout(()=>{$("#add-sheet").hidden=true;$("#add-bg").hidden=true;},RM?0:220);
+  setTimeout(()=>{if(addOpen)return;$("#add-sheet").hidden=true;$("#add-bg").hidden=true;},RM?0:220);
   if(addReturn&&addReturn.focus)addReturn.focus();
 }
 function addExercise(name,pattern,eq){
