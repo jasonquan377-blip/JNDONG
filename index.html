@@ -81,7 +81,19 @@ h1::after{content:"";width:72px;height:18px;background:var(--sun);-webkit-mask:u
 
 /* Segmented control */
 .seg{display:flex;background:var(--fill);border-radius:9px;padding:2px;gap:0;width:100%}
+.wdpick{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.wdpick button{height:42px;border-radius:12px;background:var(--fill);font-weight:700;font-size:15px;color:var(--label2)}
+.wdpick button[aria-pressed="true"]{background:var(--hot);color:var(--cream);box-shadow:inset 0 -3px 0 var(--sun)}
 .seg button{flex:1;font-size:13px;font-weight:500;padding:6px 4px;border-radius:7px;color:var(--label);white-space:nowrap;transition:background .2s}
+.seg.goals{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:none;padding:0}
+.seg.goals button{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:10px;align-items:center;text-align:left;padding:12px;border-radius:14px;background:var(--fill);white-space:normal;font-size:15px}
+.seg.goals .g-ic{grid-row:span 2;width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:var(--cell);color:var(--blue)}
+.seg.goals .g-ic svg{width:22px;height:22px}
+.seg.goals .g-t{font-size:17px;font-weight:900;font-style:italic}
+.seg.goals .g-d{font-size:12px;font-weight:500;color:var(--label2)}
+.seg.goals button[aria-pressed="true"]{background:linear-gradient(120deg,var(--hot),var(--hot2));color:var(--cream);box-shadow:inset 0 -3px 0 var(--sun)}
+.seg.goals button[aria-pressed="true"] .g-d{color:rgba(246,243,234,.78)}
+.seg.goals button[aria-pressed="true"] .g-ic{background:rgba(246,243,234,.16);color:var(--sun)}
 .seg button[aria-pressed="true"]{background:var(--seg);font-weight:600;box-shadow:0 3px 8px rgba(0,0,0,.12),0 3px 1px rgba(0,0,0,.04)}
 .field-cell{flex-direction:column;align-items:stretch;gap:8px}
 .field-cell .k{font-size:15px}
@@ -98,6 +110,9 @@ textarea::placeholder,.input::placeholder{color:var(--label3)}
 .btn-row{display:flex;flex-direction:column;gap:10px}
 .btn{color:var(--cream);background:linear-gradient(110deg,var(--hot),var(--hot2));font-style:italic;font-weight:900;letter-spacing:.02em;box-shadow:0 8px 22px -10px var(--hot2)}
 .btn.tinted,.btn.done{box-shadow:none;font-style:normal;font-weight:600}
+.btn.go{min-height:58px;font-size:20px;letter-spacing:.06em;gap:10px;box-shadow:0 10px 26px -12px var(--hot2),inset 0 -4px 0 var(--sun)}
+.btn.go svg{width:22px;height:22px;transition:transform .2s}
+.btn.go:hover svg{transform:translateX(4px)}
 .ai-grad{background:linear-gradient(110deg,#f5c24a,#e89b12);color:#17261b;box-shadow:0 8px 22px -12px #e89b12}
 .hero{position:relative;background:radial-gradient(120% 90% at 90% 0%,rgba(255,255,255,.1),transparent 55%),linear-gradient(125deg,var(--hot) 0%,var(--hot2) 100%);color:var(--cream);isolation:isolate}
 .hero h2{position:relative;display:inline-block;align-self:flex-start}
@@ -151,6 +166,46 @@ textarea::placeholder,.input::placeholder{color:var(--label3)}
 .ex-top{display:flex;gap:12px;align-items:flex-start}
 .ex-n{width:28px;height:28px;border-radius:7px;flex:none;display:grid;place-items:center;background:var(--label);font-family:var(--num);font-style:italic;font-size:17px;font-weight:800;color:var(--bg);transform:skewX(-8deg)}
 .ex-name{font-weight:700}
+.ex-name.how{display:inline-flex;align-items:center;gap:8px;text-align:left;font-size:17px;line-height:1.3}
+.how-ic{display:inline-flex;align-items:center;gap:2px;font-size:11px;font-weight:700;color:var(--blue);background:color-mix(in srgb,var(--blue) 12%,transparent);padding:3px 8px 3px 5px;border-radius:99px;white-space:nowrap}
+.how-ic svg{width:12px;height:12px}
+.sheet-bg{position:fixed;inset:0;z-index:50;background:rgba(10,16,12,.45);opacity:0;transition:opacity .22s}
+.sheet-bg.open{opacity:1}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:51;max-height:92vh;overflow-y:auto;overscroll-behavior:contain;background:var(--bg);border-radius:22px 22px 0 0;
+  padding:8px max(18px,env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(18px,env(safe-area-inset-left,0px));
+  display:flex;flex-direction:column;gap:16px;transform:translateY(100%);transition:transform .25s cubic-bezier(.2,.8,.2,1);box-shadow:0 -10px 40px rgba(0,0,0,.18)}
+.sheet.open{transform:none}
+.sheet>*{flex-shrink:0}
+@media (min-width:720px){.sheet{left:50%;right:auto;width:640px;margin-left:-320px}}
+.sheet-grab{width:40px;height:5px;border-radius:3px;background:var(--label3);margin:0 auto}
+.sheet-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.sheet-head h2{margin:2px 0 0;font-size:26px;font-weight:900;font-style:italic;line-height:1.2}
+.sheet-x{width:34px;height:34px;border-radius:50%;background:var(--fill);display:grid;place-items:center;flex:none;color:var(--label2)}
+.sheet-x svg{width:16px;height:16px}
+.fig-box{background:var(--cell);border-radius:16px;padding:12px 12px 10px;display:flex;flex-direction:column;gap:6px}
+.fig-row{display:flex;gap:8px;justify-content:center}
+.fig{width:100%;max-width:260px;height:auto;aspect-ratio:1}
+.fig-row .fig+.fig{max-width:48%}
+.fig-row:has(.fig+.fig:not([hidden])) .fig{max-width:48%}
+.fig polyline{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.fig .fg-limb{stroke:var(--label);stroke-width:8}
+.fig .fg-back{stroke:var(--label3);stroke-width:7}
+.fig .fg-hl{stroke:var(--sun);stroke-width:8}
+.fig .fg-head{fill:var(--label)}
+.fig .fg-ground{stroke:var(--sep);stroke-width:2}
+.fig .fg-bar{stroke:var(--label2);stroke-width:5;stroke-linecap:round}
+.fig .fg-db{fill:var(--blue)}
+.fig-cap{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--label2)}
+.fig-cap b{color:var(--sun-ink);font-weight:800}
+.how-sec{display:flex;flex-direction:column;gap:6px;font-size:16px;line-height:1.5}
+.how-h{font-size:14px;font-weight:900;font-style:italic}
+.how-h::before{content:"";display:inline-block;width:4px;height:12px;background:var(--sun);transform:skewX(-18deg);margin-right:8px;vertical-align:-1px}
+.how-steps,.how-miss{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;counter-reset:st}
+.how-steps li{display:flex;gap:10px;counter-increment:st}
+.how-steps li::before{content:counter(st);flex:none;width:24px;height:24px;border-radius:7px;background:var(--hot);color:var(--cream);font-family:var(--num);font-style:italic;font-weight:800;display:grid;place-items:center;font-size:15px;margin-top:1px}
+.how-miss li{display:flex;gap:10px}
+.how-miss li::before{content:"✕";flex:none;width:24px;height:24px;border-radius:50%;background:color-mix(in srgb,var(--red) 14%,transparent);color:var(--red);display:grid;place-items:center;font-size:12px;font-weight:800;margin-top:1px}
+@media (prefers-reduced-motion:reduce){.sheet,.sheet-bg{transition:none}}
 .ex-n.tm{background:var(--fill);color:var(--label2);font-family:var(--sys);font-style:normal;font-size:13px;transform:none}
 .rx{font-family:var(--num);font-style:italic;font-size:26px;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
 .rx small{display:block;font-family:var(--sys);font-size:12px;font-weight:500;color:var(--label2)}
@@ -163,6 +218,32 @@ textarea::placeholder,.input::placeholder{color:var(--label3)}
 .sug{font-size:13px;color:var(--label2);min-width:0;flex:1}
 .sug b{color:var(--green);font-weight:600}
 .swap{font-size:15px;color:var(--blue);margin-left:auto}
+.move-pick{width:100%;text-align:left}
+.move-pick .k,.move-pick .sub{display:block}
+.ed-toggle{font-style:normal;font-weight:700;font-size:15px}
+.title-in{font:inherit;font-size:24px;font-weight:900;font-style:italic;color:var(--cream);background:rgba(246,243,234,.14);border:1.5px dashed rgba(246,243,234,.5);border-radius:10px;padding:4px 10px;width:100%;max-width:320px}
+.ed-row{display:flex;gap:10px;flex-wrap:wrap;padding-left:40px}
+.ed-f{display:flex;flex-direction:column;gap:4px}
+.ed-l{font-size:12px;color:var(--label2);font-weight:600}
+.stepper.sm b{min-width:46px;text-align:center;font-family:var(--num);font-style:italic;font-size:18px;font-variant-numeric:tabular-nums}
+.stepper.sm b small{font-size:11px;font-family:var(--sys);font-style:normal;color:var(--label2);margin-left:1px}
+.ed-in{font:inherit;font-size:16px;font-weight:600;width:92px;height:32px;border-radius:9px;border:0;background:var(--fill);color:var(--label);text-align:center}
+.ed-act{display:flex;gap:8px;padding-left:40px}
+.ed-btn{display:inline-flex;align-items:center;gap:4px;height:32px;min-width:36px;justify-content:center;padding:0 10px;border-radius:9px;background:var(--fill);color:var(--label);font-size:14px;font-weight:600}
+.ed-btn svg{width:18px;height:18px}
+.ed-btn:disabled{opacity:.35}
+.ed-btn.del-x{margin-left:auto;color:var(--red);background:color-mix(in srgb,var(--red) 10%,transparent)}
+.add-cell{width:100%;text-align:left;color:var(--blue)}
+.add-cell .ex-n.tm{background:var(--hot);color:var(--cream);font-size:18px}
+.editing .ex .sub{display:none}
+.editing [data-complete],.editing [data-undo],.editing [data-unmove]{display:none}
+.btn.warn{background:var(--red);box-shadow:none;font-style:normal;font-size:15px}
+.add-row .k{display:block}
+.add-btn{flex:none;font-size:14px;font-weight:700;color:var(--cream);background:var(--hot);border-radius:99px;padding:6px 12px}
+.added{font-size:13px;color:var(--green);font-weight:600}
+.cat.sm{font-size:13px;padding:5px 12px}
+.sel{font:inherit;font-size:16px;color:var(--label);background:var(--fill);border:0;border-radius:9px;padding:6px 10px}
+#add-lib{max-height:none}
 .rest-card{padding:20px 16px;display:flex;flex-direction:column;gap:6px}
 .rest-card h2{font-size:22px;margin:0}
 
@@ -191,7 +272,15 @@ textarea::placeholder,.input::placeholder{color:var(--label3)}
 .msg.out{background:var(--blue);color:var(--on-blue);align-self:flex-end;border-bottom-right-radius:6px}
 .msg.think{color:var(--label2)}
 .msg-meta{font-size:11px;color:var(--label2);text-align:center;margin:10px 0 4px}
-.sugs{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.sugs{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding-left:38px}
+.sugs .opt{font-size:15px;font-weight:600;color:var(--blue);background:var(--cell);border:1.5px solid color-mix(in srgb,var(--blue) 35%,transparent);border-radius:18px;padding:8px 14px;text-align:left;transition:transform .12s}
+.sugs .opt:active{transform:scale(.97)}
+.sugs .opt.q{font-weight:500;color:var(--label);border-color:var(--sep)}
+.sugs .opt.ghost{background:transparent;border-style:dashed;color:var(--label2)}
+.dots{display:inline-flex;gap:4px;padding:4px 0}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--label2);animation:bl 1s infinite ease-in-out}
+.dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
+@keyframes bl{0%,80%,100%{opacity:.25;transform:translateY(0)}40%{opacity:1;transform:translateY(-3px)}}
 .sugs:empty{display:none}
 .sugs-h{font-size:13px;color:var(--label2);width:100%;padding-left:46px}
 .sugs button{margin-left:0}
@@ -259,26 +348,19 @@ textarea::placeholder,.input::placeholder{color:var(--label3)}
     <div class="section">
       <div class="gh">個人資料</div>
       <div class="group">
-        <div class="cell field-cell"><span class="k">目標</span><div class="seg" id="seg-goal"></div></div>
+        <div class="cell field-cell"><span class="k">你的目標是？</span><div class="seg goals" id="seg-goal" role="group" aria-label="目標"></div></div>
         <div class="cell field-cell"><span class="k">程度</span><div class="seg" id="seg-level"></div></div>
         <div class="cell field-cell"><span class="k">器材</span><div class="seg" id="seg-equip"></div></div>
-        <div class="cell field-cell"><span class="k">每週天數</span><div class="seg" id="seg-days"></div></div>
+        <div class="cell field-cell"><span class="k">哪幾天練？<span class="sub" id="wd-count" style="display:inline;margin-left:6px"></span></span><div class="wdpick" id="wd-pick" role="group" aria-label="選擇訓練日"></div><div class="sub" id="wd-hint" style="margin:0"></div></div>
         <div class="cell field-cell"><span class="k">每次時間</span><div class="seg" id="seg-mins"></div></div>
         <div class="cell"><label class="grow k" for="bw">體重</label>
           <div class="stepper"><button type="button" data-bw="-1" aria-label="減少體重">−</button><input id="bw" type="number" inputmode="decimal" min="30" max="200" step="0.5"><span class="u">kg</span><button type="button" data-bw="1" aria-label="增加體重">+</button></div></div>
       </div>
     </div>
 
-    <div class="section">
-      <div class="gh">給 AI 的備註</div>
-      <div class="group"><div class="cell"><textarea id="note" rows="2" placeholder="例如：右膝不太舒服、想加強臀部、週末才有空練比較久"></textarea></div></div>
-      <div class="gf">AI 會把這些需求和你最近的訓練紀錄一起考慮。</div>
-    </div>
-
     <div class="btn-row">
-      <button class="btn ai-grad" type="button" id="ai-plan"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.8 5.2L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.8zM19 14l.9 2.6 2.6.9-2.6.9L19 21l-.9-2.6-2.6-.9 2.6-.9zM5 15l.7 1.8 1.8.7-1.8.7L5 20l-.7-1.8-1.8-.7 1.8-.7z"/></svg><span>用 AI 設計菜單</span></button>
-      <button class="btn tinted" type="button" id="rule-plan">快速產生（不使用 AI）</button>
-      <div class="gf" id="ai-plan-msg" hidden></div>
+      <button class="btn go" type="button" id="rule-plan"><span>開始排我的課表</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <div class="gf" style="text-align:center">依照上面的設定，馬上排好一整週的訓練</div>
     </div>
 
     <div class="section">
@@ -291,16 +373,9 @@ textarea::placeholder,.input::placeholder{color:var(--label3)}
 
   <!-- 教練 -->
   <section class="view" id="view-coach" hidden>
-    <div class="nav-top"><div><div class="eyebrow">醬動教練小幫手</div><h1>花豹教練</h1></div><button class="link" type="button" id="clear-chat">清除對話</button></div>
+    <div class="nav-top"><div><div class="eyebrow">醬動教練</div><h1>花豹教練</h1></div><button class="link" type="button" id="clear-chat">清除對話</button></div>
     <div class="msgs" id="msgs"></div>
     <div class="sugs" id="sugs"></div>
-    <div class="section">
-      <div class="gh"><span>常見問題</span><span class="v" id="faq-count" style="font-style:normal;font-weight:500;color:var(--label2);font-size:13px"></span></div>
-      <div class="group"><div class="cell"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="color:var(--label2);flex:none" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input class="input" id="faq-search" type="search" placeholder="輸入關鍵字，例如：膝蓋、蛋白質、休息" aria-label="搜尋常見問題"></div></div>
-      <div class="cats" id="faq-cats" role="group" aria-label="問題分類"></div>
-      <div class="group" id="faq-list"></div>
-      <div class="gf">回答是一般性的運動知識，不能取代醫師或物理治療師的診斷。有傷病、懷孕或慢性病，請先諮詢專業人員。</div>
-    </div>
   </section>
 
   <!-- 進度 -->
@@ -313,13 +388,6 @@ textarea::placeholder,.input::placeholder{color:var(--label3)}
     </div>
     <div class="gf" style="margin-top:-20px">依各動作最佳重量和體重估算，100 分約等於練了數年的進階訓練者，只用來比較自己的進步。</div>
 
-    <div class="section">
-      <div class="gh">AI 週回顧</div>
-      <div class="group ai-box">
-        <div class="ai-text muted" id="review-text">讓 AI 看過你近 4 週的紀錄，告訴你做得好的地方和下週可以調整什麼。</div>
-        <button class="btn ai-grad" type="button" id="review-btn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.8 5.2L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.8z"/></svg><span>產生週回顧</span></button>
-      </div>
-    </div>
 
     <div class="section">
       <div class="gh">近 8 週訓練次數</div>
@@ -349,7 +417,7 @@ textarea::placeholder,.input::placeholder{color:var(--label3)}
 
 <div class="composer" id="composer" hidden>
   <form class="composer-in" id="chat-form">
-    <textarea id="chat-input" rows="1" placeholder="問教練任何訓練問題" aria-label="訊息"></textarea>
+    <textarea id="chat-input" rows="1" placeholder="輸入問題，例如：膝蓋痛" aria-label="訊息"></textarea>
     <button class="send" type="submit" id="send" aria-label="傳送"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
   </form>
 </div>
@@ -360,20 +428,55 @@ textarea::placeholder,.input::placeholder{color:var(--label3)}
   <button class="tab" role="tab" data-tab="coach" id="tab-coach"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.5 3.5V17A2.5 2.5 0 0 1 4 14.5z"/><path d="M12 7.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z" fill="currentColor" stroke="none"/></svg>教練</button>
   <button class="tab" role="tab" data-tab="progress" id="tab-progress"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 20V12M10 20V6M15 20v-9M20 20V4"/></svg>進度</button>
 </div></nav>
+<div class="sheet-bg" id="sheet-bg" hidden></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="how-title" hidden>
+  <div class="sheet-grab" aria-hidden="true"></div>
+  <div class="sheet-head"><div><div class="eyebrow">動作教學</div><h2 id="how-title"></h2></div><button type="button" class="sheet-x" id="how-close" aria-label="關閉"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="chips" id="how-chips"></div>
+  <div class="fig-box">
+    <div class="fig-row"><svg class="fig" id="how-fig" viewBox="0 0 200 200" role="img" aria-label="動作示意圖"></svg><svg class="fig" id="how-fig2" viewBox="0 0 200 200" aria-hidden="true" hidden></svg></div>
+    <div class="fig-cap"><b id="how-phase">起始姿勢</b><span id="how-cap"></span></div>
+  </div>
+  <div class="how-sec"><div class="how-h">主要練到</div><div id="how-muscle"></div></div>
+  <div class="how-sec" id="how-cue-wrap"><div class="how-h">這個動作的重點</div><div id="how-cue"></div></div>
+  <div class="how-sec"><div class="how-h">步驟</div><ol class="how-steps" id="how-steps"></ol></div>
+  <div class="how-sec"><div class="how-h">常見錯誤</div><ul class="how-miss" id="how-miss"></ul></div>
+  <button type="button" class="btn" id="how-done">知道了</button>
+</div>
+<div class="sheet-bg" id="add-bg" hidden></div>
+<div class="sheet" id="add-sheet" role="dialog" aria-modal="true" aria-labelledby="add-title" hidden>
+  <div class="sheet-grab" aria-hidden="true"></div>
+  <div class="sheet-head"><div><div class="eyebrow" id="add-sub"></div><h2 id="add-title">新增動作</h2></div><button type="button" class="sheet-x" id="add-close" aria-label="關閉"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="cats" id="add-parts" role="group" aria-label="部位"></div>
+  <div class="cats" id="add-eqs" role="group" aria-label="器材"></div>
+  <div id="add-mine" class="section"></div>
+  <div class="section"><div class="gh">動作庫</div><div class="group" id="add-lib"></div></div>
+  <form class="section" id="cx-form">
+    <div class="gh">找不到？自己輸入</div>
+    <div class="group">
+      <div class="cell"><label class="k" for="cx-name" style="flex:none">名稱</label><input class="input" id="cx-name" maxlength="30" placeholder="例如：保加利亞分腿跳" style="text-align:right"></div>
+      <div class="cell"><label class="grow k" for="cx-pattern">練哪裡</label><select class="sel" id="cx-pattern"></select></div>
+      <div class="cell"><label class="grow k" for="cx-eq">器材</label><select class="sel" id="cx-eq"><option value="gym">健身房</option><option value="db">啞鈴</option><option value="bw">徒手</option></select></div>
+    </div>
+    <button type="submit" class="btn tinted">加入這個動作</button>
+    <div class="gf">自己輸入的動作會存在「我的動作」，下次可以直接選。</div>
+  </form>
+  <button type="button" class="btn" id="add-done">完成</button>
+</div>
 <div class="toast" id="toast" role="status"></div>
 
 <script>
 // ================= 動作資料庫 =================
 const DB={
-  squat:{gym:["槓鈴背蹲舉","槓鈴前蹲舉","腿推機"],db:["啞鈴高腳杯深蹲","啞鈴保加利亞分腿蹲"],bw:["徒手深蹲","跳躍深蹲","保加利亞分腿蹲"]},
-  hinge:{gym:["傳統硬舉","羅馬尼亞硬舉","臀推"],db:["啞鈴羅馬尼亞硬舉","啞鈴臀推"],bw:["單腳臀橋","徒手早安式","臀橋"]},
-  lunge:{gym:["槓鈴弓箭步","史密斯分腿蹲","登階"],db:["啞鈴弓箭步走","啞鈴登階"],bw:["反向弓箭步","側弓箭步"]},
-  hpush:{gym:["槓鈴臥推","上斜啞鈴臥推","機械胸推"],db:["啞鈴臥推","啞鈴地板臥推"],bw:["伏地挺身","下斜伏地挺身","窄距伏地挺身"]},
-  vpush:{gym:["站姿槓鈴肩推","坐姿啞鈴肩推"],db:["啞鈴肩推","阿諾推舉"],bw:["屈體伏地挺身","靠牆倒立撐"]},
-  hpull:{gym:["槓鈴划船","坐姿划船機","單手啞鈴划船"],db:["單手啞鈴划船","俯身啞鈴划船"],bw:["反向划船（桌下）","毛巾划船"]},
-  vpull:{gym:["引體向上","滑輪下拉"],db:["啞鈴直臂上拉","啞鈴聳肩"],bw:["引體向上（單槓）","離心引體"]},
-  arms:{gym:["繩索三頭下壓","槓鈴彎舉","側平舉"],db:["啞鈴彎舉","啞鈴過頭三頭伸展","啞鈴側平舉"],bw:["椅子撐體","窄距伏地挺身"]},
-  core:{gym:["懸吊抬腿","繩索捲腹","農夫走路"],db:["啞鈴側棒","啞鈴死蟲"],bw:["棒式","死蟲式","登山者"]}
+  squat:{gym:["槓鈴背蹲舉","腿推機","槓鈴前蹲舉","哈克深蹲機","史密斯深蹲"],db:["啞鈴高腳杯深蹲","啞鈴相撲深蹲","啞鈴前蹲舉"],bw:["徒手深蹲","跳躍深蹲","深蹲停留"]},
+  hinge:{gym:["傳統硬舉","槓鈴臀推","槓鈴羅馬尼亞硬舉","器械腿後勾","45 度背伸展"],db:["啞鈴羅馬尼亞硬舉","啞鈴臀推","單腳啞鈴羅馬尼亞硬舉"],bw:["臀橋","單腳臀橋","徒手早安式"]},
+  lunge:{gym:["槓鈴保加利亞分腿蹲","史密斯分腿蹲","槓鈴弓箭步","槓鈴登階"],db:["啞鈴保加利亞分腿蹲","啞鈴弓箭步走","啞鈴登階","啞鈴反向弓箭步"],bw:["反向弓箭步","保加利亞分腿蹲","側弓箭步"]},
+  hpush:{gym:["槓鈴臥推","機械胸推","上斜槓鈴臥推","雙槓撐體","繩索夾胸"],db:["啞鈴臥推","上斜啞鈴臥推","啞鈴地板臥推","啞鈴飛鳥"],bw:["伏地挺身","下斜伏地挺身","寬距伏地挺身"]},
+  vpush:{gym:["站姿槓鈴肩推","機械肩推","史密斯肩推"],db:["啞鈴肩推","阿諾推舉","單手啞鈴肩推"],bw:["屈體伏地挺身","靠牆倒立撐"]},
+  hpull:{gym:["槓鈴划船","坐姿划船機","T 槓划船","胸靠划船機"],db:["單手啞鈴划船","俯身啞鈴划船","胸靠上斜啞鈴划船"],bw:["反向划船（桌下）","毛巾划船"]},
+  vpull:{gym:["滑輪下拉","引體向上","窄握滑輪下拉","輔助引體機"],db:["啞鈴直臂上拉","啞鈴反向飛鳥"],bw:["引體向上（單槓）","離心引體"]},
+  arms:{gym:["繩索三頭下壓","槓鈴彎舉","繩索彎舉","繩索側平舉","EZ 槓三頭伸展"],db:["啞鈴彎舉","啞鈴過頭三頭伸展","啞鈴側平舉","錘式彎舉"],bw:["椅子撐體","鑽石伏地挺身"]},
+  core:{gym:["懸吊抬腿","繩索捲腹","繩索抗旋轉推","腹肌滾輪"],db:["啞鈴死蟲","啞鈴俄羅斯轉體","啞鈴農夫走路"],bw:["棒式","死蟲式","登山者","側棒式"]}
 };
 const PATTERN_ZH={squat:"蹲",hinge:"髖鉸鏈",lunge:"單腳",hpush:"水平推",vpush:"垂直推",hpull:"水平拉",vpull:"垂直拉",arms:"手臂",core:"核心"};
 const TEMPLATES={
@@ -388,7 +491,13 @@ const SPLITS={2:[["全身 A","full",0],["全身 B","full",1]],3:[["全身 A","fu
 const SCHEDULE={2:[1,4],3:[1,3,5],4:[1,2,4,5],5:[1,2,3,5,6],6:[1,2,3,4,5,6]};
 const WD=["日","一","二","三","四","五","六"];
 const GOALS={muscle:{label:"增肌",sets:4,reps:"8–12",rpe:8,rest:90},fatloss:{label:"減脂",sets:3,reps:"12–15",rpe:7,rest:45,finisher:true},
-  strength:{label:"肌力",sets:5,reps:"5",rpe:8,rest:180,main:true},endurance:{label:"耐力",sets:3,reps:"15–20",rpe:7,rest:30,finisher:true}};
+  strength:{label:"變強壯",sets:5,reps:"5",rpe:8,rest:180,main:true},endurance:{label:"練體力",sets:3,reps:"15–20",rpe:7,rest:30,finisher:true}};
+const GOAL_INFO={
+  muscle:{t:"增肌",d:"長肌肉、練出線條",ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6.5 8v8M17.5 8v8M3.5 10v4M20.5 10v4M6.5 12h11"/></svg>'},
+  fatloss:{t:"減脂",d:"燃燒脂肪、瘦身",ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"><path d="M12 3c1 3.5 5.5 5.5 5.5 10.5a5.5 5.5 0 0 1-11 0c0-2.6 1.4-4.2 2.8-5.6.3 1.6 1 2.6 2 3.1C11.6 8.6 11 5.6 12 3z"/></svg>'},
+  strength:{t:"變強壯",d:"肌力：舉得更重",ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 7.5a4 4 0 0 1 8 0"/><rect x="5" y="9.5" width="14" height="11" rx="4"/></svg>'},
+  endurance:{t:"練體力",d:"耐力：不容易喘",ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2.5-5 4 10 2.5-5H21"/></svg>'}
+};
 const LEVELS={beg:{label:"新手",d:-1,rpe:-1},mid:{label:"中階",d:0,rpe:0},adv:{label:"進階",d:1,rpe:1}};
 const EQUIPS={gym:"健身房",db:"啞鈴",bw:"徒手"};
 const CUES={squat:"膝蓋朝腳尖方向，背打直往下坐",hinge:"臀部往後推，背保持中立",lunge:"前腳全腳掌踩穩，身體直上直下",hpush:"肩胛往後下收，手肘約 45 度",vpush:"核心收緊，不要過度後仰",hpull:"先收肩胛再拉，手肘貼近身體",vpull:"胸口往上找，肩膀不要聳起",arms:"控制下放速度，不要甩",core:"肋骨往下收，下背不離地或不塌腰"};
@@ -401,6 +510,9 @@ function weekKey(d){const x=new Date(typeof d==="string"?d+"T12:00:00":d);x.setH
 const thisWeek=weekKey(now);
 
 let cfg=Object.assign({goal:"muscle",level:"beg",equip:"db",days:"3",mins:"45",bw:"70",note:""},store.get("fit.cfg",{}));
+if(!Array.isArray(cfg.wds)||cfg.wds.length<2||cfg.wds.length>6)cfg.wds=[...(SCHEDULE[cfg.days]||[1,3,5])];
+cfg.days=String(cfg.wds.length);
+const monFirst=a=>[...a].sort((x,y)=>((x+6)%7)-((y+6)%7));
 function sampleHistory(){
   const out=[],titles=["全身 A","全身 B","全身 C"];
   for(let wk=7;wk>=1;wk--){const cnt=[2,3,2,3,3,2,3][7-wk];
@@ -423,6 +535,7 @@ let chat=store.get("fit.chat",[]);
 let NEED_MIGRATE=!plan.timeV2;
 let tab=store.get("fit.tab","today");
 let selWd=now.getDay();
+const movedTo={};   // 本次開啟時，把某個課表改到今天練（不存檔）
 function save(){store.set("fit.cfg",cfg);store.set("fit.plan2",plan);store.set("fit.history",history);store.set("fit.chat",chat.filter(m=>!m.pending&&m.content).slice(-30));}
 
 // ================= 規則產生器（AI 不可用時的備案） =================
@@ -450,7 +563,7 @@ function fitDay(d){
   return d;
 }
 function ruleplan(){
-  const g=GOALS[cfg.goal],L=LEVELS[cfg.level],m=+cfg.mins,split=SPLITS[cfg.days],wds=SCHEDULE[cfg.days];
+  const g=GOALS[cfg.goal],L=LEVELS[cfg.level],m=+cfg.mins,split=SPLITS[cfg.days],wds=monFirst(cfg.wds);
   const budget=(m-WARM(m)-COOL(m))*60;
   const days=split.map(([title,tpl,idx],di)=>{
     const seen={},pats=TEMPLATES[tpl][idx],exs=[];
@@ -478,8 +591,8 @@ function ruleplan(){
 
 
 // ================= 重量建議與肌力分數 =================
-function equipOf(n){for(const p in DB){if(DB[p].db.includes(n))return "db";if(DB[p].gym.includes(n))return "gym";if(DB[p].bw.includes(n))return "bw";}return "gym";}
-function patternOf(n){for(const p in DB)for(const k in DB[p])if(DB[p][k].includes(n))return p;return null;}
+function equipOf(n){const m=myEx().find(x=>x.name===n);if(m)return m.eq;for(const p in DB){if(DB[p].db.includes(n))return "db";if(DB[p].gym.includes(n))return "gym";if(DB[p].bw.includes(n))return "bw";}return "gym";}
+function patternOf(n){const m=myEx().find(x=>x.name===n);if(m)return m.pattern;for(const p in DB)for(const k in DB[p])if(DB[p][k].includes(n))return p;return null;}
 function lastWeight(n){for(let i=history.length-1;i>=0;i--){const w=(history[i].weights||{})[n];if(w)return w;}return null;}
 function suggest(n){const last=lastWeight(n);if(!last)return null;const step=equipOf(n)==="db"?1:2.5;
   const times=history.filter(h=>(h.weights||{})[n]===last).length;
@@ -487,7 +600,8 @@ function suggest(n){const last=lastWeight(n);if(!last)return null;const step=equ
 const STD={gym:{squat:1.75,hinge:2.0,lunge:1.0,hpush:1.25,vpush:.8,hpull:1.0},db:{squat:.6,hinge:.6,lunge:.4,hpush:.45,vpush:.35,hpull:.5}};
 const SUBS=[["腿部",["squat","lunge"]],["臀腿後側",["hinge"]],["推",["hpush","vpush"]],["拉",["hpull","vpull"]]];
 function strength(){const bw=parseFloat(cfg.bw)||70,best={};
-  history.forEach(h=>Object.entries(h.weights||{}).forEach(([n,w])=>{const p=patternOf(n),e=equipOf(n);if(!p||!STD[e]||!STD[e][p])return;
+  history.forEach(h=>Object.entries(h.weights||{}).forEach(([n,w])=>{if(/機|繩索|滑輪|史密斯/.test(n))return;   // 器械重量和自由重量不能比，不算進肌力分數
+    const p=patternOf(n),e=equipOf(n);if(!p||!STD[e]||!STD[e][p])return;
     const s=Math.min(100,Math.round(w/bw/STD[e][p]*100));if(!best[p]||s>best[p])best[p]=s;}));
   const subs=SUBS.map(([label,ps])=>{const v=ps.map(p=>best[p]).filter(x=>x!=null);return {label,v:v.length?Math.max(...v):null}});
   const have=subs.filter(s=>s.v!=null);
@@ -511,11 +625,7 @@ getSample().then(s=>{if(!s){aiOff=true;renderAIState();}});
 function aiErr(e){const c=e&&e.code;if(c==="not_granted"||c==="sampling_disabled"||c==="not_declared"||c==="capability_disabled"){aiOff=true;renderAIState();}
   return ({not_granted:"你沒有允許這個頁面使用 Claude，AI 功能已關閉。重新整理頁面可以再允許一次。",sampling_disabled:"你的帳號目前無法使用 Claude。",rate_limited:"使用太頻繁了，請等一下再試。",
     session_expired:"請重新登入 Claude 後再試。",invalid_json:"AI 回傳的菜單格式不完整，請再試一次。",refused:"AI 沒辦法回答這個問題，換個問法試試。",prompt_too_large:"資料太多了，請清除部分對話後再試。"})[c]||"連線出了問題，請再試一次。";}
-function renderAIState(){
-  const off=aiOff;$("#ai-plan").hidden=off;$("#review-btn").hidden=off;
-  const m=$("#ai-plan-msg");m.hidden=!off;m.textContent=off?"AI 功能只在 Claude 版本提供，這個版本用規則產生菜單。":"";
-  if(off&&tab==="coach")renderCoach();
-}
+function renderAIState(){}
 function profileText(){
   const g=GOALS[cfg.goal];
   return `目標：${g.label}；程度：${LEVELS[cfg.level].label}；器材：${EQUIPS[cfg.equip]}；每週 ${cfg.days} 天，每次約 ${cfg.mins} 分鐘；體重 ${cfg.bw}kg。${cfg.note?"備註："+cfg.note:""}`;
@@ -529,6 +639,7 @@ let planCtl=null;
 async function aiPlan(){
   const btn=$("#ai-plan");
   if(planCtl){planCtl.abort();return;}
+  if(!confirmOverwrite(btn))return;
   const sample=await getSample();if(!sample){aiOff=true;renderAIState();return;}
   const lib=Object.entries(DB).map(([p,v])=>`${p}（${PATTERN_ZH[p]}）：${v[cfg.equip].join("、")}`).join("\n");
   const prompt=`你是專業的肌力與體能教練。請為這位使用者設計一週訓練菜單。
@@ -539,7 +650,7 @@ async function aiPlan(){
 ${historyText(10)}
 
 規則：
-- 剛好 ${cfg.days} 個訓練日，weekday 用數字表示（0=週日，1=週一 … 6=週六），訓練日之間盡量有休息。
+- 使用者選的訓練日是：${monFirst(cfg.wds).map(w=>"週"+WD[w]).join("、")}。請剛好排 ${cfg.days} 個訓練日，weekday 必須用這幾天（數字 0=週日，1=週一 … 6=週六）。
 - 每次訓練總時間約 ${cfg.mins} 分鐘。計算方式：暖身 ${WARM(+cfg.mins)} 分 + 收操 ${COOL(+cfg.mins)} 分 + 每個動作（每組做的時間：每下約 3.5 秒再加 10 秒準備，計時動作照秒數；組間休息照 rest；換動作約 1 分鐘）。請讓總和落在目標 ±3 分鐘內，app 也會自動微調組數。
 - 動作名稱請優先從下面清單選，並填對應的 pattern；清單沒有的動作也可以用，pattern 填最接近的一個。最後若要加體能循環，pattern 填 "finisher"。
 ${lib}
@@ -560,7 +671,7 @@ ${lib}
 }
 function normalizeAI(r){
   if(!r||!Array.isArray(r.days)||!r.days.length)throw {code:"invalid_json"};
-  const fb=SCHEDULE[cfg.days]||[1,3,5];
+  const fb=monFirst(cfg.wds);
   const days=r.days.slice(0,7).map((d,i)=>{
     const wd=Number.isFinite(+d.weekday)?((Math.round(+d.weekday)%7)+7)%7:(fb[i]??i);
     const exs=(Array.isArray(d.exercises)?d.exercises:[]).slice(0,10).map(e=>{
@@ -650,6 +761,7 @@ function ringSvg(vals){
     <circle cx="60" cy="60" r="${r}" fill="none" stroke="${C[i]}" stroke-width="12" stroke-linecap="round" stroke-dasharray="${(c*f).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 60 60)"${f===0?' stroke-opacity="0"':""}/>`}).join("");
 }
 function renderToday(){
+  $("#workout").classList.toggle("editing",editMode);
   $("#today-date").textContent=`${now.getMonth()+1}月${now.getDate()}日 星期${WD[now.getDay()]}`;
   const done=weekDone(),sc=strength(),setsDone=done.reduce((a,h)=>a+(h.sets||0),0),ps=planSets();
   $("#rings").innerHTML=ringSvg([done.length/plan.days.length,sc.total/100,ps?setsDone/ps:0]);
@@ -661,13 +773,15 @@ function renderToday(){
   $("#week").innerHTML=[1,2,3,4,5,6,0].map((wd,i)=>{const d=new Date(monday);d.setDate(monday.getDate()+i);
     const di=plan.days.findIndex(x=>x.weekday===wd),dot=di<0?"":isDone(di)?"ok":"train";
     return `<button class="wd${wd===now.getDay()?" today":""}" type="button" data-wd="${wd}" aria-pressed="${wd===selWd}" aria-label="週${WD[wd]}${di<0?"休息":plan.days[di].title}"><span class="l">${WD[wd]}</span><span class="d">${d.getDate()}</span><span class="dot ${dot}"></span></button>`}).join("");
-  const di=plan.days.findIndex(x=>x.weekday===selWd);
+  let di=plan.days.findIndex(x=>x.weekday===selWd);const isMoved=movedTo[selWd]!=null&&selWd===now.getDay();if(isMoved)di=movedTo[selWd];
   if(di<0){
     const order=[1,2,3,4,5,6,0],start=order.indexOf(selWd);
+    const pend=plan.days.map((x,j)=>j).filter(j=>!isDone(j));
     let next=null;for(let k=1;k<=7;k++){const w=order[(start+k)%7];const j=plan.days.findIndex(x=>x.weekday===w);if(j>=0){next=plan.days[j];break;}}
     $("#workout").innerHTML=`<div class="group rest-card"><div class="eyebrow">週${WD[selWd]}</div><h2>休息日</h2>
       <div class="sub" style="font-size:15px">肌肉在休息時修復變強。可以散步 20–30 分鐘或做輕度伸展，睡飽比多練一天更重要。</div>
-      ${next?`<div class="sub" style="font-size:15px;margin-top:8px">下一次訓練：週${WD[next.weekday]}・${esc(next.title)}</div>`:""}</div>`;
+      ${next?`<div class="sub" style="font-size:15px;margin-top:8px">下一次訓練：週${WD[next.weekday]}・${esc(next.title)}</div>`:""}</div>
+      ${selWd===now.getDay()&&pend.length?`<div class="section"><div class="gh">今天有空想練？</div><div class="group">${pend.map(j=>`<button type="button" class="cell tap move-pick" data-moveto="${j}"><span class="grow"><span class="k">${esc(plan.days[j].title)}</span><span class="sub">原本排在週${WD[plan.days[j].weekday]}・約 ${estMin(plan.days[j])} 分鐘</span></span><span class="v" style="color:var(--blue);font-weight:600">改今天練</span></button>`).join("")}</div><div class="gf">挑一個這週還沒練的課表，就能改到今天練，完成後一樣算進本週進度。</div></div>`:""}`;
     return;
   }
   const d=plan.days[di],ok=isDone(di),tt=dayTime(d);
@@ -676,48 +790,60 @@ function renderToday(){
       <div class="group hero">
         <div class="wk-head">
           <span class="hero-num" aria-hidden="true">${String(di+1).padStart(2,"0")}</span>
-          <div class="eyebrow">DAY ${di+1}・週${WD[d.weekday]}${d.weekday===now.getDay()?"・今天":""}</div>
-          <h2>${esc(d.title)}</h2>
-          <div class="chips"><span class="chip">${d.exs.length} 個動作</span><span class="chip">約 ${tt.total} 分鐘</span><span class="chip">強度 ${"●".repeat(d.intensity+1)}${"○".repeat(3-d.intensity)}</span>${plan.source==="ai"?'<span class="chip ai">AI 設計</span>':""}</div>
+          <div class="eyebrow">DAY ${di+1}・${isMoved?`改到今天練（原本週${WD[d.weekday]}）`:`週${WD[d.weekday]}${d.weekday===now.getDay()?"・今天":""}`}</div>
+          ${editMode?`<input class="title-in" data-title="${di}" value="${esc(d.title)}" maxlength="20" aria-label="課表名稱">`:`<h2>${esc(d.title)}</h2>`}
+          <div class="chips"><span class="chip">${d.exs.length} 個動作</span><span class="chip">約 ${tt.total} 分鐘</span>${d.custom?'<span class="chip">自訂</span>':""}<span class="chip">強度 ${"●".repeat(d.intensity+1)}${"○".repeat(3-d.intensity)}</span></div>
         </div>
       </div>
     </div>
     <div class="section">
-      <div class="gh">動作</div>
+      <div class="gh"><span>動作</span><button class="link ed-toggle" type="button" data-editmode="1">${editMode?"完成編輯":"編輯動作"}</button></div>
       <div class="group">
         <div class="cell"><span class="ex-n tm" aria-hidden="true">暖</span><div class="grow"><div class="ex-name">暖身</div><div class="sub">動態伸展，再用輕重量做 1–2 組熱身組</div></div><div class="rx">${tt.warm}<small>分鐘</small></div></div>
         ${d.exs.map((e,ei)=>{const s=e.finisher?null:suggest(e.name),eq=equipOf(e.name),canSwap=e.pattern&&DB[e.pattern][cfg.equip].length>1;
         return `<div class="cell ex">
           <div class="ex-top"><span class="ex-n">${ei+1}</span>
-            <div class="grow"><div class="ex-name">${esc(e.name)}</div><div class="sub">${esc(e.cue||"")}</div></div>
+            <div class="grow"><button type="button" class="ex-name how" data-how="${di}-${ei}">${esc(e.name)}<span class="how-ic" aria-hidden="true"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M5.5 3.8v8.4L12.3 8z"/></svg>教學</span></button><div class="sub">${esc(e.cue||"")}</div></div>
             <div class="rx">${e.sets}×${esc(e.reps)}<small>RPE ${e.rpe}・休 ${e.rest} 秒</small></div></div>
-          ${e.finisher?"":`<div class="ex-bottom">
+          ${editMode?editControls(d,di,e,ei):e.finisher?"":`<div class="ex-bottom">
             ${eq==="bw"&&!s?"":`<div class="stepper"><button type="button" data-step="-${eq==="db"?1:2.5}" data-i="w-${di}-${ei}" aria-label="減少重量">−</button><input id="w-${di}-${ei}" type="number" inputmode="decimal" min="0" step="0.5" placeholder="0" value="${s?s.w:""}" aria-label="${esc(e.name)} 重量"><span class="u">kg</span><button type="button" data-step="${eq==="db"?1:2.5}" data-i="w-${di}-${ei}" aria-label="增加重量">+</button></div>`}
             <span class="sug">${s?(s.up?`<b>建議加重 ↑</b> ${s.why}`:s.why):eq==="bw"?"徒手動作，專注動作品質":"第一次做，選能完成全部次數的重量"}</span>
             ${canSwap?`<button class="swap" type="button" data-swap="${di}-${ei}">替換</button>`:""}
           </div>`}
         </div>`}).join("")}
+        ${editMode?`<button type="button" class="cell tap add-cell" data-addex="${di}"><span class="ex-n tm" aria-hidden="true">＋</span><span class="grow k">新增動作</span><span class="sub" style="margin:0">從動作庫挑，或自己輸入</span></button>`:""}
         <div class="cell"><span class="ex-n tm" aria-hidden="true">收</span><div class="grow"><div class="ex-name">收操</div><div class="sub">伸展今天練到的部位，每個姿勢 30 秒</div></div><div class="rx">${tt.cool}<small>分鐘</small></div></div>
       </div>
       <div class="gf">時間估算：暖身 ${tt.warm} 分 + 重訓 ${tt.train} 分 + 收操 ${tt.cool} 分 ≈ ${tt.total} 分鐘。重訓時間包含每組實際做的時間、組間休息，以及換動作約 1 分鐘。${eqNote()}</div>
     </div>
+    ${editMode?'<button class="btn" type="button" data-editmode="1">完成編輯</button>':""}
     <button class="btn${ok?" done":""}" type="button" data-complete="${di}">${ok?`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>本週已完成・再記錄一次`:"完成訓練"}</button>
-    ${ok?`<button class="link center" type="button" data-undo="${di}">記錄錯了？刪除本週這筆紀錄</button>`:""}`;
+    ${ok?`<button class="link center" type="button" data-undo="${di}">記錄錯了？刪除本週這筆紀錄</button>`:""}
+    ${isMoved&&!ok?`<button class="link center" type="button" data-unmove="1">改回休息日</button>`:""}`;
 }
 const eqNote=()=>cfg.equip==="db"?"啞鈴填單手重量。完成時會記錄重量，下次自動建議要不要加重。":"完成時會記錄重量，下次自動建議要不要加重。";
 
 // ================= 畫面：菜單 =================
+function renderWdPick(){
+  const sel=new Set(cfg.wds);
+  $("#wd-pick").innerHTML=[1,2,3,4,5,6,0].map(w=>`<button type="button" data-wdp="${w}" aria-pressed="${sel.has(w)}" aria-label="週${WD[w]}">${WD[w]}</button>`).join("");
+  $("#wd-count").textContent=`每週 ${cfg.wds.length} 天`;
+  const o=monFirst(cfg.wds),full=cfg.wds.length<=3;
+  const back=o.filter((w,i)=>i>0&&((o[i-1]+1)%7)===w).map(w=>`週${WD[(w+6)%7]}、週${WD[w]}`);
+  $("#wd-hint").textContent=full&&back.length?`${back[0]}連著練全身，同一個部位最好隔 48 小時。建議中間空一天，或排成 4 天上下半身分開練。`
+    :`${full?"2–3 天會排全身訓練":cfg.wds.length===4?"4 天會排上半身、下半身輪流":"5–6 天會排推、拉、腿輪流"}。選好後按下方按鈕重新排課表。`;
+}
 function seg(id,opts,key){
   $(id).innerHTML=Object.entries(opts).map(([v,l])=>`<button type="button" data-k="${key}" data-v="${v}" aria-pressed="${String(cfg[key])===v}">${l}</button>`).join("");
 }
 function renderPlan(){
-  seg("#seg-goal",Object.fromEntries(Object.entries(GOALS).map(([k,v])=>[k,v.label])),"goal");
+  $("#seg-goal").innerHTML=Object.entries(GOAL_INFO).map(([k,g])=>`<button type="button" data-k="goal" data-v="${k}" aria-pressed="${cfg.goal===k}"><span class="g-ic" aria-hidden="true">${g.ic}</span><span class="g-t">${g.t}</span><span class="g-d">${g.d}</span></button>`).join("");
   seg("#seg-level",Object.fromEntries(Object.entries(LEVELS).map(([k,v])=>[k,v.label])),"level");
   seg("#seg-equip",EQUIPS,"equip");
-  seg("#seg-days",{2:"2",3:"3",4:"4",5:"5",6:"6"},"days");
+  renderWdPick();
   seg("#seg-mins",{30:"30 分",45:"45 分",60:"60 分",75:"75 分"},"mins");
-  $("#bw").value=cfg.bw;$("#note").value=cfg.note||"";
-  $("#plan-src").innerHTML=plan.source==="ai"?'<span class="chip ai">AI 設計</span>':'<span class="chip">規則產生</span>';
+  $("#bw").value=cfg.bw;
+  $("#plan-src").innerHTML="";
   $("#plan-summary-box").hidden=!plan.summary;$("#plan-summary").textContent=plan.summary||"";
   $("#plan-list").innerHTML=plan.days.map((d,di)=>`<div class="cell tap" data-goday="${d.weekday}" role="button" tabindex="0">
       <div class="grow"><div class="k">週${WD[d.weekday]}・${esc(d.title)}</div><div class="sub">${d.exs.map(e=>esc(e.name)).slice(0,4).join("、")}${d.exs.length>4?" ⋯":""}</div></div>
@@ -759,8 +885,9 @@ function renderAll(){renderToday();renderPlan();renderProgress();renderCoach();r
 function setTab(t){tab=t;store.set("fit.tab",t);
   for(const v of ["today","plan","coach","progress"]){$("#view-"+v).hidden=v!==t;$("#tab-"+v).setAttribute("aria-selected",v===t);}
   
+  $("#app").classList.toggle("chatting",t==="coach");
   if(t==="today")renderToday();if(t==="plan")renderPlan();if(t==="progress")renderProgress();if(t==="coach")renderCoach();
-  window.scrollTo({top:0});}
+  window.scrollTo({top:t==="coach"&&chat.length?document.body.scrollHeight:0});}
 document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>setTab(b.dataset.tab)));
 
 // ================= 事件 =================
@@ -771,6 +898,14 @@ $("#workout").addEventListener("click",e=>{
   const sw=e.target.closest("[data-swap]");
   if(sw){const [di,ei]=sw.dataset.swap.split("-").map(Number),ex=plan.days[di].exs[ei],list=DB[ex.pattern][cfg.equip];
     let k=list.indexOf(ex.name);k=(k+1)%list.length;ex.name=list[k];ex.cue=CUES[ex.pattern];save();renderToday();toast(`換成「${ex.name}」`);return;}
+  const mv=e.target.closest("[data-moveto]");
+  if(mv){movedTo[selWd]=+mv.dataset.moveto;renderToday();window.scrollTo({top:0,behavior:"smooth"});toast("已改到今天練");return;}
+  if(e.target.closest("[data-unmove]")){delete movedTo[selWd];renderToday();return;}
+  if(e.target.closest("[data-editmode]")){editMode=!editMode;renderToday();if(editMode)toast("編輯模式：可以新增、刪除、調整順序和組數");return;}
+  const ed=e.target.closest("[data-ed]");if(ed){doEdit(ed.dataset.ed);return;}
+  const ax=e.target.closest("[data-addex]");if(ax){openAdd(+ax.dataset.addex);return;}
+  const hw=e.target.closest("[data-how]");
+  if(hw){const [a,b]=hw.dataset.how.split("-").map(Number);openHow(a,b);return;}
   const un=e.target.closest("[data-undo]");
   if(un){const di=+un.dataset.undo,r=weekDone().filter(h=>h.dayIndex===di).pop();if(r)delRecord(r.id);return;}
   const cp=e.target.closest("[data-complete]");
@@ -784,13 +919,14 @@ document.addEventListener("click",e=>{
   if(s){cfg[s.dataset.k]=s.dataset.v;save();s.parentElement.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b===s));}
 });
 document.querySelectorAll("[data-bw]").forEach(b=>b.addEventListener("click",()=>{const v=Math.max(30,Math.min(200,(parseFloat(cfg.bw)||70)+(+b.dataset.bw)));cfg.bw=String(v);$("#bw").value=v;save();}));
+$("#wd-pick").addEventListener("click",e=>{const b=e.target.closest("[data-wdp]");if(!b)return;const w=+b.dataset.wdp,i=cfg.wds.indexOf(w);
+  if(i>=0){if(cfg.wds.length<=2){toast("至少要選 2 天");return;}cfg.wds.splice(i,1);}
+  else{if(cfg.wds.length>=6){toast("最多選 6 天，留 1 天休息");return;}cfg.wds.push(w);}
+  cfg.days=String(cfg.wds.length);save();renderWdPick();});
 $("#bw").addEventListener("change",e=>{const v=parseFloat(e.target.value);if(v>=30&&v<=200){cfg.bw=String(v);save();}else e.target.value=cfg.bw;});
-$("#note").addEventListener("input",e=>{cfg.note=e.target.value.slice(0,300);save();});
-$("#ai-plan").addEventListener("click",aiPlan);
-$("#rule-plan").addEventListener("click",()=>{plan=ruleplan();save();renderPlan();toast("已產生新的菜單");});
+$("#rule-plan").addEventListener("click",ev=>{const btn=ev.currentTarget;if(!confirmOverwrite(btn))return;btn._restore&&btn._restore();editMode=false;plan=ruleplan();save();renderPlan();toast("課表排好了！去「今天」開練吧");$("#plan-list").scrollIntoView({behavior:"smooth",block:"center"});});
 $("#plan-list").addEventListener("click",e=>{const c=e.target.closest("[data-goday]");if(!c)return;selWd=+c.dataset.goday;setTab("today");});
 $("#plan-list").addEventListener("keydown",e=>{if(e.key==="Enter"){const c=e.target.closest("[data-goday]");if(c){selWd=+c.dataset.goday;setTab("today");}}});
-$("#review-btn").addEventListener("click",aiReview);
 $("#edit-hist").addEventListener("click",()=>{editing=!editing;renderProgress();});
 $("#hist").addEventListener("click",e=>{const b=e.target.closest("[data-del]");if(b)delRecord(b.dataset.del);});
 $("#clear-samples").addEventListener("click",()=>{history=history.filter(h=>!h.sample);save();renderProgress();toast("已清除範例紀錄");});
@@ -895,46 +1031,328 @@ function todayTip(){
   return `今天要練「${d.title}」，大約 ${estMin(d)} 分鐘。${p?DAY_TIP[p]:"先做好暖身再開始。"}`;
 }
 
-let faqCat="全部",faqQuery="",lastFaq=null,faqTyping=false;
-function faqMatches(){
-  const terms=faqQuery.trim().split(/\s+/).filter(Boolean);
-  return FAQ.filter(f=>(faqCat==="全部"||terms.length||f.c===faqCat)&&terms.every(t=>(f.q+f.a+f.c).includes(t)));
+// ================= 花豹教練：引導式對話 =================
+// 使用者可以點選項一步步問，也可以在下方自己打字；打字時用關鍵字比對 50 題，找最接近的回答。
+let coachOpts=null,lastFaq=null,faqTyping=false;
+const menuOpts=()=>[...FAQ_CATS.map(c=>({l:c,a:{t:"cat",c}})),{l:"我想自己打字問",a:{t:"type"}}];
+// ---- 打字提問：關鍵字比對 ----
+const SYN=[["減肥","減脂"],["瘦身","減脂"],["變瘦","減脂"],["瘦下來","減脂"],["乳清","蛋白粉"],["高蛋白","蛋白粉"],["腰痛","下背痛"],["腰酸","下背痛"],["腰痠","下背痛"],["酸","痠"],["睡覺","睡眠"],["失眠","睡眠"],["睡不好","睡眠"],["長肌肉","增肌"],["增重","增肌"],["練大","增肌"],["拉單槓","引體向上"],["單槓","引體向上"],["膝","膝蓋"],["膝蓋蓋","膝蓋"],["肩","肩膀"],["肩膀膀","肩膀"],["喝水","水"],["飲水","水"],["宵夜","晚上吃"],["咖啡因","咖啡"],["碳水","澱粉"],["米飯","澱粉"],["跑步","有氧"],["慢跑","有氧"],["幾公斤","重量"],["拉筋","伸展"],["疼痛","痛"]];
+const STOPS=new Set("我你他的了嗎呢吧啊呀要會能可以什麼怎麼樣如何是不有在做時候還請問想一個這那就都很也跟和或該".split(""));
+function normQ(t){t=String(t).toLowerCase().replace(/[^\p{Script=Han}a-z0-9]/gu,"");for(const [a,b] of SYN)t=t.split(a).join(b);return t;}
+function grams(t){const g=new Set();for(let i=0;i<t.length-1;i++){const b=t.slice(i,i+2);if(!(STOPS.has(b[0])&&STOPS.has(b[1])))g.add(b);}return g;}
+// 主題關鍵字：打到這些字，就優先找對應的題目（數字是題目編號，從 0 開始）
+const TOPIC_KW=[[/膝/,[8,19]],[/腰|下背/,[10,20]],[/肩/,[11,21]],[/痛/,[18,19,20,21]],[/痠|酸/,[16,17,18]],[/受傷|傷/,[18,22]],[/蛋白/,[25,26]],[/蛋白粉|乳清|高蛋白/,[26]],[/肌酸/,[29]],[/咖啡/,[30]],[/睡|失眠/,[32]],[/喝水|水分|喝多少水/,[28]],[/宵夜|晚上|睡前吃/,[27]],[/女/,[7]],[/澱粉|碳水|米飯|吃飯/,[31]],[/有氧|跑步|慢跑|心肺/,[42,46]],[/肚子|小腹|腹部/,[44]],[/卡住|停滯|不動|沒變/,[45]],[/加重|增加重量/,[39,48]],[/暖身|熱身/,[6]],[/伸展|拉筋/,[35]],[/滾筒|按摩/,[36]],[/休息日/,[33]],[/每天/,[34]],[/累|沒動力|懶|不想/,[37]],[/呼吸|憋氣/,[14]],[/伏地挺身/,[12]],[/引體|單槓/,[13]],[/硬舉/,[10]],[/臥推/,[11]],[/蹲/,[8,9,19]],[/rpe|用力程度/i,[4]],[/多重|重量|幾公斤/,[3,39]],[/組間|休息多久|休息幾/,[5]],[/幾天|幾次/,[1]],[/多久|多長/,[2,38]],[/新手|沒運動|沒練過|入門/,[0]],[/增肌|長肌肉|練大|變大|肌肉/,[38,40,41]],[/減脂|減肥|瘦|燃脂|胖/,[42,43]],[/吃什麼|練前|運動前/,[24]],[/練完|運動後|練後/,[23]],[/分數/,[49]],[/菜單|課表/,[47]],[/幾組/,[41]],[/姿勢|做對|正確/,[15]]];
+function matchFaq(text){
+  const raw=String(text||"").toLowerCase(),g=grams(normQ(text)),sc=new Array(FAQ.length).fill(0);
+  for(const [re,ids] of TOPIC_KW)if(re.test(raw))ids.forEach(i=>sc[i]+=6);
+  FAQ.forEach((f,i)=>{const q=normQ(f.q),a=normQ(f.a);for(const b of g){if(q.includes(b))sc[i]+=2;else if(a.includes(b))sc[i]+=.5;}});
+  return FAQ.map((f,i)=>({f,sc:sc[i]})).filter(x=>x.sc>=6).sort((x,y)=>y.sc-x.sc);
 }
-function renderFaqList(){
-  $("#faq-cats").innerHTML=["全部",...FAQ_CATS].map(c=>`<button type="button" class="cat" data-cat="${c}" aria-pressed="${!faqQuery&&c===faqCat}">${c}</button>`).join("");
-  const list=faqMatches();
-  $("#faq-count").textContent=faqQuery?`找到 ${list.length} 題`:`${list.length} 題`;
-  $("#faq-list").innerHTML=list.length?list.map(f=>`<button type="button" class="cell tap faq-q" data-faq="${f.id}"><span class="grow"><span class="k">${esc(f.q)}</span>${faqCat==="全部"||faqQuery?`<span class="sub">${f.c}</span>`:""}</span><svg class="chev" viewBox="0 0 8 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1.5 1.5l5 5-5 5"/></svg></button>`).join("")
-    :`<div class="cell"><span class="sub" style="margin:0">找不到相關的問題，換個關鍵字試試，例如「膝蓋」「蛋白質」「休息」。</span></div>`;
-}
+// ---- 畫面 ----
 function renderCoach(){
-  let html=`<div class="msg-meta"><img class="avatar" src="${COACH_FULL}" alt="教練"><b class="coach-name">教練</b>花豹教練小幫手・內容僅供一般參考</div>`;
+  let html=`<div class="msg-meta"><img class="avatar" src="${COACH_FULL}" alt="教練"><b class="coach-name">教練</b>花豹教練・內容僅供一般參考，不能取代醫師診斷</div>`;
   html+=inRow("",esc(todayTip()));
-  if(!chat.length)html+=inRow("",esc("有什麼想問的嗎？從下面的常見問題挑一題，或輸入關鍵字找找看！"));
-  html+=chat.map(m=>m.pending?inRow(" think pending","打字中⋯"):m.role==="user"?`<div class="msg out">${esc(m.content)}</div>`:inRow("",esc(m.content))).join("");
+  if(!chat.length)html+=inRow("",esc("嗨！我是醬動的花豹教練 🐆 想聊哪個主題？點下面的選項，或直接在最下面輸入你的問題。"));
+  html+=chat.map(m=>m.pending?inRow(" think pending",`<span class="dots" aria-label="輸入中"><i></i><i></i><i></i></span>`):m.role==="user"?`<div class="msg out">${esc(m.content)}</div>`:inRow("",esc(m.content))).join("");
   $("#msgs").innerHTML=html;
-  const asked=new Set(chat.filter(m=>m.role==="user").map(m=>m.content));
-  const rel=lastFaq!=null?FAQ.filter(f=>f.c===FAQ[lastFaq].c&&f.id!==lastFaq&&!asked.has(f.q)).slice(0,3):[];
-  $("#sugs").innerHTML=rel.length?`<span class="sugs-h">相關問題</span>`+rel.map(f=>`<button type="button" data-faq="${f.id}">${esc(f.q)}</button>`).join(""):"";
+  const opts=faqTyping?[]:(coachOpts||(chat.length?[{l:"換個主題",a:{t:"menu",k:1}},{l:"我想自己打字問",a:{t:"type"}}]:menuOpts()));
+  $("#sugs").innerHTML=opts.map((o,i)=>`<button type="button" class="opt${o.a.t==="faq"?" q":o.a.k?" ghost":o.a.t==="type"?" ghost":""}" data-opt="${i}">${esc(o.l)}</button>`).join("");
+  $("#sugs")._opts=opts;
   $("#clear-chat").disabled=!chat.length||faqTyping;
-  $("#composer").hidden=true;
-  renderFaqList();
+  $("#composer").hidden=tab!=="coach";
 }
-function askFaq(id){
-  const f=FAQ[id];if(!f||faqTyping)return;
-  faqTyping=true;lastFaq=id;
-  chat.push({role:"user",content:f.q});chat.push({role:"assistant",content:"",pending:true});
-  renderCoach();
-  const last=()=>[...document.querySelectorAll("#msgs .msg")].pop();
-  last()?.scrollIntoView({block:"center",behavior:"smooth"});
-  setTimeout(()=>{chat[chat.length-1]={role:"assistant",content:f.a};faqTyping=false;save();renderCoach();
-    const qs=[...document.querySelectorAll("#msgs .msg.out")].pop();qs?.scrollIntoView({block:"start",behavior:"smooth"});},650);
+function scrollToLatest(){
+  const outs=[...document.querySelectorAll("#msgs .msg.out")];const q=outs[outs.length-1];
+  if(q)q.scrollIntoView({block:"start",behavior:RM?"auto":"smooth"});
 }
-document.addEventListener("click",e=>{const b=e.target.closest("[data-faq]");if(b){askFaq(+b.dataset.faq);return;}
-  const c=e.target.closest("[data-cat]");if(c){faqCat=c.dataset.cat;faqQuery="";$("#faq-search").value="";renderFaqList();}});
-$("#faq-search").addEventListener("input",e=>{faqQuery=e.target.value;renderFaqList();});
-$("#faq-search").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.isComposing){e.preventDefault();const f=faqMatches()[0];if(f)askFaq(f.id);}});
-$("#clear-chat").addEventListener("click",()=>{lastFaq=null;});
+// 教練回話：先顯示「輸入中」，再出現回答和下一步的選項
+function coachSay(userText,reply,opts){
+  if(faqTyping)return;
+  faqTyping=true;coachOpts=null;
+  if(userText)chat.push({role:"user",content:userText});
+  chat.push({role:"assistant",content:"",pending:true});
+  renderCoach();scrollToLatest();
+  setTimeout(()=>{chat[chat.length-1]={role:"assistant",content:reply};faqTyping=false;coachOpts=opts;
+    chat=chat.slice(-40);save();renderCoach();scrollToLatest();},RM?150:700);
+}
+function answerOpts(id){
+  const f=FAQ[id],asked=new Set(chat.filter(m=>m.role==="user").map(m=>m.content));
+  const rel=FAQ.filter(x=>x.c===f.c&&x.id!==id&&!asked.has(x.q)).slice(0,2);
+  return [...rel.map(x=>({l:x.q,a:{t:"faq",id:x.id}})),{l:"換個主題",a:{t:"menu",k:1}},{l:"自己打字問",a:{t:"type"}}];
+}
+function doOpt(a,label){
+  if(a.t==="type"){coachOpts=null;renderCoach();const i=$("#chat-input");i.focus();i.placeholder="輸入問題，例如：膝蓋痛";return;}
+  if(a.t==="menu"){coachSay(null,"好呀，還想了解哪個主題呢？",menuOpts());return;}
+  if(a.t==="cat"){const qs=FAQ.filter(f=>f.c===a.c);
+    coachSay(a.c,`「${a.c}」這邊，你比較想問哪一個？`,[...qs.map(f=>({l:f.q,a:{t:"faq",id:f.id}})),{l:"換個主題",a:{t:"menu",k:1}}]);return;}
+  if(a.t==="faq"){lastFaq=a.id;coachSay(FAQ[a.id].q,FAQ[a.id].a,answerOpts(a.id));}
+}
+function askText(text){
+  text=String(text||"").trim();if(!text||faqTyping)return;
+  $("#chat-input").value="";autosize();
+  const m=matchFaq(text);
+  if(m.length){const best=m[0].f;lastFaq=best.id;
+    const more=m.slice(1,3).filter(x=>x.f.c===best.c||x.sc>=6).map(x=>({l:x.f.q,a:{t:"faq",id:x.f.id}}));
+    coachSay(text,best.a,[...more,...answerOpts(best.id).filter(o=>o.a.t!=="faq")].slice(0,4));
+  }else{
+    coachSay(text,"這題我還在學 🐆 試著換個說法，或用更簡單的關鍵字，例如「膝蓋痛」「蛋白質」「睡眠」。也可以從下面的主題找找看。\n如果是身體疼痛或不舒服，建議直接請教醫師或物理治療師。",menuOpts());
+  }
+}
+sendChat=askText;   // 下方輸入框送出時改用關鍵字比對（網站版沒有 AI）
+$("#sugs").addEventListener("click",e=>{const b=e.target.closest("[data-opt]");if(!b)return;const o=($("#sugs")._opts||[])[+b.dataset.opt];if(o)doOpt(o.a,o.l);});
+$("#clear-chat").addEventListener("click",()=>{coachOpts=null;lastFaq=null;faqTyping=false;renderCoach();});
+
+// ================= 動作教學：圖示與說明 =================
+// 側面火柴人示意。座標 200×200，地面 y=184。每個圖示有「起始」A 與「動作」B 兩個姿勢，畫面在兩者之間來回。
+function P(o){return o;}
+const STAND={head:[100,34],sh:[100,58],hip:[100,108],kn:[101,145],an:[100,182],toe:[113,183]};
+const FIGS={
+  squat:{name:"深蹲",hl:"thigh",prop:"hand",
+    A:{...STAND,el:[112,84],ha:[107,68]},
+    B:{head:[114,78],sh:[106,101],hip:[81,144],kn:[118,151],an:[100,182],toe:[113,183],el:[119,124],ha:[116,106]}},
+  hinge:{name:"羅馬尼亞硬舉",hl:"thigh",prop:"hand",
+    A:{...STAND,el:[101,84],ha:[102,110]},
+    B:{head:[152,90],sh:[131,97],hip:[85,116],kn:[106,146],an:[100,182],toe:[113,183],el:[131,122],ha:[131,146]}},
+  lunge:{name:"弓箭步",hl:"thigh",prop:"hand",
+    A:{...STAND,el:[101,84],ha:[102,110],kn2:[99,145],an2:[99,182],toe2:[111,183]},
+    B:{head:[100,68],sh:[100,92],hip:[100,142],kn:[137,142],an:[137,182],toe:[150,183],el:[101,118],ha:[102,142],kn2:[90,176],an2:[60,176],toe2:[54,183]}},
+  pushup:{name:"伏地挺身（臥推的推法相同）",hl:"uarm",ground:true,
+    A:{head:[165,124],sh:[146,132],el:[146,157],ha:[146,182],hip:[95,153],kn:[67,165],an:[40,176],toe:[34,183]},
+    B:{head:[166,164],sh:[146,166],el:[124,176],ha:[146,182],hip:[95,171],kn:[67,174],an:[40,176],toe:[34,183]}},
+  press:{name:"肩推",hl:"uarm",prop:"hand",
+    A:{...STAND,el:[116,80],ha:[112,56]},
+    B:{...STAND,el:[106,36],ha:[104,12]}},
+  row:{name:"俯身划船",hl:"torso",prop:"hand",
+    A:{head:[150,93],sh:[130,100],hip:[84,118],kn:[106,148],an:[100,182],toe:[113,183],el:[131,126],ha:[131,150]},
+    B:{head:[150,93],sh:[130,100],hip:[84,118],kn:[106,148],an:[100,182],toe:[113,183],el:[108,106],ha:[112,130]}},
+  pullup:{name:"引體向上",hl:"torso",bar:true,noground:true,
+    A:{head:[108,54],sh:[100,70],el:[100,46],ha:[100,22],hip:[100,122],kn:[104,156],an:[94,186],toe:[100,192]},
+    B:{head:[112,16],sh:[100,46],el:[84,34],ha:[100,22],hip:[100,96],kn:[104,130],an:[94,160],toe:[100,166]}},
+  curl:{name:"彎舉",hl:"farm",prop:"hand",
+    A:{...STAND,el:[104,86],ha:[106,112]},
+    B:{...STAND,el:[104,86],ha:[114,62]}},
+  plank:{name:"棒式",hl:"torso",
+    A:{head:[166,151],sh:[146,158],el:[146,182],ha:[170,182],hip:[92,167],kn:[65,172],an:[38,176],toe:[32,183]},
+    B:{head:[166,151],sh:[146,158],el:[146,182],ha:[170,182],hip:[92,165],kn:[65,171],an:[38,176],toe:[32,183]}},
+  deadbug:{name:"死蟲式",hl:"torso",
+    A:{head:[166,166],sh:[146,170],el:[146,147],ha:[146,124],hip:[96,170],kn:[96,133],an:[62,133],toe:[58,126]},
+    B:{head:[166,166],sh:[146,170],el:[168,160],ha:[190,152],hip:[96,170],kn:[62,160],an:[28,163],toe:[22,156]}},
+  farmer:{name:"農夫走路",hl:"torso",prop:"hand",
+    A:{...STAND,el:[101,84],ha:[102,110],kn:[108,145],an:[112,182],toe:[125,183],kn2:[95,145],an2:[88,182],toe2:[100,183]},
+    B:{...STAND,el:[101,84],ha:[102,110],kn:[95,145],an:[88,182],toe:[100,183],kn2:[108,145],an2:[112,182],toe2:[125,183]}},
+  climber:{name:"登山者",hl:"torso",
+    A:{head:[165,124],sh:[146,132],el:[146,157],ha:[146,182],hip:[95,153],kn:[67,165],an:[40,176],toe:[34,183],kn2:[67,165],an2:[40,176],toe2:[34,183]},
+    B:{head:[165,124],sh:[146,132],el:[146,157],ha:[146,182],hip:[95,151],kn:[124,160],an:[104,174],toe:[108,180],kn2:[67,164],an2:[40,176],toe2:[34,183]}},
+  jack:{name:"開合跳",hl:"none",front:true,
+    A:{head:[100,30],sh:[100,54],hip:[100,106],arms:[[[100,58],[88,82],[84,106]],[[100,58],[112,82],[116,106]]],legs:[[[100,106],[96,144],[94,182]],[[100,106],[104,144],[106,182]]]},
+    B:{head:[100,30],sh:[100,54],hip:[100,106],arms:[[[100,58],[78,40],[68,16]],[[100,58],[122,40],[132,16]]],legs:[[[100,106],[82,144],[68,182]],[[100,106],[118,144],[132,182]]]}}
+};
+const GUIDE={
+  squat:{m:"大腿前側、臀部、核心",s:["雙腳與肩同寬，腳尖微微朝外","吸氣收緊肚子，屁股往後、往下坐，膝蓋跟腳尖朝同一個方向","蹲到大腿約與地面平行，背保持打直","腳掌踩穩地板，吐氣站起來"],x:["膝蓋往內夾","腳跟離地","蹲下時彎腰駝背"]},
+  hinge:{m:"臀部、大腿後側、下背",s:["雙腳與髖同寬，重量貼近大腿","膝蓋微彎，屁股往後推，上半身往前傾","重量沿著腿往下，大腿後側有拉緊感就停","臀部往前夾，站直回到起始"],x:["彎腰駝背","膝蓋彎太多，變成深蹲","重量離身體太遠"]},
+  lunge:{m:"大腿前側、臀部、平衡",s:["站直，雙腳與髖同寬","一腳往前跨一大步","身體直直往下，兩邊膝蓋都約 90 度","前腳踩穩推回起始，換邊"],x:["前腳膝蓋往內倒","上半身往前趴","步伐太小，膝蓋壓力變大"]},
+  hpush:{m:"胸部、肩膀前側、手臂後側",s:["雙手比肩略寬","肩胛往後、往下收，身體保持一直線","慢慢下放，手肘和身體夾約 45 度","吐氣，推回起始"],x:["手肘張開成 90 度","塌腰或翹屁股","下放太快，沒有控制"]},
+  vpush:{m:"肩膀、手臂後側",s:["重量放在肩膀前方，手肘在手腕下方","收緊肚子和臀部","吐氣，往頭頂正上方推到手臂伸直","慢慢放回肩膀高度"],x:["腰往後仰","往前推，不是往上推","聳肩"]},
+  hpull:{m:"上背、背闊肌、手臂前側",s:["屁股往後推，上半身前傾，背打直","手臂自然垂下","先把肩胛往後收，再把手肘往後拉向腰","停一下，慢慢放下"],x:["用甩的或聳肩","駝背","只用手臂拉，背沒出力"]},
+  vpull:{m:"背闊肌、上背、手臂前側",s:["雙手比肩略寬，握住單槓或把手","肩膀先往下壓，遠離耳朵","手肘往下、往後拉，胸口往上找","拉到頂端後，慢慢放到手臂伸直"],x:["用身體擺盪借力","只拉一半","聳肩"]},
+  arms:{m:"手臂",s:["站穩，核心收緊","上臂和手肘的位置固定不亂動","用手臂把重量移到頂端，停一下","慢慢放回起始"],x:["身體前後甩","手肘跟著移動","放下太快"]},
+  plank:{m:"核心、肩膀",s:["手肘在肩膀正下方","從頭到腳跟成一直線","收緊肚子和臀部，正常呼吸","維持指定的秒數"],x:["塌腰","屁股翹太高","憋氣"]},
+  deadbug:{m:"深層核心",s:["躺平，手臂朝向天花板，膝蓋彎 90 度抬起","下背貼地，肋骨往下收","對側的手和腳同時慢慢伸遠","回到起始，換另一邊"],x:["下背離開地面","動作太快","憋氣"]},
+  farmer:{m:"核心、握力、上背",s:["兩手拿重量放在身體兩側","站直，肩膀往後、往下","小步穩穩往前走","走完指定的時間或距離"],x:["身體歪向一邊","聳肩","步伐太大，身體晃動"]},
+  climber:{m:"核心、心肺",s:["撐在伏地挺身的高點，手在肩膀正下方","一腳膝蓋往胸口帶","快速換腳，像在原地跑步","屁股高度保持穩定"],x:["屁股翹太高","手沒有在肩膀下方","腳步太小"]},
+  jack:{m:"心肺、全身",s:["開合跳：雙腳併攏站直","跳起來時雙腳打開、雙手舉到頭上","再跳回併攏","三個動作各做 40 秒，接著做為一輪，輪間休息"],x:["落地太重，改用前腳掌輕輕落地","節奏太快，動作變形"]}
+};
+function figFor(e){
+  const n=e.name||"";
+  if(e.finisher)return "jack";
+  if(/伏地挺身|撐體/.test(n))return /撐體/.test(n)&&e.pattern!=="hpush"?"curl":"pushup";
+  switch(e.pattern){
+    case "squat":return "squat";case "hinge":return "hinge";case "lunge":return "lunge";
+    case "hpush":return "pushup";case "vpush":return "press";case "hpull":return "row";
+    case "vpull":return /聳肩|直臂|飛鳥/.test(n)?"row":"pullup";
+    case "arms":return "curl";
+    case "core":return /農夫/.test(n)?"farmer":/登山者/.test(n)?"climber":/死蟲|捲腹|抬腿/.test(n)?"deadbug":"plank";
+  }
+  return "squat";
+}
+function guideFor(e,f){
+  if(f==="jack")return GUIDE.jack;
+  if(f==="plank"||f==="deadbug"||f==="farmer"||f==="climber")return GUIDE[f];
+  if(f==="pushup")return GUIDE.hpush;
+  return GUIDE[e.pattern]||GUIDE.squat;
+}
+const lerp=(a,b,t)=>Array.isArray(a)?a.map((v,i)=>lerp(v,b[i],t)):a+(b-a)*t;
+function poseAt(F,t){const o={};for(const k in F.A)o[k]=lerp(F.A[k],F.B[k],t);return o;}
+function figSvg(key,t){
+  const F=FIGS[key],p=poseAt(F,t),pt=a=>a.map(v=>v.toFixed(1)).join(",");
+  const line=(pts,cls)=>`<polyline class="${cls}" points="${pts.map(pt).join(" ")}"/>`;
+  let s="";
+  if(F.bar)s+=`<line class="fg-bar" x1="56" y1="20" x2="144" y2="20"/>`;
+  if(!F.noground)s+=`<line class="fg-ground" x1="12" y1="186" x2="188" y2="186"/>`;
+  if(F.front){
+    p.legs.forEach(l=>s+=line(l,"fg-limb"));s+=line([p.sh,p.hip],"fg-limb");p.arms.forEach(a=>s+=line(a,"fg-limb"));
+  }else{
+    if(p.kn2)s+=line([p.hip,p.kn2,p.an2,p.toe2],"fg-back");
+    s+=line([p.hip,p.kn,p.an,p.toe],"fg-limb");
+    s+=line([p.sh,p.hip],"fg-limb");
+    if(F.hl==="thigh")s+=line([p.hip,p.kn],"fg-hl");
+    if(F.hl==="torso")s+=line([p.sh,p.hip],"fg-hl");
+    s+=line([p.sh,p.el,p.ha],"fg-limb");
+    if(F.hl==="uarm")s+=line([p.sh,p.el],"fg-hl");
+    if(F.hl==="farm")s+=line([p.el,p.ha],"fg-hl");
+    if(F.prop==="hand"&&EQ_NOW!=="bw")s+=`<g transform="translate(${p.ha[0].toFixed(1)},${p.ha[1].toFixed(1)})"><rect class="fg-db" x="-11" y="-2.5" width="22" height="5" rx="2"/><rect class="fg-db" x="-14" y="-7" width="6" height="14" rx="2"/><rect class="fg-db" x="8" y="-7" width="6" height="14" rx="2"/></g>`;
+  }
+  s+=`<circle class="fg-head" cx="${p.head[0].toFixed(1)}" cy="${p.head[1].toFixed(1)}" r="11"/>`;
+  return s;
+}
+let EQ_NOW="db",howRAF=0,howKey=null,howT0=0;
+const RM=window.matchMedia?matchMedia("(prefers-reduced-motion: reduce)").matches:false;
+function howLoop(ts){
+  if(!howKey)return;
+  if(!howT0)howT0=ts;
+  const T=2600,ph=((ts-howT0)%T)/T;                 // 0→1 一個來回
+  let t=ph<.15?0:ph<.5?(ph-.15)/.35:ph<.65?1:1-(ph-.65)/.35;   // 起始停一下 → 做 → 停一下 → 回
+  t=t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+  const svg=document.getElementById("how-fig");if(svg)svg.innerHTML=figSvg(howKey,t);
+  const lb=document.getElementById("how-phase");if(lb)lb.textContent=t<.5?"起始姿勢":"動作位置";
+  howRAF=requestAnimationFrame(howLoop);
+}
+let howReturn=null;
+function openHow(di,ei){
+  const d=plan.days[di],e=d&&d.exs[ei];if(!e)return;
+  const f=figFor(e),g=guideFor(e,f),F=FIGS[f];
+  EQ_NOW=e.finisher?"bw":equipOf(e.name);
+  howReturn=document.activeElement;
+  $("#how-title").textContent=e.name;
+  $("#how-chips").innerHTML=`<span class="chip">${e.sets} ${e.finisher?"輪":"組"} × ${esc(e.reps)}</span><span class="chip">RPE ${e.rpe}</span><span class="chip">休息 ${e.rest} 秒</span>`;
+  $("#how-cap").textContent=`示意：${F.name}${F.hl!=="none"?"・黃色是主要出力的部位":""}`;
+  $("#how-muscle").textContent=g.m;
+  $("#how-cue").textContent=e.cue||"";$("#how-cue-wrap").hidden=!e.cue;
+  $("#how-steps").innerHTML=g.s.map(x=>`<li>${esc(x)}</li>`).join("");
+  $("#how-miss").innerHTML=g.x.map(x=>`<li>${esc(x)}</li>`).join("");
+  if(RM){$("#how-fig").innerHTML=figSvg(f,0);$("#how-fig2").innerHTML=figSvg(f,1);$("#how-fig2").hidden=false;$("#how-phase").textContent="左：起始姿勢　右：動作位置";}
+  else{$("#how-fig2").hidden=true;howKey=f;howT0=0;cancelAnimationFrame(howRAF);howRAF=requestAnimationFrame(howLoop);}
+  $("#sheet-bg").hidden=false;$("#sheet").hidden=false;document.body.style.overflow="hidden";
+  requestAnimationFrame(()=>{$("#sheet").classList.add("open");$("#sheet-bg").classList.add("open");$("#how-close").focus();});
+}
+function closeHow(){
+  howKey=null;cancelAnimationFrame(howRAF);
+  $("#sheet").classList.remove("open");$("#sheet-bg").classList.remove("open");document.body.style.overflow="";
+  setTimeout(()=>{$("#sheet").hidden=true;$("#sheet-bg").hidden=true;},RM?0:220);
+  if(howReturn&&howReturn.focus)howReturn.focus();
+}
+$("#how-close").addEventListener("click",closeHow);
+$("#how-done").addEventListener("click",closeHow);
+$("#sheet-bg").addEventListener("click",closeHow);
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#sheet").hidden)closeHow();});
+
+// ================= 自訂課表：新增、刪除、排序、調整組數 =================
+let editMode=false,addFor=null,addPart="all",addEq=null;
+const PARTS=[["all","全部"],["leg","腿"],["post","臀腿後側"],["push","推"],["pull","拉"],["arms","手臂"],["core","核心"]];
+const PART_OF={squat:"leg",lunge:"leg",hinge:"post",hpush:"push",vpush:"push",hpull:"pull",vpull:"pull",arms:"arms",core:"core"};
+const PATTERN_LABEL={squat:"腿・蹲",lunge:"腿・單腳",hinge:"臀腿後側",hpush:"胸・水平推",vpush:"肩・往上推",hpull:"背・划船",vpull:"背・往下拉",arms:"手臂",core:"核心"};
+const EQ_LABEL={gym:"健身房",db:"啞鈴",bw:"徒手"};
+function myEx(){return store.get("fit.myex",[]);}
+function newEx(name,pattern,eq){
+  const g=GOALS[cfg.goal]||GOALS.muscle,L=LEVELS[cfg.level]||LEVELS.mid,core=pattern==="core";
+  return {pattern,main:false,custom:true,eq,name,sets:Math.max(2,Math.min(5,g.sets-1+L.d)),reps:core?"30–45 秒":g.reps,rpe:Math.min(10,g.rpe+L.rpe),rest:core?Math.min(60,g.rest):g.rest,cue:CUES[pattern]||""};
+}
+function markCustom(d){d.custom=true;plan.custom=true;save();}
+function editControls(d,di,e,ei){
+  const last=d.exs.length-1;
+  return `<div class="ed-row">
+    <div class="ed-f"><span class="ed-l">組數</span><div class="stepper sm"><button type="button" data-ed="sets:-1:${di}-${ei}" aria-label="減少組數">−</button><b>${e.sets}</b><button type="button" data-ed="sets:1:${di}-${ei}" aria-label="增加組數">+</button></div></div>
+    <div class="ed-f"><span class="ed-l">${e.finisher?"每輪":"次數"}</span><input class="ed-in" id="reps-${di}-${ei}" value="${esc(e.reps)}" maxlength="12" aria-label="次數" data-reps="${di}-${ei}"></div>
+    <div class="ed-f"><span class="ed-l">休息</span><div class="stepper sm"><button type="button" data-ed="rest:-15:${di}-${ei}" aria-label="減少休息">−</button><b>${e.rest}<small>秒</small></b><button type="button" data-ed="rest:15:${di}-${ei}" aria-label="增加休息">+</button></div></div>
+  </div>
+  <div class="ed-act">
+    <button type="button" class="ed-btn" data-ed="up:0:${di}-${ei}" ${ei===0?"disabled":""} aria-label="往上移"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14l6-6 6 6"/></svg></button>
+    <button type="button" class="ed-btn" data-ed="down:0:${di}-${ei}" ${ei===last?"disabled":""} aria-label="往下移"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 10l6 6 6-6"/></svg></button>
+    <button type="button" class="ed-btn del-x" data-ed="del:0:${di}-${ei}" ${last===0?"disabled":""} aria-label="刪除 ${esc(e.name)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>刪除</button>
+  </div>`;
+}
+function doEdit(spec){
+  const [k,v,ix]=spec.split(":"),[di,ei]=ix.split("-").map(Number),d=plan.days[di];if(!d)return;const e=d.exs[ei];if(!e)return;
+  if(k==="sets")e.sets=Math.max(1,Math.min(10,e.sets+ +v));
+  if(k==="rest")e.rest=Math.max(15,Math.min(300,e.rest+ +v));
+  if(k==="up"&&ei>0)[d.exs[ei-1],d.exs[ei]]=[d.exs[ei],d.exs[ei-1]];
+  if(k==="down"&&ei<d.exs.length-1)[d.exs[ei+1],d.exs[ei]]=[d.exs[ei],d.exs[ei+1]];
+  if(k==="del"&&d.exs.length>1){const [r]=d.exs.splice(ei,1);markCustom(d);renderToday();
+    toast(`已刪除「${r.name}」`,{label:"復原",fn:()=>{d.exs.splice(ei,0,r);save();renderToday();}});return;}
+  d.exs.forEach((x,i)=>{x.main=i<2&&!x.finisher;});
+  markCustom(d);renderToday();
+}
+// ---- 新增動作的面板 ----
+function libList(){
+  const eqs=addEq==="all"?["gym","db","bw"]:[addEq],out=[];
+  for(const p in DB){if(addPart!=="all"&&PART_OF[p]!==addPart)continue;for(const q of eqs)for(const n of DB[p][q])out.push({name:n,pattern:p,eq:q});}
+  return out;
+}
+function renderAdd(){
+  const d=plan.days[addFor];if(!d)return;
+  const inDay=new Set(d.exs.map(e=>e.name));
+  $("#add-sub").textContent=`加到「${d.title}」`;
+  $("#add-parts").innerHTML=PARTS.map(([k,l])=>`<button type="button" class="cat" data-part="${k}" aria-pressed="${addPart===k}">${l}</button>`).join("");
+  $("#add-eqs").innerHTML=[["all","全部器材"],["gym","健身房"],["db","啞鈴"],["bw","徒手"]].map(([k,l])=>`<button type="button" class="cat sm" data-aeq="${k}" aria-pressed="${addEq===k}">${l}</button>`).join("");
+  const mine=myEx().filter(x=>addPart==="all"||PART_OF[x.pattern]===addPart);
+  const row=x=>`<div class="cell add-row"><div class="grow"><div class="k">${esc(x.name)}</div><div class="sub">${PATTERN_LABEL[x.pattern]||""}・${EQ_LABEL[x.eq]||""}</div></div>${inDay.has(x.name)?`<span class="v added">已加入</span>`:`<button type="button" class="add-btn" data-add="${esc(x.name)}" data-p="${x.pattern}" data-eq="${x.eq}" aria-label="加入 ${esc(x.name)}">＋ 加入</button>`}</div>`;
+  $("#add-mine").innerHTML=mine.length?`<div class="gh">我的動作</div><div class="group">${mine.map(row).join("")}</div>`:"";
+  const lib=libList();
+  $("#add-lib").innerHTML=lib.length?lib.map(row).join(""):`<div class="cell"><span class="sub" style="margin:0">這個分類沒有符合的動作，換個器材看看。</span></div>`;
+  $("#cx-pattern").innerHTML=Object.entries(PATTERN_LABEL).map(([k,l])=>`<option value="${k}">${l}</option>`).join("");
+  if(addPart!=="all"){const first=Object.keys(PART_OF).find(k=>PART_OF[k]===addPart);if(first)$("#cx-pattern").value=first;}
+  $("#cx-eq").value=addEq==="all"?cfg.equip:addEq;
+}
+let addReturn=null;
+function openAdd(di){
+  addFor=di;addPart="all";addEq=cfg.equip;addReturn=document.activeElement;
+  $("#cx-name").value="";renderAdd();
+  $("#add-bg").hidden=false;$("#add-sheet").hidden=false;document.body.style.overflow="hidden";
+  requestAnimationFrame(()=>{$("#add-sheet").classList.add("open");$("#add-bg").classList.add("open");$("#add-close").focus();});
+}
+function closeAdd(){
+  $("#add-sheet").classList.remove("open");$("#add-bg").classList.remove("open");document.body.style.overflow="";
+  setTimeout(()=>{$("#add-sheet").hidden=true;$("#add-bg").hidden=true;},RM?0:220);
+  if(addReturn&&addReturn.focus)addReturn.focus();
+}
+function addExercise(name,pattern,eq){
+  const d=plan.days[addFor];if(!d)return;
+  const fin=d.exs.findIndex(e=>e.finisher),ex=newEx(name,pattern,eq);
+  if(fin>=0)d.exs.splice(fin,0,ex);else d.exs.push(ex);
+  markCustom(d);renderAdd();renderToday();toast(`已加入「${name}」`);
+}
+$("#add-sheet").addEventListener("click",e=>{
+  const p=e.target.closest("[data-part]");if(p){addPart=p.dataset.part;renderAdd();return;}
+  const q=e.target.closest("[data-aeq]");if(q){addEq=q.dataset.aeq;renderAdd();return;}
+  const a=e.target.closest("[data-add]");if(a){addExercise(a.dataset.add,a.dataset.p,a.dataset.eq);return;}
+});
+$("#cx-form").addEventListener("submit",e=>{
+  e.preventDefault();const name=$("#cx-name").value.trim().slice(0,30);
+  if(!name){toast("請輸入動作名稱");$("#cx-name").focus();return;}
+  const pattern=$("#cx-pattern").value,eq=$("#cx-eq").value,list=myEx().filter(x=>x.name!==name);
+  list.unshift({name,pattern,eq});store.set("fit.myex",list.slice(0,40));
+  $("#cx-name").value="";addExercise(name,pattern,eq);
+});
+$("#add-close").addEventListener("click",closeAdd);
+$("#add-done").addEventListener("click",closeAdd);
+$("#add-bg").addEventListener("click",closeAdd);
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#add-sheet").hidden)closeAdd();});
+// 次數、課表名稱：輸入完成時存檔
+document.addEventListener("change",e=>{
+  const r=e.target.closest("[data-reps]");
+  if(r){const [di,ei]=r.dataset.reps.split("-").map(Number),x=plan.days[di]?.exs[ei];if(x){x.reps=r.value.trim().slice(0,12)||x.reps;markCustom(plan.days[di]);renderToday();}return;}
+  const t=e.target.closest("[data-title]");
+  if(t){const d=plan.days[+t.dataset.title];if(d){d.title=t.value.trim().slice(0,20)||d.title;markCustom(d);renderToday();renderPlan();}}
+});
+// 重新排課表前，若有自訂內容先確認一次（不用跳出視窗，按鈕本身變成確認鍵）
+function confirmOverwrite(btn){
+  if(!plan.custom||btn.dataset.armed==="1"){delete btn.dataset.armed;return true;}
+  btn.dataset.armed="1";const html=btn.innerHTML;
+  btn.innerHTML=`<span>會覆蓋你自訂的動作，再按一次確認</span>`;btn.classList.add("warn");
+  setTimeout(()=>{if(btn.dataset.armed==="1"){delete btn.dataset.armed;btn.innerHTML=html;btn.classList.remove("warn");}},4000);
+  btn._restore=()=>{btn.innerHTML=html;btn.classList.remove("warn");};
+  return false;
+}
 
 renderAll();setTab(["today","plan","coach","progress"].includes(tab)?tab:"today");
 </script>
